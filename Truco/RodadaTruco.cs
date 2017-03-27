@@ -34,7 +34,14 @@ namespace CardGame
 
             eqp1[0] = jogadores[0].IDEquipe;
             eqp2[0] = jogadores[1].IDEquipe;
-            int indempate = 0;
+
+            if(Equipe.BuscaID(eqp1[0]).PontosEquipe>=12 || Equipe.BuscaID(eqp2[0]).PontosEquipe >= 12)
+            {
+                pontos = 3;
+                Console.WriteLine("Mão de 12");
+            }
+
+                int indempate = 0;
             for (int i = 0; i < 3  ; i++)
             {
                 ListaCartas = new List<Carta>();
@@ -69,7 +76,7 @@ namespace CardGame
                     eqp1[1] += 1;
                     eqp2[1] += 1;
                     Console.WriteLine("Empate");
-                    Reordenar(jogadores, indempate);
+                    jogadores = Reordenar(jogadores, indempate);
                 }
                 else
                 {
@@ -77,7 +84,7 @@ namespace CardGame
                     {
                         eqp1[1] += 1;
                         Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior1].nome);
-                        Reordenar(jogadores, imaior1);
+                        jogadores = Reordenar(jogadores, imaior1);
                     }
                     else
                     {
