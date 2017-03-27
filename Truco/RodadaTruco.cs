@@ -37,7 +37,7 @@ namespace CardGame
 
 
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 3 && (eqp1[1]<2 && eqp2[1]<2); i++)
             {
                 ListaCartas = new List<Carta>();
                 Carta maior1 = null;
@@ -66,8 +66,6 @@ namespace CardGame
                 if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) == 0)
                 {
                     Console.WriteLine("Empate");
-                    eqp1[1] += 1;
-                    eqp2[1] += 1;
                     Reordenar(jogadores, imaior2);
                 }
                 else
