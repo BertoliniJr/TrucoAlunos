@@ -63,24 +63,27 @@ namespace CardGame
                         imaior2 = j;
                     }
                 }
-                if (maior1== maior2)
+                if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) == 0)
                 {
                     Console.WriteLine("Empate");
                     eqp1[1] += 1;
                     eqp2[1] += 1;
                     Reordenar(jogadores, imaior2);
                 }
-                if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) > 0)
-                {
-                    eqp1[1] += 1;
-                    Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior1].nome);
-                    Reordenar(jogadores, imaior1);
-                }
                 else
                 {
-                    eqp2[1] += 1;
-                    Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior2].nome);
-                    jogadores = Reordenar(jogadores, imaior2);
+                    if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) > 0)
+                    {
+                        eqp1[1] += 1;
+                        Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior1].nome);
+                        Reordenar(jogadores, imaior1);
+                    }
+                    else
+                    {
+                        eqp2[1] += 1;
+                        Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior2].nome);
+                        jogadores = Reordenar(jogadores, imaior2);
+                    }
                 }
                 
             }
