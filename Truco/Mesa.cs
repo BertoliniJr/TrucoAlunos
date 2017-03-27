@@ -63,6 +63,8 @@ namespace CardGame
             int r = 1;
             while (true)
             {
+                baralhoMesa.embaralhar();
+
                 Console.WriteLine();
                 Console.WriteLine("Iniciando Rodada {0}",r);
                 Carta queimada = baralhoMesa.pegarProxima();
@@ -74,7 +76,6 @@ namespace CardGame
                 Console.WriteLine("\n");
 
                 rodadaMesa = new RodadaTruco(queimada);
-                baralhoMesa.embaralhar();
 
                 foreach (var jogador in posicoes)
                 {
