@@ -9,7 +9,7 @@ namespace CardGame
 
     class RodadaTruco : IRodada
     {
-        
+        public event EventHandler novaCarta;
         private int NumCartas = 3;
         Carta Manilha;
 
@@ -54,6 +54,7 @@ namespace CardGame
                 for (int j = 0; j < 4; j++)
                 {
                     ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
+                    novaCarta(jogadores[j], EventArgs.Empty);
                     Carta X = ListaCartas.Last();
                     Console.WriteLine(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), TrucoAuxiliar.gerarValorCarta(X, Manilha) );
 

@@ -9,6 +9,16 @@ namespace CardGame
     class Jogador
     {
         public event EventHandler truco;
+        public virtual void novaCarta(object carta, EventArgs e)
+        {
+            if (((Carta)carta).Valor == 0)
+                truco(this, EventArgs.Empty);
+        }
+        public virtual void trucado(Jogador trucante, int valor)
+        {
+            
+        }
+
         protected List<Carta> _mao;
         protected string _nome;
         protected int IDequipe;
