@@ -36,7 +36,16 @@ namespace Truco
                 if (cartasRodada.Max(x => x.Valor)<7)
                 {
                     return jogaMenor();
-                }   
+                }
+                for (int i = 0; i < _mao.Count; i++)
+                {
+                    if (cartasRodada.Max(x => x.Valor) < _mao[i].Valor)
+                    {
+                        aux = _mao[i];
+                        _mao.RemoveAt(i);
+                        return aux;
+                    }
+                }
             }
             //terceiro a jogar
             if (cartasRodada.Count == 2)
@@ -57,6 +66,7 @@ namespace Truco
                 _mao.Remove(aux);
                 return aux;
             }
+            //pe
             for (int i = 0; i < _mao.Count; i++)
             {
                 if (cartasRodada.Max(x => x.Valor) < _mao[i].Valor && cartasRodada[cartasRodada.Count-1].Valor!= cartasRodada.Max(x => x.Valor))
@@ -66,13 +76,11 @@ namespace Truco
                     return aux;
                 }
             }
-            aux = _mao[0];
-            _mao.RemoveAt(0);
-            return aux;
+            return jogaMenor();
         }
         public void Correr()
         {
-            
+            _mao.RemoveAll(x=>x.Valor<15);
         }
         private Carta jogaMenor()
         {
