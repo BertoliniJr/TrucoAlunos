@@ -32,13 +32,6 @@ namespace CardGame
 
             int[] eqp1 = new int[2];
             int[] eqp2 = new int[2];
-
-            if(Equipe.BuscaID(eqp1[0]).PontosEquipe >= 12 || Equipe.BuscaID(eqp1[0]).PontosEquipe >= 12)
-            {
-                pontos = 3;
-                Console.WriteLine("Mão de 12");
-            }
-
             eqp1[0] = jogadores[0].IDEquipe;
             eqp2[0] = jogadores[1].IDEquipe;
 
