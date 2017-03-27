@@ -58,6 +58,7 @@ namespace CardGame
 
         public void Jogar()
         {
+            preencheMesa();
             baralhoMesa = new Baralho();
             while (true)
             {
