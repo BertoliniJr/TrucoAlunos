@@ -40,8 +40,8 @@ namespace CardGame
             for (int i = 0; i < 3; i++)
             {
                 ListaCartas = new List<Carta>();
-                Carta maior1 = Manilha;
-                Carta maior2 = Manilha;
+                Carta maior1 = null;
+                Carta maior2 = null;
                 int imaior1 = 0;
                 int imaior2 = 0;
 
