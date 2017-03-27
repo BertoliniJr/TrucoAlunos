@@ -17,6 +17,7 @@ namespace CardGame
         }
 
         private void criarBaralho() {
+            baralho = new List<Carta>();
             for (int i = 1; i <= 13; i++) {
 
                 if (i != 8 && i != 9 && i != 10) {
