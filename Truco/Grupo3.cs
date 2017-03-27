@@ -7,9 +7,9 @@ using Truco;
 
 namespace CardGame
 {
-    class Grupo3 : Jogador
+    class Juvenal : Jogador
     {
-        public Grupo3(string n) : base(n) { }
+        public Juvenal(string n) : base(n) { }
         public override Carta Jogar(List<Carta> cartasMesa, Carta manilha)
         {
             if (_mao.Count == 3)
