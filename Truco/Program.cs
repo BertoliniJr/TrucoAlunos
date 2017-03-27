@@ -11,10 +11,10 @@ namespace Truco
     {
         static void Main(string[] args)
         {
-            Jogador jogador1 = new Jogador("Jogador1");
-            Jogador jogador2 = new Jogador("Jogador2");
-            Jogador jogador3 = new Jogador("Jogador3");
-            Jogador jogador4 = new Jogador("Jogador4");
+            Jogador jogador1 = new JurandirOJogador();
+            Jogador jogador2 = new Jogador("Jogador 2");
+            Jogador jogador3 = new JurandirOJogador();
+            Jogador jogador4 = new Jogador("Jogador 4");
 
             Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
             Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
