@@ -92,10 +92,14 @@ namespace CardGame
                 Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
                 Console.WriteLine("A {0}, ganhou a rodada", Equipe.BuscaID(eqp1[0]).ToString());
             }
-            else
+            else if (eqp1[1] < eqp2[1])
             {
                 Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
                 Console.WriteLine("A {0}, ganhou a rodada", Equipe.BuscaID(eqp2[0]).ToString());
+            }
+            else
+            {
+                Console.WriteLine("Empate na rodada, ninguem ganhou pontos");
             }
         }
 
