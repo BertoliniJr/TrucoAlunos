@@ -19,13 +19,13 @@ namespace CardGame
             this.valor = valor;
         }
 
-        public char nomeValor()
+        public string nomeValor()
         {
-            if (valor == 1) return 'A';
-            else if (valor == 12) return 'J';
-            else if (valor == 11) return 'Q';
-            else if (valor == 13) return 'K';
-            else return Convert.ToChar(valor);
+            if (valor == 1) return "A";
+            else if (valor == 12) return "J";
+            else if (valor == 11) return "Q";
+            else if (valor == 13) return "K";
+            else return Convert.ToString(valor);
         }
 
         public Naipes Naipe
