@@ -66,7 +66,7 @@ namespace CardGame
                 Console.WriteLine();
                 Console.WriteLine("Iniciando Rodada {0}",r);
                 Carta queimada = baralhoMesa.pegarProxima();
-                Console.WriteLine("Carta queimada: {0} de {1}", queimada.Valor, queimada.Naipe);
+                Console.WriteLine("Carta queimada: {0} de {1}", queimada.nomeValor(), queimada.Naipe);
                 foreach (var equipe in equipeMesa)
                 {
                     Console.Write(" /{0}: {1} Pontos/ ", equipe.ToString(),equipe.PontosEquipe );
