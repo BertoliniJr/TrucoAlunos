@@ -42,6 +42,8 @@ namespace CardGame
                     aceite.Add(item, item.trucado(jogador as Jogador, pedido));
             }
 
+            return Escolha.aceitar;
+
         }
 
         public void Rodar(Jogador[] jogadoresParametro)
