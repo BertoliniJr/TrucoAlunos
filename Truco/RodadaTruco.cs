@@ -50,7 +50,7 @@ namespace CardGame
                 {
                     ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
                     Carta X = ListaCartas.Last();
-                    Console.WriteLine(jogadores[j].nome + " jogou {0} de {1}", X.nomeValor(), X.Naipe );
+                    Console.WriteLine(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), TrucoAuxiliar.gerarValorCarta(X, Manilha) );
 
                     if (jogadores[j].IDEquipe == eqp1[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior1, Manilha) > 0)
                     {

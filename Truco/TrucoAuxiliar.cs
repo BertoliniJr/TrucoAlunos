@@ -28,22 +28,24 @@ namespace CardGame
                 pesoCarta = pesoCarta - 3;
 
             if (carta.Valor == valorManilha)
+            {
                 pesoCarta = 10;
 
-            switch (carta.Naipe)
-            {
-                case Naipes.ouros:
-                    pesoCarta = pesoCarta + 1;
-                    break;
-                case Naipes.espadas:
-                    pesoCarta = pesoCarta + 2;
-                    break;
-                case Naipes.copas:
-                    pesoCarta = pesoCarta + 3;
-                    break;
-                case Naipes.paus:
-                    pesoCarta = pesoCarta + 4;
-                    break;
+                switch (carta.Naipe)
+                {
+                    case Naipes.ouros:
+                        pesoCarta = pesoCarta + 1;
+                        break;
+                    case Naipes.espadas:
+                        pesoCarta = pesoCarta + 2;
+                        break;
+                    case Naipes.copas:
+                        pesoCarta = pesoCarta + 3;
+                        break;
+                    case Naipes.paus:
+                        pesoCarta = pesoCarta + 4;
+                        break;
+                }
             }
 
             return pesoCarta;

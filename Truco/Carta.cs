@@ -53,7 +53,10 @@ namespace CardGame
                 valor = value;
             }
         }
-    }
 
-    
+        public override string ToString()
+        {
+            return $"{this.nomeValor()} de {this.Naipe}";
+        }
+    }
 }
