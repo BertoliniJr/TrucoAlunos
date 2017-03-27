@@ -15,14 +15,15 @@ namespace Truco
 
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
-            return null;
-        }
-        public void Correr()
-        {
             if (_mao.Count == 3)
             {
                 ordenar(manilha);
             }
+            return null;
+        }
+        public void Correr()
+        {
+            
         }
     }
 }
