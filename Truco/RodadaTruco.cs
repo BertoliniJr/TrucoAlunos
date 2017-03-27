@@ -40,40 +40,49 @@ namespace CardGame
             for (int i = 0; i < 3; i++)
             {
                 ListaCartas = new List<Carta>();
-                Carta maior = Manilha;
-                int imaior = 0;
+                Carta maior1 = Manilha;
+                Carta maior2 = Manilha;
+                int imaior1 = 0;
+                int imaior2 = 0;
 
 
                 for (int j = 0; j < 4; j++)
                 {
                     ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
                     Carta X = ListaCartas.Last();
-                    Console.WriteLine(jogadores[j].nome + " jogou {0} de {1}", X.Valor, X.Naipe );
+                    Console.WriteLine(jogadores[j].nome + " jogou {0} de {1}", X.nomeValor(), X.Naipe );
 
-                    if (TrucoAuxiliar.comparar(ListaCartas[j], maior, Manilha) > 0)
+                    if (jogadores[j].IDEquipe == eqp1[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior1, Manilha) > 0)
                     {
-                        maior = ListaCartas[j];
-                        imaior = j;
+                        maior1 = ListaCartas[j];
+                        imaior1 = j;
                     }
-                    else if (TrucoAuxiliar.comparar(ListaCartas[j], maior, Manilha) == 0)
+                    if (jogadores[j].IDEquipe == eqp2[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior1, Manilha) > 0)
                     {
-                        eqp1[1] += 1;
-                        eqp2[1] += 1;
-                        Console.WriteLine("Empate");
+                        maior2 = ListaCartas[j];
+                        imaior2 = j;
                     }
-
                 }
-                if (jogadores[imaior].IDEquipe == eqp1[0])
+                if (maior1== maior2)
+                {
+                    Console.WriteLine("Empate");
+                    eqp1[1] += 1;
+                    eqp2[1] += 1;
+                    Reordenar(jogadores, imaior2);
+                }
+                if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) > 0)
                 {
                     eqp1[1] += 1;
-                    Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior].nome);
+                    Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior1].nome);
+                    Reordenar(jogadores, imaior1);
                 }
                 else
                 {
                     eqp2[1] += 1;
-                    Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior].nome);
+                    Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior2].nome);
+                    Reordenar(jogadores, imaior2);
                 }
-                Reordenar(jogadores, imaior);
+                
             }
             if (eqp1[1] > eqp2[1])
             {
