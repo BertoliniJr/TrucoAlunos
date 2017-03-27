@@ -80,7 +80,7 @@ namespace CardGame
                 {
                     eqp2[1] += 1;
                     Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior2].nome);
-                    Reordenar(jogadores, imaior2);
+                    jogadores = Reordenar(jogadores, imaior2);
                 }
                 
             }
@@ -96,14 +96,14 @@ namespace CardGame
             }
         }
 
-        static int[] Reordenar(Jogador[] jogadores, int k)
+        static Jogador[] Reordenar(Jogador[] jogadores, int k)
 
         {
             int i = 0;
-            int[] vet = new int[jogadores.Length];
+            Jogador[] vet = new Jogador[jogadores.Length];
             while (i < jogadores.Length)
             {
-                jogadores[i] = jogadores[k];
+                vet[i] = jogadores[k];
                 k++; i++;
                 if (k >= jogadores.Length) k = 0;
 
