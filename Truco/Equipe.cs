@@ -49,7 +49,7 @@ namespace CardGame
 
         public override string ToString()
         {
-            string equipe = $"Equipe {listaEquipes.IndexOf(this)} composta por " string.Join(", ", jogadoresEquipe.Select(a => a.nome));
+            string equipe = $"Equipe {listaEquipes.IndexOf(this)} composta por " + string.Join(", ", jogadoresEquipe.Select(a => a.nome));
             return equipe;
         }
     }
