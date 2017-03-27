@@ -47,7 +47,7 @@ namespace CardGame
         {
             return 0;
         }
-        public Carta Jogar(List<Carta> cartasRodada, Carta manilha)
+        public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
             // encontra maior da mesa
             if (_mao.Count == 3)
@@ -86,7 +86,8 @@ namespace CardGame
                 return carta;
             }
         }
-        public void ordenar(Carta manilha)
+
+        private void ordenar(Carta manilha)
         {
             _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorCarta(x, manilha)).ToList();
         }
