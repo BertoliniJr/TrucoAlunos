@@ -80,7 +80,7 @@ namespace CardGame
         }
         public void ordenar(Carta manilha)
         {
-
+            _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorCarta(x, manilha)).ToList();
         }
         
         public void ReceberCarta(Carta c)
