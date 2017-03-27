@@ -15,15 +15,79 @@ namespace Truco
 
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
+            Carta aux;
             if (_mao.Count == 3)
             {
                 ordenar(manilha);
             }
-            return null;
+            //ultima carta da mao
+            if (_mao.Count == 1)
+            {
+                return jogaMenor();
+            }
+            //primeiro a jogar
+            if (cartasRodada.LastOrDefault()==null)
+            {
+                return jogaMenor();
+            }
+            //segundo a jogar
+            if (cartasRodada.Count==1)
+            {
+                if (cartasRodada.Max(x => x.Valor)<7)
+                {
+                    return jogaMenor();
+                }
+                for (int i = 0; i < _mao.Count; i++)
+                {
+                    if (cartasRodada.Max(x => x.Valor) < _mao[i].Valor)
+                    {
+                        aux = _mao[i];
+                        _mao.RemoveAt(i);
+                        return aux;
+                    }
+                }
+            }
+            //terceiro a jogar
+            if (cartasRodada.Count == 2)
+            {
+                if (cartasRodada.Max(x => x.Valor) > _mao.Last().Valor)
+                {
+                    return jogaMenor();
+                }
+                aux = _mao[0];
+                //aux = (Carta)_mao.Where(x=>x.Valor==_mao.Max(y=>y.Valor)&&x.Valor<11);
+                for (int i = 0; i < _mao.Count; i++)
+                {
+                    if (_mao[i].Valor<11)
+                    {
+                        aux = _mao[i];
+                    }
+                }
+                _mao.Remove(aux);
+                return aux;
+            }
+            //pe
+            for (int i = 0; i < _mao.Count; i++)
+            {
+                if (cartasRodada.Max(x => x.Valor) < _mao[i].Valor && cartasRodada[cartasRodada.Count-1].Valor!= cartasRodada.Max(x => x.Valor))
+                {
+                    aux = _mao[i];
+                    _mao.RemoveAt(i);
+                    return aux;
+                }
+            }
+            return jogaMenor();
         }
         public void Correr()
         {
-            
+            _mao.RemoveAll(x=>x.Valor<15);
+        }
+        private Carta jogaMenor()
+        {
+            Carta aux;
+            aux = _mao[0];
+            _mao.RemoveAt(0);
+            return aux;
         }
     }
 }
