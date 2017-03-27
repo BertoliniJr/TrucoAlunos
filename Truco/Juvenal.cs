@@ -20,7 +20,7 @@ namespace CardGame
             if (cartasMesa.Count == 0)
             {
                 carta = _mao.Last();
-                _mao.RemoveAt(2);
+                _mao.Remove(_mao.Last());
             }
             else if (cartasMesa.Count == 1)
             {
