@@ -17,10 +17,10 @@ namespace CardGame
                 ordenar(manilha);
             }
             Carta carta = _mao[0];
-            if (cartasMesa.Last() == null)
+            if (cartasMesa.Count == 0)
             {
-                carta = _mao[2];
-                _mao.RemoveAt(2);
+                carta = _mao.Last();
+                _mao.Remove(_mao.Last());
             }
             else if (cartasMesa.Count == 1)
             {

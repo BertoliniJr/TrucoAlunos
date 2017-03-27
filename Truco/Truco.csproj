@@ -64,6 +64,7 @@
     <Compile Include="IlusionistaDaMesa.cs" />
     <Compile Include="IRodada.cs" />
     <Compile Include="Jogador.cs" />
+    <Compile Include="JurandirOJogador.cs" />
     <Compile Include="Mesa.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
