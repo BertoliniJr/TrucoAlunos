@@ -19,7 +19,10 @@ namespace Truco
         }
         public void Correr()
         {
-
+            if (_mao.Count == 3)
+            {
+                ordenar(manilha);
+            }
         }
     }
 }
