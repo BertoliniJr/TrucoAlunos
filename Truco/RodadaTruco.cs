@@ -35,9 +35,7 @@ namespace CardGame
             eqp1[0] = jogadores[0].IDEquipe;
             eqp2[0] = jogadores[1].IDEquipe;
 
-
-
-            for (int i = 0; i < 3 && (eqp1[1]<2 && eqp2[1]<2); i++)
+            for (int i = 0; i < 3  ; i++)
             {
                 ListaCartas = new List<Carta>();
                 Carta maior1 = null;
@@ -65,6 +63,8 @@ namespace CardGame
                 }
                 if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) == 0)
                 {
+                    eqp1[1] += 1;
+                    eqp2[1] += 1;
                     Console.WriteLine("Empate");
                     Reordenar(jogadores, imaior2);
                 }
@@ -83,7 +83,10 @@ namespace CardGame
                         jogadores = Reordenar(jogadores, imaior2);
                     }
                 }
-                
+
+                if (eqp1[1] != eqp2[1] && (eqp1[1] == 2 || eqp2[1] == 2))
+                    break;
+                                
             }
             if (eqp1[1] > eqp2[1])
             {
