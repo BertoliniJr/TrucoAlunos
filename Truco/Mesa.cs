@@ -60,9 +60,20 @@ namespace CardGame
         {
             preencheMesa();
             baralhoMesa = new Baralho();
+            int r = 1;
             while (true)
             {
-                rodadaMesa = new RodadaTruco(baralhoMesa.pegarProxima());
+                Console.WriteLine();
+                Console.WriteLine("Iniciando Rodada {0}",r);
+                Carta queimada = baralhoMesa.pegarProxima();
+                Console.WriteLine("Carta queimada: {0} de {1}", queimada.Valor, queimada.Naipe);
+                foreach (var equipe in equipeMesa)
+                {
+                    Console.Write(" /{0}: {1} Pontos/ ", equipe.ToString(),equipe.PontosEquipe );
+                }
+                Console.WriteLine("\n");
+
+                rodadaMesa = new RodadaTruco(queimada);
                 baralhoMesa.embaralhar();
 
                 foreach (var jogador in posicoes)
@@ -87,6 +98,7 @@ namespace CardGame
                 }
 
                 posicoes = circulaVetor(posicoes);
+                r++;
             }
         }
 
