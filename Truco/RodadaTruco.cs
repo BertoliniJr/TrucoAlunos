@@ -63,24 +63,27 @@ namespace CardGame
                         imaior2 = j;
                     }
                 }
-                if (maior1== maior2)
+                if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) == 0)
                 {
                     Console.WriteLine("Empate");
                     eqp1[1] += 1;
                     eqp2[1] += 1;
                     Reordenar(jogadores, imaior2);
                 }
-                if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) > 0)
-                {
-                    eqp1[1] += 1;
-                    Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior1].nome);
-                    Reordenar(jogadores, imaior1);
-                }
                 else
                 {
-                    eqp2[1] += 1;
-                    Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior2].nome);
-                    Reordenar(jogadores, imaior2);
+                    if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) > 0)
+                    {
+                        eqp1[1] += 1;
+                        Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior1].nome);
+                        Reordenar(jogadores, imaior1);
+                    }
+                    else
+                    {
+                        eqp2[1] += 1;
+                        Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior2].nome);
+                        jogadores = Reordenar(jogadores, imaior2);
+                    }
                 }
                 
             }
@@ -96,14 +99,14 @@ namespace CardGame
             }
         }
 
-        static int[] Reordenar(Jogador[] jogadores, int k)
+        static Jogador[] Reordenar(Jogador[] jogadores, int k)
 
         {
             int i = 0;
-            int[] vet = new int[jogadores.Length];
+            Jogador[] vet = new Jogador[jogadores.Length];
             while (i < jogadores.Length)
             {
-                jogadores[i] = jogadores[k];
+                vet[i] = jogadores[k];
                 k++; i++;
                 if (k >= jogadores.Length) k = 0;
 
