@@ -9,9 +9,9 @@ namespace CardGame
     class Jogador
     {
 
-        private List<Carta> _mao;
-        private string _nome;
-        private int IDequipe;
+        protected List<Carta> _mao;
+        protected string _nome;
+        protected int IDequipe;
         public string nome
         {
             get
