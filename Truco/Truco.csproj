@@ -62,10 +62,11 @@
     <Compile Include="Carta.cs" />
     <Compile Include="Auxiliares\EnumeradorNaipe.cs" />
     <Compile Include="Equipe.cs" />
-    <Compile Include="Jogadores\Grupo3.cs" />
-    <Compile Include="Jogadores\IlusionistaDaMesa.cs" />
+    <Compile Include="Juvenal.cs" />
+    <Compile Include="IlusionistaDaMesa.cs" />
     <Compile Include="IRodada.cs" />
     <Compile Include="Jogador.cs" />
+    <Compile Include="JurandirOJogador.cs" />
     <Compile Include="Mesa.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

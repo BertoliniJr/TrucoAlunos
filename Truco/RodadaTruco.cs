@@ -61,6 +61,7 @@ namespace CardGame
             {
                 pontos = 3;
                 Console.WriteLine("Mão de 12");
+                Console.WriteLine("");
             }
 
                 int indempate = 0;
@@ -78,7 +79,7 @@ namespace CardGame
                     ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
                     novaCarta(jogadores[j], EventArgs.Empty);
                     Carta X = ListaCartas.Last();
-                    Console.WriteLine(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), TrucoAuxiliar.gerarValorCarta(X, Manilha) );
+                    Console.WriteLine(jogadores[j].nome + " jogou {0}\tpeso: {1}", X.ToString(), TrucoAuxiliar.gerarValorCarta(X, Manilha) );
 
                     if (jogadores[j].IDEquipe == eqp1[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior1, Manilha) > 0)
                     {
@@ -98,7 +99,7 @@ namespace CardGame
                 {
                     eqp1[1] += 1;
                     eqp2[1] += 1;
-                    Console.WriteLine("Empate");
+                    Console.WriteLine("*Empate*");
                     jogadores = Reordenar(jogadores, indempate);
                 }
                 else
@@ -106,13 +107,15 @@ namespace CardGame
                     if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) > 0)
                     {
                         eqp1[1] += 1;
-                        Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior1].nome);
+                        Console.WriteLine("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior1].nome);
+                        Console.WriteLine("");
                         jogadores = Reordenar(jogadores, imaior1);
                     }
                     else
                     {
                         eqp2[1] += 1;
-                        Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior2].nome);
+                        Console.WriteLine("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior2].nome);
+                        Console.WriteLine("");
                         jogadores = Reordenar(jogadores, imaior2);
                     }
                 }
@@ -124,16 +127,16 @@ namespace CardGame
             if (eqp1[1] > eqp2[1])
             {
                 Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
-                Console.WriteLine("A {0}, ganhou a rodada", Equipe.BuscaID(eqp1[0]).ToString());
+                Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
             }
             else if (eqp1[1] < eqp2[1])
             {
                 Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
-                Console.WriteLine("A {0}, ganhou a rodada", Equipe.BuscaID(eqp2[0]).ToString());
+                Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
             }
             else
             {
-                Console.WriteLine("Empate na rodada, ninguem ganhou pontos");
+                Console.WriteLine("\n*Empate na rodada, ninguem ganhou pontos*");
             }
         }
 
