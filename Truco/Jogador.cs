@@ -50,11 +50,11 @@ namespace CardGame
         public Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
             // encontra maior da mesa
-            if(_mao.Count == 3)
+            if (_mao.Count == 3)
             {
                 ordenar(manilha);
             }
-            Carta maiorMesa = cartasRodada[cartasRodada.Count];
+            Carta maiorMesa = cartasRodada.LastOrDefault();
             for (int i = 0; i < cartasRodada.Count - 1; i++)
             {
                 if (comparar(cartasRodada[i], maiorMesa, manilha) > 0)
@@ -64,25 +64,32 @@ namespace CardGame
             }
             //descarta
             Carta carta = _mao[0];
-            for (int i = 0; i < _mao.Count; i++)
+            if (maiorMesa == null)
             {
-                carta = _mao[i];
-                if (comparar(carta, maiorMesa, manilha) > 0)
-                {
-                    _mao.RemoveAt(i);
-                    return carta;
-                }
+                return carta;
 
             }
-            carta = _mao[0];
-            _mao.RemoveAt(0);
-            return carta;
+            else
+            {
+                for (int i = 0; i < _mao.Count; i++)
+                {
+                    carta = _mao[i];
+                    if (comparar(carta, maiorMesa, manilha) > 0)
+                    {
+                        _mao.RemoveAt(i);
+                        return carta;
+                    }
+                }
+                carta = _mao[0];
+                _mao.RemoveAt(0);
+                return carta;
+            }
         }
         public void ordenar(Carta manilha)
         {
             _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorCarta(x, manilha)).ToList();
         }
-        
+
         public void ReceberCarta(Carta c)
         {
             _mao.Add(c);
