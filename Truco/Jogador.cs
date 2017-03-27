@@ -54,7 +54,7 @@ namespace CardGame
             {
                 ordenar(manilha);
             }
-            Carta maiorMesa = cartasRodada[cartasRodada.Count ];
+            Carta maiorMesa = cartasRodada[cartasRodada.Count];
             for (int i = 0; i < cartasRodada.Count - 1; i++)
             {
                 if (comparar(cartasRodada[i], maiorMesa, manilha) > 0)
