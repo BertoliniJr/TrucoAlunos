@@ -80,12 +80,11 @@ namespace CardGame
                 {
                     if (equipe.PontosEquipe >= 15)
                     {
-                        Console.WriteLine("Equipe do jogador {0} venceu", equipe.JogadoresEquipe[0].nome);
+                        Console.WriteLine("Equipe dos jogadores {0} venceu", equipe.ToString());
                         return;
                     }
                         
                 }
-
 
                 posicoes = circulaVetor(posicoes);
             }

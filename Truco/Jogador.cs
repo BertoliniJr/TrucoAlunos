@@ -66,6 +66,7 @@ namespace CardGame
             Carta carta = _mao[0];
             if (maiorMesa == null)
             {
+                _mao.RemoveAt(0);
                 return carta;
 
             }
