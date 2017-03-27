@@ -57,7 +57,7 @@ namespace CardGame
                         maior1 = ListaCartas[j];
                         imaior1 = j;
                     }
-                    if (jogadores[j].IDEquipe == eqp2[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior1, Manilha) > 0)
+                    if (jogadores[j].IDEquipe == eqp2[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior2, Manilha) > 0)
                     {
                         maior2 = ListaCartas[j];
                         imaior2 = j;
