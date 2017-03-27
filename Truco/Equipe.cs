@@ -22,9 +22,11 @@ namespace CardGame
             get { return pontosEquipe; }
         }
 
+        private static List<Equipe> listaEquipes;
+
         public Equipe(List<Jogador> jogadores)
         {
-            
+            Equipe.listaEquipes = new List<Equipe>();
             jogadoresEquipe = jogadores;
             pontosEquipe = 0;
             
@@ -41,7 +43,7 @@ namespace CardGame
             pontosEquipe += p;
         }
 
-        private static List<Equipe> listaEquipes;
+        
         
         public static Equipe BuscaID(int id)
         {
