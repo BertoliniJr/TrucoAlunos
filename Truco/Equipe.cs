@@ -22,11 +22,10 @@ namespace CardGame
             get { return pontosEquipe; }
         }
 
-        private static List<Equipe> listaEquipes;
+        private static List<Equipe> listaEquipes = new List<Equipe>();
 
         public Equipe(List<Jogador> jogadores)
         {
-            Equipe.listaEquipes = new List<Equipe>();
             jogadoresEquipe = jogadores;
             pontosEquipe = 0;
             
