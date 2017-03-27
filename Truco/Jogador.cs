@@ -87,7 +87,7 @@ namespace CardGame
             }
         }
 
-        private void ordenar(Carta manilha)
+        protected void ordenar(Carta manilha)
         {
             _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorCarta(x, manilha)).ToList();
         }
