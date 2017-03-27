@@ -80,7 +80,7 @@ namespace CardGame
                 {
                     if (equipe.PontosEquipe >= 15)
                     {
-                        Console.WriteLine("Equipe do jogador {0} venceu", equipe.JogadoresEquipe[0]);
+                        Console.WriteLine("Equipe do jogador {0} venceu", equipe.JogadoresEquipe[0].nome);
                         return;
                     }
                         
