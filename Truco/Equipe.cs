@@ -41,12 +41,16 @@ namespace CardGame
         {
             pontosEquipe += p;
         }
-
-        
         
         public static Equipe BuscaID(int id)
         {
             return listaEquipes[id];
+        }
+
+        public override string ToString()
+        {
+            string equipe = string.Join(", ", jogadoresEquipe.Select(a => a.nome));
+            return base.ToString();
         }
     }
 }
