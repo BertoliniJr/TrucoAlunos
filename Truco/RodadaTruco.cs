@@ -46,7 +46,9 @@ namespace CardGame
 
                 for (int j = 0; j < 4; j++)
                 {
-                    ListaCartas.Add(jogadores[i].Jogar(ListaCartas, Manilha));
+                    ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
+                    Carta X = ListaCartas.Last();
+                    Console.WriteLine(jogadores[j].nome + " jogou {0} de {1}", X.Valor, X.Naipe );
 
                     if (TrucoAuxiliar.comparar(ListaCartas[j], maior, Manilha) > 0)
                     {
@@ -57,14 +59,17 @@ namespace CardGame
                     {
                         eqp1[1] += 1;
                         eqp2[1] += 1;
+                        Console.WriteLine("Empate");
                     }
                     if (jogadores[imaior].IDEquipe == eqp1[0])
                     {
                         eqp1[1] += 1;
+                        Console.WriteLine(" a equipe do " +  jogadores[imaior].nome + " ganhou a mão" );
                     }
                     else
                     {
                         eqp2[1] += 1;
+                        Console.WriteLine(" a equipe do " + jogadores[imaior].nome + " ganhou a mão");
                     }
 
 
@@ -75,10 +80,12 @@ namespace CardGame
                 if (eqp1[1] > eqp2[1])
                 {
                     Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
+                    Console.WriteLine("A equipe de id = {0}, ganhou a rodada", eqp1[0]);
                 }
                 else
                 {
                     Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
+                    Console.WriteLine("A equipe de id = {0}, ganhou a rodada", eqp2[0]);
                 }
             }
         }
