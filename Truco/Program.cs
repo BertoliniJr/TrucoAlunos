@@ -21,6 +21,7 @@ namespace Truco
 
             Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
             mesaDeTruco.Jogar();
+            Console.ReadLine();
         }
     }
 }
