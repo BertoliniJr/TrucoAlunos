@@ -11,8 +11,8 @@ namespace CardGame
     {
         public static int comparar(Carta a, Carta b, Carta manilha)
         {
-            int valorA = gerarValorCarta(a, manilha);
-            int valorB = gerarValorCarta(b, manilha);
+            int valorA = a == null ? 0 : gerarValorCarta(a, manilha);
+            int valorB = b == null ? 0 : gerarValorCarta(b, manilha);
 
             return valorA - valorB;
         }
