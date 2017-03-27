@@ -32,16 +32,16 @@ namespace CardGame
 
             int[] eqp1 = new int[2];
             int[] eqp2 = new int[2];
+            eqp1[0] = jogadores[0].IDEquipe;
+            eqp2[0] = jogadores[1].IDEquipe;
 
-            if(Equipe.BuscaID(eqp1[0]).PontosEquipe >= 12 || Equipe.BuscaID(eqp1[0]).PontosEquipe >= 12)
+            if(Equipe.BuscaID(eqp1[0]).PontosEquipe>=12 || Equipe.BuscaID(eqp2[0]).PontosEquipe >= 12)
             {
                 pontos = 3;
                 Console.WriteLine("Mão de 12");
             }
 
-            eqp1[0] = jogadores[0].IDEquipe;
-            eqp2[0] = jogadores[1].IDEquipe;
-
+                int indempate = 0;
             for (int i = 0; i < 3  ; i++)
             {
                 ListaCartas = new List<Carta>();
@@ -62,19 +62,22 @@ namespace CardGame
                     {
                         maior1 = ListaCartas[j];
                         imaior1 = j;
+                        indempate = j;
                     }
                     if (jogadores[j].IDEquipe == eqp2[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior2, Manilha) > 0)
                     {
                         maior2 = ListaCartas[j];
                         imaior2 = j;
+                        indempate = j;
                     }
+                    
                 }
                 if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) == 0)
                 {
                     eqp1[1] += 1;
                     eqp2[1] += 1;
                     Console.WriteLine("Empate");
-                    Reordenar(jogadores, imaior2);
+                    jogadores = Reordenar(jogadores, indempate);
                 }
                 else
                 {
@@ -82,7 +85,7 @@ namespace CardGame
                     {
                         eqp1[1] += 1;
                         Console.WriteLine("A equipe do jogador{0}, ganhou a mão", jogadores[imaior1].nome);
-                        Reordenar(jogadores, imaior1);
+                        jogadores = Reordenar(jogadores, imaior1);
                     }
                     else
                     {
