@@ -46,7 +46,7 @@ namespace CardGame
 
                 for (int j = 0; j < 4; j++)
                 {
-                    ListaCartas.Add(jogadores[i].Jogar(ListaCartas, Manilha));
+                    ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
 
                     if (TrucoAuxiliar.comparar(ListaCartas[j], maior, Manilha) > 0)
                     {
