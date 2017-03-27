@@ -50,7 +50,7 @@ namespace CardGame
         public override string ToString()
         {
             string equipe = string.Join(", ", jogadoresEquipe.Select(a => a.nome));
-            return base.ToString();
+            return equipe;
         }
     }
 }
