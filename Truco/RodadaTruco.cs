@@ -12,6 +12,8 @@ namespace CardGame
         public event EventHandler novaCarta;
         private int NumCartas = 3;
         Carta Manilha;
+        private int pontos;
+        private Jogador[] jogadores;
 
         List<Carta> ListaCartas;
 
@@ -24,12 +26,32 @@ namespace CardGame
         public RodadaTruco(Carta M)
         {
             Manilha = M;
+            pontos = 1;
         }
 
-        public void Rodar(Jogador[] jogadores)
+        protected virtual void OlharTruco(object jogador, EventArgs e)
         {
-            int pontos = 1;
+        }
 
+        private Escolha aceita (Jogador jogador, Truco pedido)
+        {
+            Dictionary<Jogador, Escolha> aceite = new Dictionary<Jogador, Escolha>();
+            foreach (var item in jogadores)
+            {
+                if (item != jogador)
+                    aceite.Add(item, item.trucado(jogador as Jogador, pedido));
+            }
+
+        }
+
+        public void Rodar(Jogador[] jogadoresParametro)
+        {
+            jogadores = jogadoresParametro;
+            foreach (var jogador in jogadores)
+            {
+                jogador.truco += this.OlharTruco;
+                this.novaCarta += jogador.novaCarta;
+            }
             int[] eqp1 = new int[2];
             int[] eqp2 = new int[2];
             eqp1[0] = jogadores[0].IDEquipe;

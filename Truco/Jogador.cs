@@ -14,9 +14,9 @@ namespace CardGame
             if (((Carta)carta).Valor == 0)
                 truco(this, EventArgs.Empty);
         }
-        public virtual void trucado(Jogador trucante, int valor)
+        public virtual Escolha trucado(Jogador trucante, Truco valor)
         {
-            
+            return Escolha.aceitar;
         }
 
         protected List<Carta> _mao;
