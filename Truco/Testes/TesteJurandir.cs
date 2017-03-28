@@ -10,16 +10,16 @@ namespace Truco
     class TesteJurandir
     {
 
-        public static int Teste1(Jogador Oponente)
+        public int Teste(Jogador Oponente1, Jogador Oponente2)
         {
             int count = 0;
 
             for (int i = 0; i < 1000; i++)
             {
                 Jogador jogador1 = new JurandirOJogador();
-                Jogador jogador2 = new IlusionistaDaMesa("p1");
+                Jogador jogador2 = Oponente1;
                 Jogador jogador3 = new JurandirOJogador();
-                Jogador jogador4 = new IlusionistaDaMesa("p1");
+                Jogador jogador4 = Oponente2;
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
