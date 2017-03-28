@@ -13,7 +13,7 @@ namespace CardGame
         {
             int count = 0;
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Jogador jogador1 = new JurandirOJogador();
                 Jogador jogador2 = Oponente;
