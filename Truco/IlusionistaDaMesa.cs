@@ -69,7 +69,7 @@ namespace Truco
             //pe
             for (int i = 0; i < _mao.Count; i++)
             {
-                if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) < TrucoAuxiliar.gerarValorCarta(_mao[i], manilha) && TrucoAuxiliar.gerarValorCarta(cartasRodada[cartasRodada.Count - 1], manilha)!= cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)))
+                if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) < TrucoAuxiliar.gerarValorCarta(_mao[i], manilha) && TrucoAuxiliar.gerarValorCarta(cartasRodada[cartasRodada.Count - 2], manilha)!= cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)))
                 {
                     aux = _mao[i];
                     _mao.RemoveAt(i);
