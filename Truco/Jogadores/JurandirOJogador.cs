@@ -26,22 +26,20 @@ namespace CardGame
             switch (_mao.Count)
             {
                 case 3:
-
-
                     //Carta maiorMesa = cartasRodada.LastOrDefault();
 
                     if (cartasRodada.Count == 0)
                     {
-                        if (TrucoAuxiliar.gerarValorCarta(_mao[0], manilha) < 10 && TrucoAuxiliar.gerarValorCarta(_mao[0], manilha) > 5)
+                        if (TrucoAuxiliar.gerarValorCarta(_mao[1], manilha) > 7)
                         {
-                            carta = _mao[0];
-                            _mao.RemoveAt(0);
+                            carta = _mao[1];
+                            _mao.RemoveAt(1);
                             return carta;
                         }
                         else
                         {
-                            carta = _mao[_mao.Count - 1];
-                            _mao.RemoveAt(_mao.Count - 1);
+                            carta = _mao[0];
+                            _mao.RemoveAt(0);
                             return carta;
                         }
 
@@ -49,16 +47,23 @@ namespace CardGame
 
                     if (cartasRodada.Count == 1)
                     {
-
-                        carta = _mao[0];
-                        _mao.RemoveAt(0);
-                        return carta;
+                        if (TrucoAuxiliar.compara(_mao[1], cartasRodada[0], manilha) > 0)
+                        {
+                            carta = _mao[1];
+                            _mao.RemoveAt(1);
+                            return carta;
+                        }else
+                        {
+                            carta = _mao[0];
+                            _mao.RemoveAt(0);
+                            return carta;
+                        }
                     }
+
                     if (cartasRodada.Count == 2)
                     {
                         if (TrucoAuxiliar.compara(cartasRodada[0], cartasRodada[1], manilha) > 0)
                         {
-
                             carta = _mao[0];
                             _mao.RemoveAt(0);
                             return carta;
@@ -80,6 +85,7 @@ namespace CardGame
 
                         }
                     }
+
                     if (cartasRodada.Count == 3)
                     {
                         if (TrucoAuxiliar.compara(cartasRodada[1], cartasRodada[0], manilha) > 0 && TrucoAuxiliar.compara(cartasRodada[1], cartasRodada[2], manilha) > 0)
