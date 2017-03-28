@@ -12,22 +12,15 @@ namespace Truco
         static void Main(string[] args)
         {
             TesteJurandir T1 = new TesteJurandir();
-            int x = T1.Teste(new IlusionistaDaMesa("p1"), new IlusionistaDaMesa("p2"));
-            
             TesteJurandir T2 = new TesteJurandir();
-            int y = T2.Teste(new Juvenal("p1"), new Juvenal("p2"));
-
             TesteJurandir T3 = new TesteJurandir();
+            int x = T1.Teste(new IlusionistaDaMesa("p1"), new IlusionistaDaMesa("p2"));
+            int y = T2.Teste(new Juvenal("p1"), new Juvenal("p2"));
             int z = T3.Teste(new JogadorEquipeAlfa("p1"), new JogadorEquipeAlfa("p2"));
+            Console.WriteLine("Jurandir teve " + x / 10 + "% de aproveitamento contra o Ilusonista");
+            Console.WriteLine("Jurandir teve " + y / 10 + "% de aproveitamento contra o Juvenal");
+            Console.WriteLine("Jurandir teve " + z / 10 + "% de aproveitamento contra o Alfa");
 
-            Console.Clear();
-
-
-            Console.WriteLine("Juranda teve um aproveitamento de {0}% contra IlusionistaDaMesa", x/10);
-            Console.WriteLine("Juranda teve um aproveitamento de {0}% contra Juvenal", y/10);
-            Console.WriteLine("Juranda teve um aproveitamento de {0}% contra EquipeAlfa", z/10);
-
-            Console.ReadLine();
         }
     }
 }
