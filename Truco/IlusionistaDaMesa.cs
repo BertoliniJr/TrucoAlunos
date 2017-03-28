@@ -33,13 +33,13 @@ namespace Truco
             //segundo a jogar
             if (cartasRodada.Count==1)
             {
-                if (cartasRodada.Max(x => x.Valor)<7)
+                if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x,manilha))<7)
                 {
                     return jogaMenor();
                 }
                 for (int i = 0; i < _mao.Count; i++)
                 {
-                    if (cartasRodada.Max(x => x.Valor) < _mao[i].Valor)
+                    if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) < TrucoAuxiliar.gerarValorCarta(_mao[i], manilha))
                     {
                         aux = _mao[i];
                         _mao.RemoveAt(i);
@@ -50,7 +50,7 @@ namespace Truco
             //terceiro a jogar
             if (cartasRodada.Count == 2)
             {
-                if (cartasRodada.Max(x => x.Valor) > _mao.Last().Valor)
+                if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) > TrucoAuxiliar.gerarValorCarta(_mao.Last(), manilha))
                 {
                     return jogaMenor();
                 }
@@ -58,7 +58,7 @@ namespace Truco
                 //aux = (Carta)_mao.Where(x=>x.Valor==_mao.Max(y=>y.Valor)&&x.Valor<11);
                 for (int i = 0; i < _mao.Count; i++)
                 {
-                    if (_mao[i].Valor<11)
+                    if (TrucoAuxiliar.gerarValorCarta(_mao[i], manilha) < 11)
                     {
                         aux = _mao[i];
                     }
@@ -69,7 +69,7 @@ namespace Truco
             //pe
             for (int i = 0; i < _mao.Count; i++)
             {
-                if (cartasRodada.Max(x => x.Valor) < _mao[i].Valor && cartasRodada[cartasRodada.Count-1].Valor!= cartasRodada.Max(x => x.Valor))
+                if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) < TrucoAuxiliar.gerarValorCarta(_mao[i], manilha) && TrucoAuxiliar.gerarValorCarta(cartasRodada[cartasRodada.Count - 2], manilha)!= cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)))
                 {
                     aux = _mao[i];
                     _mao.RemoveAt(i);
