@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardGame
+namespace Truco
 {
     class TesteJurandir
     {
@@ -13,7 +13,7 @@ namespace CardGame
         {
             int count = 0;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 Jogador jogador1 = new JurandirOJogador();
                 Jogador jogador2 = Oponente;
