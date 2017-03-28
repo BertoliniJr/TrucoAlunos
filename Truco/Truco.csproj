@@ -73,6 +73,7 @@
     <Compile Include="TesteAlfa.cs" />
     <Compile Include="TesteAlffa.cs" />
     <Compile Include="testeIlusionista.cs" />
+    <Compile Include="TesteJurandir.cs" />
     <Compile Include="TrucoAuxiliar.cs" />
   </ItemGroup>
   <ItemGroup>

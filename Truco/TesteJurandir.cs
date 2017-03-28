@@ -10,7 +10,7 @@ namespace Truco
     class TesteJurandir
     {
 
-        public static int Teste1()
+        public static int Teste1(Jogador Oponente)
         {
             int count = 0;
 
