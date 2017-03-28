@@ -11,10 +11,19 @@ namespace Truco
     {
         static void Main(string[] args)
         {
-            int x = TesteJurandir.Teste1(new IlusionistaDaMesa("p1"));
-            Console.WriteLine(x);
+            testeIlusionista ti = new testeIlusionista();
 
-            Console.ReadLine();
+            ti.testePC();
+            ti.TesteJuvena();
+            ti.TesteJura();
+            ti.TesteAlfa();
+            ti.TesteIlusionistaEJuvenal();
+            ti.TesteIlusionistaEJurandi();
+            ti.TesteIlusionistaEJuraAlfa();
+            ti.TesteIlusionistaEJuJu();
+            ti.TesteIlusionistaEIlusionista();
+            ti.TesteIlusionistaEAlfaeJuve();
+            ti.TesteIlusionistaEAlfa();
         }
     }
 }
