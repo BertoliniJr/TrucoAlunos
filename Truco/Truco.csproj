@@ -71,6 +71,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RodadaTruco.cs" />
+    <Compile Include="TesteAlfa.cs" />
+    <Compile Include="TesteAlffa.cs" />
+    <Compile Include="testeIlusionista.cs" />
+    <Compile Include="TesteJurandir.cs" />
     <Compile Include="Auxiliares\TrucoAuxiliar.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -58,6 +58,10 @@ namespace CardGame
 
         public void Jogar()
         {
+            foreach (var equipe in equipeMesa)
+            {
+                equipe.GanharPontos(-equipe.PontosEquipe);
+            }
             preencheMesa();
             baralhoMesa = new Baralho();
             int r = 1;
@@ -66,14 +70,12 @@ namespace CardGame
                 baralhoMesa.embaralhar();
 
                 Console.WriteLine();
-                Console.WriteLine("--------------------");
                 Console.WriteLine("Iniciando Rodada {0}",r);
-                Console.WriteLine("--------------------");
                 Carta queimada = baralhoMesa.pegarProxima();
-                Console.WriteLine("\n:::::Carta queimada: {0} de {1}", queimada.nomeValor(), queimada.Naipe);
+                Console.WriteLine("Carta queimada: {0} de {1}", queimada.nomeValor(), queimada.Naipe);
                 foreach (var equipe in equipeMesa)
                 {
-                    Console.Write("\n*{0}: {1} Pontos* ", equipe.ToString(),equipe.PontosEquipe );
+                    Console.Write(" /{0}: {1} Pontos/ ", equipe.ToString(),equipe.PontosEquipe );
                 }
                 Console.WriteLine("\n");
 
@@ -81,7 +83,6 @@ namespace CardGame
 
                 foreach (var jogador in posicoes)
                 {
-                    jogador.NovaMao();
                     for (int i = 0; i < rodadaMesa.getNumCartas(); i++)
                     {
                         jogador.ReceberCarta(baralhoMesa.pegarProxima());
@@ -89,14 +90,13 @@ namespace CardGame
                 }
 
                 rodadaMesa.Rodar(posicoes);
-
                 baralhoMesa.recolher();
 
                 foreach (var equipe in equipeMesa)
                 {
                     if (equipe.PontosEquipe >= 15)
                     {
-                        Console.WriteLine("\n***** Equipe dos jogadores {0} venceu *****", equipe.ToString());
+                        Console.WriteLine("Equipe dos jogadores {0} venceu", equipe.ToString());
                         return;
                     }
                         

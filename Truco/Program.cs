@@ -11,16 +11,22 @@ namespace Truco
     {
         static void Main(string[] args)
         {
-            Jogador jogador1 = new Jogador("Jogador 1");
-            Jogador jogador2 = new IlusionistaDaMesa("Jogador 2");
-            Jogador jogador3 = new Jogador("Jogador 3");
-            Jogador jogador4 = new IlusionistaDaMesa("Jogador 4");
+            TesteJurandir T1 = new TesteJurandir();
+            int x = T1.Teste(new IlusionistaDaMesa("p1"), new IlusionistaDaMesa("p2"));
+            
+            TesteJurandir T2 = new TesteJurandir();
+            int y = T2.Teste(new Juvenal("p1"), new Juvenal("p2"));
 
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+            TesteJurandir T3 = new TesteJurandir();
+            int z = T3.Teste(new JogadorEquipeAlfa("p1"), new JogadorEquipeAlfa("p2"));
 
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
-            mesaDeTruco.Jogar();
+            Console.Clear();
+
+
+            Console.WriteLine("Juranda teve um aproveitamento de {0}% contra IlusionistaDaMesa", x/10);
+            Console.WriteLine("Juranda teve um aproveitamento de {0}% contra Juvenal", y/10);
+            Console.WriteLine("Juranda teve um aproveitamento de {0}% contra EquipeAlfa", z/10);
+
             Console.ReadLine();
         }
     }
