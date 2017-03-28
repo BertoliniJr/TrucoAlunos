@@ -31,34 +31,47 @@ namespace CardGame
         {
             Manilha = M;
             pontos = 1;
+            correu = 0;
+            EquipeTrucante = -1;
         }
 
-        protected virtual void OlharTruco(Jogador jogador, Truco pedido)
+        private bool validarTruco(Jogador jogador, Truco pedido)
         {
             //Validando o truco
+            if (jogadores.Where(x => Equipe.BuscaID(x.IDEquipe).PontosEquipe >= 12).Count() > 0)
+            {
+                Console.WriteLine($"Jogador {jogador} trucou na mão de doze. Perdeu");
+                correu = jogador.IDEquipe;
+                return false;
+            }
+
             if (jogador.IDEquipe == EquipeTrucante)
             {
                 Console.WriteLine($"Jogador {jogador} trucou, mas equipe já está trucando");
-                return;
+                return false;
             }
 
-            if (this.pontos <= pedido.pontosTruco())
+            if (this.pontos >= pedido.pontosTruco())
             {
                 Console.WriteLine($"Jogador {jogador} pediu {pedido}, mas a partida já está valendo mais");
+                return false;
             }
 
             if (Truco.jogo.pontosTruco() == this.pontos)
             {
                 Console.WriteLine("Partida já está valendo jogo");
-                return;
+                return false;
             }
-            if (this.pontos == Truco.doze.pontosTruco())
-            {
-                Console.WriteLine($"Jogador {jogador} trucou na mão de 12, vai correr da mão");
-                this.correu = jogador.IDEquipe;
-                return;
-            }
+            return true;
+        }
 
+        protected virtual void OlharTruco(Jogador jogador, Truco pedido)
+        {
+            if (!validarTruco(jogador, pedido))
+            {
+                return;
+            }
+            Console.WriteLine($"{jogador} pedindo {pedido}");
             //Perguntando jogadores se aceitam
             Tuple<Jogador, Escolha> aceite = aceita(jogador, pedido);
 
@@ -66,11 +79,13 @@ namespace CardGame
             switch (aceite.Item2)
             {
                 case Escolha.correr:
+                    Console.WriteLine($"Equipe {Equipe.BuscaID(aceite.Item1.IDEquipe)} correu");
                     correu = aceite.Item1.IDEquipe;
                     break;
                 case Escolha.aceitar:
                     this.pontos = pedido.pontosTruco();
                     EquipeTrucante = jogador.IDEquipe;
+                    Console.WriteLine($"{aceite.Item1} aceitou o truco");
                     break;
                 case Escolha.aumentar:
                     #region aumentar
@@ -126,11 +141,7 @@ namespace CardGame
         {
             // Inicialização dos sinais do truco
             jogadores = jogadoresParametro;
-            foreach (var jogador in jogadores)
-            {
-                jogador.truco += this.OlharTruco;
-                this.novaCarta += jogador.novaCarta;
-            }
+            this.ligaEventos();
 
             // variaveis de controle
             int[] eqp1 = new int[2];
@@ -161,9 +172,9 @@ namespace CardGame
                 {
                     #region loop da mão
                     ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
-                    novaCarta(ListaCartas.Last(), jogadores[j], Manilha);
                     Carta X = ListaCartas.Last();
                     Console.WriteLine(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), TrucoAuxiliar.gerarValorCarta(X, Manilha) );
+                    novaCarta(X, jogadores[j], Manilha);
 
                     if (jogadores[j].IDEquipe == eqp1[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior1, Manilha) > 0)
                     {
@@ -183,6 +194,7 @@ namespace CardGame
                         Equipe vencedora = Equipe.BuscaID(jogadores.Where(x => x.IDEquipe != correu).First().IDEquipe);
                         vencedora.GanharPontos(pontos);
                         Console.WriteLine("A {0}, ganhou a rodada !", vencedora.ToString());
+                        desligaEventos();
                         return;
                     }
                     #endregion
@@ -230,6 +242,25 @@ namespace CardGame
             else
             {
                 Console.WriteLine("\n*Empate na rodada, ninguem ganhou pontos*");
+            }
+            desligaEventos();
+        }
+
+        private void ligaEventos()
+        {
+            foreach (var jogador in jogadores)
+            {
+                jogador.truco += this.OlharTruco;
+                this.novaCarta += jogador.novaCarta;
+            }
+        }
+
+        private void desligaEventos()
+        {
+            foreach (var jogador in jogadores)
+            {
+                jogador.truco -= this.OlharTruco;
+                this.novaCarta -= jogador.novaCarta;
             }
         }
 
