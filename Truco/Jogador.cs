@@ -10,17 +10,6 @@ namespace CardGame
     {
         public event trucoseubosta truco;
         public delegate void trucoseubosta(Jogador jogador, Truco truco);
-        public virtual void novaCarta(Carta carta, Jogador jogador)
-        {
-            if (jogador.IDEquipe != this.IDEquipe 
-                && ((Carta)carta).valor(manilha) < 2 
-                && _mao.Max(a => a.valor(manilha)) > 10)
-                truco(this, Truco.truco);
-        }
-        public virtual Escolha trucado(Jogador trucante, Truco valor)
-        {
-            return Escolha.aceitar;
-        }
 
         protected List<Carta> _mao;
         protected string _nome;
@@ -108,9 +97,23 @@ namespace CardGame
         {
             _mao.Add(c);
         }
+
         public void NovaMao()
         {
             _mao = new List<Carta>();
+        }
+
+        public virtual void novaCarta(Carta carta, Jogador jogador)
+        {
+            if (jogador.IDEquipe != this.IDEquipe
+                && ((Carta)carta).valor(manilha) < 2
+                && _mao.Max(a => a.valor(manilha)) > 10)
+                truco(this, Truco.truco);
+        }
+
+        public virtual Escolha trucado(Jogador trucante, Truco valor)
+        {
+            return Escolha.aceitar;
         }
     }
 }
