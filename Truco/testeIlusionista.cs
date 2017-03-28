@@ -131,8 +131,7 @@ namespace Truco
             sw.WriteLine();
             sw.Close();
         }
-
-
+        
         public void TesteAlfa()
         {
             Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1");
@@ -173,5 +172,124 @@ namespace Truco
             sw.Close();
         }
 
+        public void TesteIlusionistaEJurandi()
+        {
+            Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
+            Jogador jogador2 = new JurandirOJogador();
+            Jogador jogador3 = new Juvenal("Juvena 3");
+            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
+
+            int v1 = 0;
+            int v2 = 0;
+
+            for (int i = 0; i < 1000; i++)
+            {
+                mesaDeTruco.Jogar();
+                if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
+                {
+                    v1++;
+                }
+                else
+                {
+                    v2++;
+                }
+            }
+
+            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs);
+
+            sw.WriteLine("Equipe Alfa e Juvenal vs Equipe Ilusionista e Jurandi");
+            sw.WriteLine();
+            sw.WriteLine("A equipe Alfa e Juvenal ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
+            sw.WriteLine("A equipe Ilusionista e Jurandi ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
+            sw.WriteLine();
+            sw.Close();
+        }
+
+        public void TesteIlusionistaEJuvenal()
+        {
+            Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
+            Jogador jogador2 = new Juvenal("Juvena 2"); 
+            Jogador jogador3 = new JurandirOJogador();
+            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
+
+            int v1 = 0;
+            int v2 = 0;
+
+            for (int i = 0; i < 1000; i++)
+            {
+                mesaDeTruco.Jogar();
+                if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
+                {
+                    v1++;
+                }
+                else
+                {
+                    v2++;
+                }
+            }
+
+            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs);
+
+            sw.WriteLine("Equipe Alfa e Jurandi vs Equipe Ilusionista e Juvenal");
+            sw.WriteLine();
+            sw.WriteLine("A equipe Alfa e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
+            sw.WriteLine("A equipe Ilusionista e Juvenal ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
+            sw.WriteLine();
+            sw.Close();
+        }
+
+        public void TesteIlusionistaEAlfa()
+        {
+            Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1");
+            Jogador jogador2 = new Juvenal("Alfa 2");
+            Jogador jogador3 = new JurandirOJogador();
+            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
+
+            int v1 = 0;
+            int v2 = 0;
+
+            for (int i = 0; i < 1000; i++)
+            {
+                mesaDeTruco.Jogar();
+                if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
+                {
+                    v1++;
+                }
+                else
+                {
+                    v2++;
+                }
+            }
+
+            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs);
+
+            sw.WriteLine("Equipe Juvenal e Jurandi vs Equipe Ilusionista e Alfa");
+            sw.WriteLine();
+            sw.WriteLine("A equipe Juvenal e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
+            sw.WriteLine("A equipe Ilusionista e Alfa ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
+            sw.WriteLine();
+            sw.Close();
+        }
     }
 }
