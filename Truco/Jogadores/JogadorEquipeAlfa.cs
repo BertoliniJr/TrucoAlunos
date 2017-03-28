@@ -40,7 +40,7 @@ namespace Truco
 
             if (cartasRodada.LastOrDefault() == null)
             {
-                _mao.RemoveAt(0);
+                _mao.Remove(carta);
                 return carta;
             }
             else if (cartasRodada.Count == 1)
@@ -48,7 +48,7 @@ namespace Truco
                 for (int i = 0; i < _mao.Count; i++)
                 {
                     
-                    if (TrucoAuxiliar.comparar(_mao[i], cartasRodada[0], manilha) > 0)
+                    if (TrucoAuxiliar.comparar(_mao[i], maiorMesa, manilha) > 0)
                     {
                         carta = _mao[i];
                         _mao.RemoveAt(i);
@@ -71,7 +71,7 @@ namespace Truco
                 for (int i = 0; i < _mao.Count; i++)
                 {
 
-                    if (TrucoAuxiliar.comparar(_mao[i], cartasRodada[0], manilha) > 0)
+                    if (TrucoAuxiliar.comparar(_mao[i], maiorMesa, manilha) > 0)
                     {
                          carta = _mao[i];
                         _mao.RemoveAt(i);

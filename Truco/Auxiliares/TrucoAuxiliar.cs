@@ -51,6 +51,66 @@ namespace CardGame
             return pesoCarta;
         }
 
+        public static int pontosTruco(this Truco pedido)
+        {
+            switch (pedido)
+            {
+                case Truco.truco:
+                    return 3;
+                case Truco.seis:
+                    return 6;
+                case Truco.nove:
+                    return 9;
+                case Truco.doze:
+                    return 12;
+                case Truco.jogo:
+                    return 15;
+                default:
+                    return 1;
+            }
+        }
+
+        public static Truco proximo(this Truco pedido)
+        {
+            switch (pedido)
+            {
+                case Truco.truco:
+                    return Truco.seis;
+                case Truco.seis:
+                    return Truco.nove;
+                case Truco.nove:
+                    return Truco.doze;
+                case Truco.doze:
+                    return Truco.jogo;
+                default:
+                    return Truco.truco;
+            }
+        }
+
+        public static Truco? trucoPorPontos(this int valor)
+        {
+            switch (valor)
+            {
+                case 3:
+                    return Truco.truco;
+                case 6:
+                    return Truco.seis;
+                case 9:
+                    return Truco.nove;
+                case 12:
+                    return Truco.doze;
+                case 15:
+                    return Truco.jogo;
+                default:
+                    return null;
+            }
+        }
+
+        public static int valor(this Carta a, Carta manilha)
+        {
+            return gerarValorCarta(a, manilha);
+        }
+
         public static int compara(this Carta a, Carta b, Carta manilha)
         {
             return comparar(a, b, manilha);
