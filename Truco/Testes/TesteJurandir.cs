@@ -36,9 +36,5 @@ namespace Truco
 
             return count;
         }
-
-
-
-
     }
 }
