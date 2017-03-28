@@ -81,6 +81,7 @@ namespace CardGame
 
                 foreach (var jogador in posicoes)
                 {
+                    jogador.NovaMao();
                     for (int i = 0; i < rodadaMesa.getNumCartas(); i++)
                     {
                         jogador.ReceberCarta(baralhoMesa.pegarProxima());
@@ -88,6 +89,7 @@ namespace CardGame
                 }
 
                 rodadaMesa.Rodar(posicoes);
+
                 baralhoMesa.recolher();
 
                 foreach (var equipe in equipeMesa)
