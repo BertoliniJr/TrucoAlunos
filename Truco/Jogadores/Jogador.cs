@@ -14,7 +14,6 @@ namespace CardGame
         protected List<Carta> _mao;
         protected string _nome;
         protected int IDequipe;
-        protected Carta manilha;
         public string nome
         {
             get
@@ -47,9 +46,8 @@ namespace CardGame
             _mao = new List<Carta>();
         }
 
-        public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilhaParametro)
+        public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
-            manilha = manilhaParametro;
             // encontra maior da mesa
             if (_mao.Count == 3)
             {
@@ -103,7 +101,7 @@ namespace CardGame
             _mao = new List<Carta>();
         }
 
-        public virtual void novaCarta(Carta carta, Jogador jogador)
+        public virtual void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
             if (jogador.IDEquipe != this.IDEquipe
                 && ((Carta)carta).valor(manilha) < 2

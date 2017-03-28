@@ -11,7 +11,7 @@ namespace CardGame
     {
         //Eventos do truco
         public event novacarta novaCarta;
-        public delegate void novacarta(Carta a, Jogador j);
+        public delegate void novacarta(Carta a, Jogador j, Carta manilha);
 
         private int NumCartas = 3;
         Carta Manilha;
@@ -150,6 +150,7 @@ namespace CardGame
             //Loop das rodadas
             for (int i = 0; i < 3  ; i++)
             {
+                #region loop da rodada
                 ListaCartas = new List<Carta>();
                 Carta maior1 = null;
                 Carta maior2 = null;
@@ -160,7 +161,7 @@ namespace CardGame
                 {
                     #region loop da mão
                     ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
-                    novaCarta(ListaCartas.Last(), jogadores[j]);
+                    novaCarta(ListaCartas.Last(), jogadores[j], Manilha);
                     Carta X = ListaCartas.Last();
                     Console.WriteLine(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), TrucoAuxiliar.gerarValorCarta(X, Manilha) );
 
@@ -175,6 +176,14 @@ namespace CardGame
                         maior2 = ListaCartas[j];
                         imaior2 = j;
                         indempate = j;
+                    }
+                    if (correu != 0)
+                    {
+                        Console.WriteLine($"Equipe {Equipe.BuscaID(correu)} correu do truco.");
+                        Equipe vencedora = Equipe.BuscaID(jogadores.Where(x => x.IDEquipe != correu).First().IDEquipe);
+                        vencedora.GanharPontos(pontos);
+                        Console.WriteLine("A {0}, ganhou a rodada !", vencedora.ToString());
+                        return;
                     }
                     #endregion
                 }
@@ -206,7 +215,7 @@ namespace CardGame
 
                 if (eqp1[1] != eqp2[1] && (eqp1[1] == 2 || eqp2[1] == 2))
                     break;
-                                
+                #endregion
             }
             if (eqp1[1] > eqp2[1])
             {
