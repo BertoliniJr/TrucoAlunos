@@ -47,7 +47,6 @@
     <Compile Include="Carta.cs" />
     <Compile Include="EnumeradorNaipe.cs" />
     <Compile Include="Equipe.cs" />
-    <Compile Include="Grupo3.cs" />
     <Compile Include="IRodada.cs" />
     <Compile Include="Jogador.cs" />
     <Compile Include="Mesa.cs" />
