@@ -8,7 +8,7 @@ namespace CardGame
 {
     class Jogador
     {
-        public event EventHandler truco;
+
         protected List<Carta> _mao;
         protected string _nome;
         protected int IDequipe;
@@ -43,7 +43,10 @@ namespace CardGame
             nome = n;
             _mao = new List<Carta>();
         }
-
+        static public int comparar(Carta a, Carta b, Carta manilha)
+        {
+            return 0;
+        }
         public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
             // encontra maior da mesa
@@ -54,7 +57,7 @@ namespace CardGame
             Carta maiorMesa = cartasRodada.LastOrDefault();
             for (int i = 0; i < cartasRodada.Count - 1; i++)
             {
-                if (TrucoAuxiliar.comparar(cartasRodada[i], maiorMesa, manilha) > 0)
+                if (comparar(cartasRodada[i], maiorMesa, manilha) > 0)
                 {
                     maiorMesa = cartasRodada[i];
                 }
@@ -72,7 +75,7 @@ namespace CardGame
                 for (int i = 0; i < _mao.Count; i++)
                 {
                     carta = _mao[i];
-                    if (TrucoAuxiliar.comparar(carta, maiorMesa, manilha) > 0)
+                    if (comparar(carta, maiorMesa, manilha) > 0)
                     {
                         _mao.RemoveAt(i);
                         return carta;
@@ -83,8 +86,7 @@ namespace CardGame
                 return carta;
             }
         }
-
-        protected void ordenar(Carta manilha)
+        public void ordenar(Carta manilha)
         {
             _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorCarta(x, manilha)).ToList();
         }
@@ -93,11 +95,9 @@ namespace CardGame
         {
             _mao.Add(c);
         }
-        public void NovaMao()
-        {
-            _mao = new List<Carta>();
-        }
     }
+
+
 }
 
 
