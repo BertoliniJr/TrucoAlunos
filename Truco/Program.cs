@@ -13,8 +13,4 @@ namespace Truco
         {
             int x = TesteJurandir.Teste1(new IlusionistaDaMesa("p1"));
             Console.WriteLine(x);
-
-            Console.ReadLine();
-        }
-    }
-}
+         
