@@ -156,9 +156,9 @@ namespace CardGame
                 int imaior1 = 0;
                 int imaior2 = 0;
 
-                #region loop da mão
                 for (int j = 0; j < 4; j++)
                 {
+                    #region loop da mão
                     ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
                     novaCarta(ListaCartas.Last(), jogadores[j]);
                     Carta X = ListaCartas.Last();
@@ -176,9 +176,8 @@ namespace CardGame
                         imaior2 = j;
                         indempate = j;
                     }
-                    
+                    #endregion
                 }
-                #endregion
 
                 if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) == 0)
                 {
