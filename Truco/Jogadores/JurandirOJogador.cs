@@ -52,7 +52,8 @@ namespace CardGame
                             carta = _mao[1];
                             _mao.RemoveAt(1);
                             return carta;
-                        }else
+                        }
+                        else
                         {
                             carta = _mao[0];
                             _mao.RemoveAt(0);
