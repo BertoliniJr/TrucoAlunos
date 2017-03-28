@@ -8,11 +8,14 @@ namespace CardGame
 {
     class Jogador
     {
-        public event EventHandler truco;
-        public virtual void novaCarta(object carta, EventArgs e)
+        public event trucoseubosta truco;
+        public delegate void trucoseubosta(Jogador jogador, Truco truco);
+        public virtual void novaCarta(Carta carta, Jogador jogador)
         {
-            if (((Carta)carta).Valor == 0)
-                truco(this, EventArgs.Empty);
+            if (jogador.IDEquipe != this.IDEquipe 
+                && ((Carta)carta).valor(manilha) < 2 
+                && _mao.Max(a => a.valor(manilha)) > 10)
+                truco(this, Truco.truco);
         }
         public virtual Escolha trucado(Jogador trucante, Truco valor)
         {
@@ -22,6 +25,7 @@ namespace CardGame
         protected List<Carta> _mao;
         protected string _nome;
         protected int IDequipe;
+        protected Carta manilha;
         public string nome
         {
             get
@@ -54,8 +58,9 @@ namespace CardGame
             _mao = new List<Carta>();
         }
 
-        public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
+        public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilhaParametro)
         {
+            manilha = manilhaParametro;
             // encontra maior da mesa
             if (_mao.Count == 3)
             {
