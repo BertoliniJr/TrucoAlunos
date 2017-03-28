@@ -67,7 +67,6 @@ namespace CardGame
             {
                 _mao.RemoveAt(0);
                 return carta;
-
             }
             else
             {
@@ -103,8 +102,9 @@ namespace CardGame
 
         public virtual void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
-            if (jogador.IDEquipe != this.IDEquipe
+            if (jogador.IDEquipe != IDEquipe
                 && ((Carta)carta).valor(manilha) < 2
+                && _mao.Count > 0
                 && _mao.Max(a => a.valor(manilha)) > 10)
                 truco(this, Truco.truco);
         }
@@ -112,6 +112,11 @@ namespace CardGame
         public virtual Escolha trucado(Jogador trucante, Truco valor)
         {
             return Escolha.aceitar;
+        }
+
+        public override string ToString()
+        {
+            return this.nome;
         }
     }
 }
