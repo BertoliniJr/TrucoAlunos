@@ -9,7 +9,7 @@ namespace CardGame
     class Jogador
     {
         public event trucoseubosta truco;
-        public delegate void trucoseubosta(Jogador jogador, Truco truco);
+        public delegate void trucoseubosta(Jogador jogador, Truco truco);        
 
         protected List<Carta> _mao;
         protected string _nome;
@@ -117,6 +117,11 @@ namespace CardGame
         public override string ToString()
         {
             return this.nome;
+        }
+
+        protected void trucar (Jogador jogador, Truco pedido)
+        {
+            truco(jogador, pedido);
         }
     }
 }
