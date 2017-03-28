@@ -40,7 +40,7 @@ namespace Truco
 
             if (cartasRodada.LastOrDefault() == null)
             {
-                _mao.RemoveAt(2);
+                _mao.Remove(carta);
                 return carta;
             }
             else if (cartasRodada.Count == 1)
