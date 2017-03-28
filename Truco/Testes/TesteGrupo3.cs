@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Truco;
 
 namespace CardGame
 {
@@ -11,17 +12,19 @@ namespace CardGame
     {
         public StreamWriter n1;
 
-        public TesteGrupo3() {
+        public TesteGrupo3()
+        {
             n1 = new StreamWriter("Teste.txt");
-            
+
         }
 
 
-        public void testarIlusionista() {
+        public void testarIlusionista()
+        {
 
-            
 
-            int juvenal=0, ilusionista=0, empate = 0;
+
+            int juvenal = 0, ilusionista = 0, empate = 0;
 
 
             Jogador jogador1 = new Juvenal("Juvenal");
@@ -61,19 +64,19 @@ namespace CardGame
                 {
                     empate++;
                 }
-                
+
             }
             n1.WriteLine(juvenal + "            " + ilusionista);
-            n1.WriteLine("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal/1000D)*100D);
+            n1.WriteLine("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal / 1000D) * 100D);
             n1.WriteLine("          \n ");
-            Console.WriteLine("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, ilusionista,empate);
-           
+            Console.WriteLine("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, ilusionista, empate);
+
         }
 
         public void testarJurandir()
         {
 
-           
+
 
             int juvenal = 0, Jurandir = 0, empate = 0;
 
@@ -120,7 +123,7 @@ namespace CardGame
             n1.WriteLine("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal / 1000D) * 100D);
             n1.WriteLine("        \n   ");
             Console.WriteLine("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, Jurandir, empate);
-           
+
         }
 
         public void testarAlfa()
@@ -172,10 +175,11 @@ namespace CardGame
             n1.WriteLine("      \n     ");
 
             Console.WriteLine("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, alfa, empate);
-            
+
         }
 
-        public void fechaArquivo() {
+        public void fechaArquivo()
+        {
 
             n1.Close();
 

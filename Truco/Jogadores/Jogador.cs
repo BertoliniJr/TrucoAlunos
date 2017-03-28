@@ -8,6 +8,8 @@ namespace CardGame
 {
     class Jogador
     {
+        public event trucoseubosta truco;
+        public delegate void trucoseubosta(Jogador jogador, Truco truco);
 
         protected List<Carta> _mao;
         protected string _nome;
@@ -43,10 +45,7 @@ namespace CardGame
             nome = n;
             _mao = new List<Carta>();
         }
-        static public int comparar(Carta a, Carta b, Carta manilha)
-        {
-            return 0;
-        }
+
         public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
             // encontra maior da mesa
@@ -57,7 +56,7 @@ namespace CardGame
             Carta maiorMesa = cartasRodada.LastOrDefault();
             for (int i = 0; i < cartasRodada.Count - 1; i++)
             {
-                if (comparar(cartasRodada[i], maiorMesa, manilha) > 0)
+                if (TrucoAuxiliar.comparar(cartasRodada[i], maiorMesa, manilha) > 0)
                 {
                     maiorMesa = cartasRodada[i];
                 }
@@ -75,7 +74,7 @@ namespace CardGame
                 for (int i = 0; i < _mao.Count; i++)
                 {
                     carta = _mao[i];
-                    if (comparar(carta, maiorMesa, manilha) > 0)
+                    if (TrucoAuxiliar.comparar(carta, maiorMesa, manilha) > 0)
                     {
                         _mao.RemoveAt(i);
                         return carta;
@@ -86,7 +85,8 @@ namespace CardGame
                 return carta;
             }
         }
-        public void ordenar(Carta manilha)
+
+        protected void ordenar(Carta manilha)
         {
             _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorCarta(x, manilha)).ToList();
         }
@@ -95,9 +95,25 @@ namespace CardGame
         {
             _mao.Add(c);
         }
+
+        public void NovaMao()
+        {
+            _mao = new List<Carta>();
+        }
+
+        public virtual void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        {
+            if (jogador.IDEquipe != this.IDEquipe
+                && ((Carta)carta).valor(manilha) < 2
+                && _mao.Max(a => a.valor(manilha)) > 10)
+                truco(this, Truco.truco);
+        }
+
+        public virtual Escolha trucado(Jogador trucante, Truco valor)
+        {
+            return Escolha.aceitar;
+        }
     }
-
-
 }
 
 

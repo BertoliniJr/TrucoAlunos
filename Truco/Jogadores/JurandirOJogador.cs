@@ -21,12 +21,13 @@ namespace CardGame
             {
                 ordenar(manilha);
             }
-            Carta carta = null;
+            Carta carta;
 
             switch (_mao.Count)
             {
                 case 3:
                     //Carta maiorMesa = cartasRodada.LastOrDefault();
+
                     if (cartasRodada.Count == 0)
                     {
                         if (TrucoAuxiliar.gerarValorCarta(_mao[1], manilha) > 7)
@@ -41,6 +42,7 @@ namespace CardGame
                             _mao.RemoveAt(0);
                             return carta;
                         }
+
                     }
 
                     if (cartasRodada.Count == 1)
@@ -50,8 +52,7 @@ namespace CardGame
                             carta = _mao[1];
                             _mao.RemoveAt(1);
                             return carta;
-                        }
-                        else
+                        }else
                         {
                             carta = _mao[0];
                             _mao.RemoveAt(0);
@@ -108,10 +109,12 @@ namespace CardGame
                             _mao.RemoveAt(0);
                             return carta;
                         }
+
+
+
                     }
 
-
-                    break;
+                    return null;
                 case 2:
 
 
@@ -130,19 +133,17 @@ namespace CardGame
                     if (cartasRodada.Count == 1)
                     {
 
-                        carta = _mao[1];
-                        _mao.RemoveAt(1);
-                        return carta;
-                    }
-
-                    if (cartasRodada.Count == 2)
-                    {
                         carta = _mao[0];
                         _mao.RemoveAt(0);
                         return carta;
+                    }
+                    if (cartasRodada.Count == 2)
+                    {
+                        carta = _mao[1];
+                        _mao.RemoveAt(1);
+                        return carta;
 
                     }
-
                     if (cartasRodada.Count == 3)
                     {
                         if (TrucoAuxiliar.compara(cartasRodada[1], cartasRodada[0], manilha) > 0 && TrucoAuxiliar.compara(cartasRodada[1], cartasRodada[2], manilha) > 0)
@@ -166,17 +167,26 @@ namespace CardGame
                             _mao.RemoveAt(0);
                             return carta;
                         }
+
+
+
                     }
-                    break;
+
+                    return null;
+
                 case 1:
                     carta = _mao[0];
                     _mao.RemoveAt(0);
                     return carta;
-
                 default: return null;
 
+
             }
-            return null;
+
+
+
+
+
         }
     }
 }
