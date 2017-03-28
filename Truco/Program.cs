@@ -11,7 +11,8 @@ namespace Truco
     {
         static void Main(string[] args)
         {
-int x = tes
+            int x = TesteJurandir.Teste1();
+            Console.WriteLine(x);
             Console.ReadLine();
         }
     }
