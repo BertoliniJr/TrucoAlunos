@@ -16,6 +16,13 @@ namespace CardGame
 
         }
 
+        public override void NovaMao()
+        {
+            base.NovaMao();
+            cartasUsadas = new List<Carta>();
+        }
+
+
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
 
@@ -211,15 +218,28 @@ namespace CardGame
             }
         }
 
-        public override Escolha trucado(Jogador trucante, Truco valor)
+        public override Escolha trucado(Jogador trucante, Truco valor, Carta manilha)
         {
-            if (trucante.IDEquipe != this.IDEquipe && Equipe.BuscaID(this.IDEquipe).PontosEquipe < valorJogoTruco(valor))
-                return Escolha.aceitar;
-            else
-                return Escolha.correr;
+            int ptsMinhaEqp = Equipe.BuscaID(this.IDEquipe).PontosEquipe;
+            int ptsEqpAdv = Equipe.BuscaID(trucante.IDEquipe).PontosEquipe;
 
-            //if (TrucoAuxiliar.comparar(_mao.LastOrDefault(), cartasUsadas.LastOrDefault(), manilha) > 0)
-            //    return Escolha.aceitar;
+            if (ptsMinhaEqp - ptsEqpAdv > valorJogoTruco(valor))
+                return Escolha.aceitar;
+            if ((ptsEqpAdv > ptsMinhaEqp && ptsEqpAdv + valorJogoTruco(valor) < 15))
+                return Escolha.aceitar;
+
+            int x = ManilhasNaMao(manilha);
+            if (x >= 2)
+                return Escolha.aumentar;
+            if (ptsEqpAdv > 9 && ptsMinhaEqp < 5)
+                return Escolha.aumentar;
+
+
+            if (_mao[0].valor(manilha) < 8)
+                return Escolha.correr;
+            else
+                return Escolha.aceitar;
+
         }
 
         private int valorJogoTruco(Truco valor)
@@ -257,11 +277,15 @@ namespace CardGame
                 if (_mao[0].valor(manilha) > 10) base.trucar(this, Truco.truco);
             }
         }
-        
-        public override void NovaMao()
+
+        private int ManilhasNaMao(Carta manilha)
         {
-            base.NovaMao();
-            cartasUsadas = new List<Carta>();
+            int cont = 0;
+            foreach (var x in _mao)
+            {
+                cont = (x.valor(manilha) > 9) ? cont : cont;
+            }
+            return cont;
         }
     }
 }
