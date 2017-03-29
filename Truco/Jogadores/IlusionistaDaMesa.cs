@@ -35,7 +35,7 @@ namespace Truco
             ganheiSegunda(cartasRodada);
 
             #region UltimaCarta
-            if (_mao.Count == 1 && _mao[0].valor(manilha)>cartasRodada.Max(x=>x.valor(manilha))&&cartasRodada.Count>2)
+            if (_mao.Count == 1 && cartasRodada.Count > 2 && _mao[0].valor(manilha)>cartasRodada.Max(x=>x.valor(manilha)))
             {
                 trucar(this, trucar());
                 return jogaMenor();
