@@ -11,11 +11,23 @@ namespace CardGame
         public JogadorProfessor(string n) : base(n)
         {
             nome = $"Professor {n}";
+            cartasUsadas = new List<Carta>();
+            trucoAtual = null;
         }
 
-        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        private List<Carta> cartasUsadas;
+        private Truco? trucoAtual;
+
+        public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
 
+        }
+
+        public override void NovaMao()
+        {
+            base.NovaMao();
+            cartasUsadas = new List<Carta>();
+            trucoAtual = null;
         }
     }
 }

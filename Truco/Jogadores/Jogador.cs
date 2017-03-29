@@ -95,7 +95,7 @@ namespace CardGame
             _mao.Add(c);
         }
 
-        public void NovaMao()
+        public virtual void NovaMao()
         {
             _mao = new List<Carta>();
         }
