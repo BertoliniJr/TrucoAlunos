@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using CardGame;
 
 
-namespace Truco
+
+namespace CardGame
 {
 
-
+   
 
     class JogadorEquipeAlfa : Jogador
     {
@@ -19,12 +20,13 @@ namespace Truco
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
 
+
+
             // encontra maior da mesa
             if (_mao.Count == 3)
             {
                 ordenar(manilha);
             }
-
             Carta maiorMesa = cartasRodada.LastOrDefault();
             for (int i = 0; i < cartasRodada.Count - 1; i++)
             {
@@ -44,17 +46,9 @@ namespace Truco
             }
             else if (cartasRodada.Count == 1)
             {
-
-
-
-                carta = _mao[0];
-                _mao.RemoveAt(0);
-                return carta;
-            }
-                if (cartasRodada.Count == 2)
-                {
                 for (int i = 0; i < _mao.Count; i++)
                 {
+                    
                     if (TrucoAuxiliar.comparar(_mao[i], maiorMesa, manilha) > 0)
                     {
                         carta = _mao[i];
@@ -62,34 +56,50 @@ namespace Truco
                         return carta;
 
                     }
-                }
-                        carta = _mao[0];
-                        _mao.RemoveAt(0);
-                        return carta;
                     
                 }
-            
-          
-                
-                else 
+                carta = _mao[0];
+                _mao.RemoveAt(0);
+                return carta;
+            }
+            else if (cartasRodada.Count == 2)
+            {
+                carta = _mao[0];
+                _mao.RemoveAt(0);
+                return carta;
+            } else
+            {
+                for (int i = 0; i < _mao.Count; i++)
                 {
-                    for (int i = 0; i < _mao.Count; i++)
+
+                    if (TrucoAuxiliar.comparar(_mao[i], maiorMesa, manilha) > 0)
                     {
-
-                        if (TrucoAuxiliar.comparar(_mao[i], maiorMesa, manilha) > 0)
-                        {
-                            carta = _mao[i];
-                            _mao.RemoveAt(i);
-                            return carta;
-
-                        }
+                         carta = _mao[i];
+                        _mao.RemoveAt(i);
+                        return carta;
 
                     }
-                    carta = _mao[0];
-                    _mao.RemoveAt(0);
-                    return carta;
+                   
                 }
+                carta = _mao[0];
+                _mao.RemoveAt(0);
+                return carta;
             }
-
         }
+        public override  void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        {
+            if (jogador.IDEquipe != IDEquipe
+                && ((Carta)carta).valor(manilha) < 2
+                && _mao.Count > 0
+                && _mao.Max(a => a.valor(manilha)) > 10)
+                trucar(this, Truco.truco);
+        }
+
+        public override Escolha trucado(Jogador trucante, Truco valor)
+        {
+            return Escolha.aceitar;
+        }   
+
+
     }
+}
