@@ -78,9 +78,9 @@ namespace Truco
             for (int i = 0; i < 1000; i++)
             {
                 Jogador jogador1 = new Juvenal("Jogador 1");
-                Jogador jogador2 = new JurandirOJogador();
+                Jogador jogador2 = new JurandirOJogador("");
                 Jogador jogador3 = new Juvenal("Jogador 3");
-                Jogador jogador4 = new JurandirOJogador();
+                Jogador jogador4 = new JurandirOJogador("");
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });

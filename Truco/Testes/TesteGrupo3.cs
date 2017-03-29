@@ -82,9 +82,9 @@ namespace CardGame
 
 
             Jogador jogador1 = new Juvenal("Juvenal");
-            Jogador jogador2 = new JurandirOJogador();
+            Jogador jogador2 = new JurandirOJogador("");
             Jogador jogador3 = new Juvenal("Juvenal");
-            Jogador jogador4 = new JurandirOJogador();
+            Jogador jogador4 = new JurandirOJogador("");
 
             n1.WriteLine("Juvenal X Jurandir");
             for (int x = 0; x < 1000; x++)
