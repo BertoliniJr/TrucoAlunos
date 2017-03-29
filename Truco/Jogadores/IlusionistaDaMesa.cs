@@ -164,15 +164,15 @@ namespace Truco
             if (trucante.IDEquipe == this.IDEquipe)
                 return Escolha.aceitar;
             //primeira rodada
-            if (_mao.Where(x => x.valor(manilha) >= 11).Count() >= 2)
+            if (_mao.Where(x => x.valor(manilha) >= 10).Count() >= 2)
             {
                 return aceitarComZap(manilha, valor);
             }
             //segunda rodada
-            if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
+            if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 9).Count() >= 1)
                 return aceitarComZap(manilha, valor);
             //terceira rodada
-            if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 11).Count() >= 1)
+            if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
                 return aceitarComZap(manilha, valor);
             Console.WriteLine("MUITA CARTA NA MAO DE TONTO, É SÓ UM PONTO");
             return Escolha.correr;
