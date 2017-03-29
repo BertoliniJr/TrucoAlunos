@@ -191,14 +191,39 @@ namespace CardGame
         public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
             cartasUsadas.Add(carta);
-            if (jogador.IDEquipe != this.IDEquipe)
+
+            if(_mao.Count == 3)
             {
-                if (_mao.Count != 2)
+                int cartasBoas = 0;
+                foreach(var x in _mao)
                 {
-                    if (TrucoAuxiliar.compara(_mao[0], carta, manilha) > 0)
-                        base.truco(this, Truco.truco);
+                    cartasBoas = x.Valor >=10 ? cartasBoas + 1 : cartasBoas;
                 }
+
+                if(cartasBoas > 1)
+                {
+
+                }
+
             }
+            if (_mao.Count == 2)
+            {
+
+            }
+
+            if (_mao.Count == 1)
+            {
+
+            }
+
+            //    if (jogador.IDEquipe != this.IDEquipe)
+            //{
+            //    if (_mao.Count != 2)
+            //    {
+            //        if (TrucoAuxiliar.compara(_mao[0], carta, manilha) > 0)
+            //            base.trucar(this, Truco.truco);
+            //    }
+            //}
         }
 
         public override Escolha trucado(Jogador trucante, Truco valor)
