@@ -95,7 +95,7 @@ namespace CardGame
             _mao.Add(c);
         }
 
-        public void NovaMao()
+        public virtual void NovaMao()
         {
             _mao = new List<Carta>();
         }
@@ -109,7 +109,7 @@ namespace CardGame
                 truco(this, Truco.truco);
         }
 
-        public virtual Escolha trucado(Jogador trucante, Truco valor)
+        public virtual Escolha trucado(Jogador trucante, Truco valor, Carta manilha)
         {
             return Escolha.aceitar;
         }
