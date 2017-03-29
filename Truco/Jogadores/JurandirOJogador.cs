@@ -12,7 +12,7 @@ namespace CardGame
         private List<Carta> cartasUsadas = new List<Carta>();
         private bool estaTrucado = false;
 
-        public JurandirOJogador() : base("Jurandir o Pika das Galaxias")
+        public JurandirOJogador(string sobrenome) : base("Jurandir o "+sobrenome)
         {
 
         }
@@ -210,10 +210,9 @@ namespace CardGame
         {
 
             cartasUsadas.Add(carta);
-            if (!estaTrucado 
-                && Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12 
+            if (!estaTrucado
+                && Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12
                 || Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe < 12)
-            
             {
                 if (jogador.IDEquipe != this.IDEquipe)
                 {
