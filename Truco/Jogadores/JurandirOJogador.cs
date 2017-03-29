@@ -241,7 +241,7 @@ namespace CardGame
                 return Escolha.aumentar;
 
 
-            if (_mao[0].valor(manilha) < 8)
+            if (_mao.Count != 0 &&_mao[0].valor(manilha) < 8)
                 return Escolha.correr;
             else
                 return Escolha.aceitar;
