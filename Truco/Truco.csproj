@@ -63,6 +63,7 @@
     <Compile Include="Auxiliares\EnumeradorNaipe.cs" />
     <Compile Include="Equipe.cs" />
     <Compile Include="Jogadores\IlusionistaDaMesa.cs" />
+    <Compile Include="Jogadores\JogadorProfessor.cs" />
     <Compile Include="Jogadores\JurandirOJogador.cs" />
     <Compile Include="Jogadores\Juvenal.cs" />
     <Compile Include="IRodada.cs" />
