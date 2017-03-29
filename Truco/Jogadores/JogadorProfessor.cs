@@ -11,33 +11,198 @@ namespace CardGame
         public JogadorProfessor(string n) : base(n)
         {
             nome = $"Professor {n}";
-            cartasUsadas = new List<Carta>();
+            cartasMao = new List<Tuple<Jogador, Carta>>();
             trucoAtual = null;
             cartasNaoUasadas = geraBaralho();
+            equipeTrucante = null;
         }
 
-        private List<Carta> cartasUsadas;
+        private List<Tuple<Jogador, Carta>> cartasMao;
         private Truco? trucoAtual;
+        private int? equipeTrucante;
         private List<Carta> cartasNaoUasadas;
         private int pontosRodada;
+
+        private Carta jogarCarta(Carta a, Carta manilha)
+        {
+            _mao.Remove(a);
+            avaliarTruco(a, this, manilha);
+            return a;
+        }
+        private Carta menorQMata(Carta a, Carta manilha)
+        {
+            List<Carta> maoOrdenada = _mao.OrderBy(x => x.valor(manilha)).ToList();
+            foreach (var item in maoOrdenada)
+            {
+                if (item.compara(a, manilha) > 0)
+                    return item;
+            }
+            return null;
+        }
 
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
             if (_mao.Count == 3)
+            foreach (var item in _mao)
+                cartasNaoUasadas.Remove(item);
+
+            if (probabilidadeVitoria(manilha) > 70)
+                pedirTruco();
+
+            switch (_mao.Count)
             {
-                foreach (var item in _mao)
-                {
-                    cartasNaoUasadas.Remove(item);
-                }
+                case 3:
+                    #region PrimeiraJogada
+                    switch (cartasRodada.Count)
+                    {
+                        case 0:
+                        #region SerPrimeiroJogar
+                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                        #endregion
+
+                        case 1:
+                        #region SerPrimeirodaDuplaJogar
+                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                        #endregion
+
+                        case 2:
+                        #region SerPenultimoJogar
+                            if (cartasRodada[0].compara(cartasRodada[0], manilha) > 0 && cartasRodada[0].valor(manilha) > 7)
+                                return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                            if (menorQMata(cartasRodada[1], manilha) != null)
+                                return jogarCarta(menorQMata(cartasRodada[1], manilha), manilha);
+                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                            #endregion
+
+                        case 3:
+                        #region SerUltimo
+                        #endregion
+
+                        default:
+                            break;
+                    }
+
+                    break;
+                #endregion
+
+                case 2:
+                    #region SegundaJogada
+
+                    break;
+                #endregion
+
+                case 1:
+                    #region UltimaJogada
+                    break;
+                #endregion
+
+                default:
+                    break;
             }
+
+            return _mao.OrderBy(x => x.valor(manilha)).First();
+
         }
 
         public override void NovaMao()
         {
             base.NovaMao();
-            cartasUsadas = new List<Carta>();
+            cartasMao = new List<Tuple<Jogador, Carta>>();
             trucoAtual = null;
             cartasNaoUasadas = geraBaralho();
+            equipeTrucante = null;
+        }
+
+        private void avaliarTruco(Carta carta, Jogador jogador, Carta manilha)
+        {
+            if (Equipe.BuscaID(IDEquipe).PontosEquipe < 12 || Equipe.BuscaID(IDEquipe).Adversario.PontosEquipe < 12 || IDEquipe == equipeTrucante)
+                return;
+
+            if (trucoAtual == null && (probabilidadeVitoria(manilha) > 70 || probabilidadeVitoria(manilha) < 15))
+                pedirTruco();
+            else
+            {
+                switch (trucoAtual.Value)
+                {
+                    case Truco.truco:
+                        if (probabilidadeVitoria(manilha) > 75)
+                            pedirTruco();
+                        break;
+                    case Truco.seis:
+                        if (probabilidadeVitoria(manilha) > 80 && Equipe.BuscaID(IDEquipe).PontosEquipe < 9)
+                            pedirTruco();
+                        break;
+                    case Truco.nove:
+                        if (probabilidadeVitoria(manilha) > 84 && Equipe.BuscaID(IDEquipe).PontosEquipe < 6)
+                            pedirTruco();
+                        break;
+                    case Truco.doze:
+                        if (probabilidadeVitoria(manilha) > 90 && Equipe.BuscaID(IDEquipe).PontosEquipe < 3)
+                            pedirTruco();
+                        break;
+                    case Truco.jogo:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        {
+            if (cartasMao == null || cartasMao.Count == 4)
+                cartasMao = new List<Tuple<Jogador, Carta>>();
+            
+            cartasMao.Add(new Tuple<Jogador, Carta>(jogador, carta));
+
+            if (cartasMao.Count == 4)
+            {
+                cartasMao = cartasMao.OrderByDescending(x => x.Item2.valor(manilha)).ToList();
+                if (cartasMao[0].Item2.compara(cartasMao[1].Item2, manilha) == 0
+                    && cartasMao[0].Item1.IDEquipe == IDEquipe)
+                    pontosRodada = 1;
+            }
+
+            cartasNaoUasadas.Remove(carta);
+
+            avaliarTruco(carta, jogador, manilha);
+        }
+
+        private void pedirTruco()
+        {
+            if (trucoAtual == null)
+            {
+                equipeTrucante = IDEquipe;
+                trucoAtual = Truco.truco;
+            }
+            else
+            {
+                equipeTrucante = IDEquipe;
+                trucoAtual = trucoAtual.Value.proximo();
+            }
+            base.trucar(this, trucoAtual.Value);
+        }
+
+        private int probabilidadeVitoria(Carta manilha)
+        {
+            int vitoria;
+            cartasNaoUasadas.Remove(manilha);
+            double cartasMelhores = cartasNaoUasadas.Where(x => x.valor(manilha) >= (_mao.OrderBy(y => y.valor(manilha)).Last().valor(manilha))).Count();
+            double totalCartas = cartasNaoUasadas.Count();
+            vitoria = (int)((1 - (cartasMelhores / totalCartas)) * 100);
+            if (pontosRodada == 1)
+                return vitoria;
+            else
+            {
+                if (_mao.Count() > 1)
+                {
+                    cartasMelhores = cartasNaoUasadas.Where(x => x.valor(manilha) >= (_mao.OrderByDescending(y => y.valor(manilha)).ToList()[1].valor(manilha))).Count();
+                    totalCartas = cartasNaoUasadas.Count();
+                    return (vitoria * (int)((1 - (cartasMelhores / totalCartas)) * 100))/100;
+                }
+                else
+                    return vitoria;
+            }
         }
 
         private static List<Carta> geraBaralho()
@@ -56,16 +221,57 @@ namespace CardGame
             return retorno;
         }
 
-        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        public override Escolha trucado(Jogador trucante, Truco pedido, Carta manilha)
         {
-            cartasNaoUasadas.Remove(carta);
-        }
+            if (trucante.IDEquipe == IDEquipe)
+            {
+                equipeTrucante = IDEquipe;
+                trucoAtual = pedido;
+                return Escolha.aceitar;
+            }
+            else
+            {
+                switch (pedido)
+                {
+                    case Truco.truco:
+                        if (90 > probabilidadeVitoria(manilha) && probabilidadeVitoria(manilha) > 70)
+                            return Escolha.aceitar;
+                        else if (probabilidadeVitoria(manilha) >= 80)
+                            return Escolha.aumentar;
+                        else return Escolha.correr;
 
-        private int probabilidadeVitoria(Carta manilha)
-        {
-            if (pontosRodada == 1)
-            cartasNaoUasadas.Remove(manilha);
-            double cartasMelhoresDisponivies = cartasNaoUasadas.Where(x => x.valor(manilha) >= (_mao.ma));
+                    case Truco.seis:
+                        if ( (Equipe.BuscaID(IDEquipe).PontosEquipe >= 9 && probabilidadeVitoria(manilha) > 75)
+                            || (probabilidadeVitoria(manilha) < 90 && probabilidadeVitoria(manilha) > 75))
+                            return Escolha.aceitar;
+                        else if (probabilidadeVitoria(manilha) >= 90)
+                            return Escolha.aumentar;
+                        else return Escolha.correr;
+
+                    case Truco.nove:
+                        if ((Equipe.BuscaID(IDEquipe).PontosEquipe >= 6 && probabilidadeVitoria(manilha) > 75)
+                            || (probabilidadeVitoria(manilha) < 90 && probabilidadeVitoria(manilha) > 75))
+                            return Escolha.aceitar;
+                        else if (probabilidadeVitoria(manilha) >= 90)
+                            return Escolha.aumentar;
+                        else return Escolha.correr;
+
+                    case Truco.doze:
+                        if ((Equipe.BuscaID(IDEquipe).PontosEquipe >= 3 && probabilidadeVitoria(manilha) > 75)
+                            || (probabilidadeVitoria(manilha) < 90 && probabilidadeVitoria(manilha) > 75))
+                            return Escolha.aceitar;
+                        else if (probabilidadeVitoria(manilha) >= 90)
+                            return Escolha.aumentar;
+                        else return Escolha.correr;
+
+                    case Truco.jogo:
+                        if (probabilidadeVitoria(manilha) > 80)
+                            return Escolha.aceitar;
+                        else return Escolha.correr;
+                    default:
+                        return Escolha.aceitar;
+                }
+            }
         }
     }
 }
