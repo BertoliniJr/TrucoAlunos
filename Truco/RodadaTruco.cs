@@ -229,19 +229,33 @@ namespace CardGame
                     break;
                 #endregion
             }
-            if (eqp1[1] > eqp2[1])
+
+            if (correu == eqp1[1])
             {
                 Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
                 Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
             }
-            else if (eqp1[1] < eqp2[1])
+            else if (correu == eqp1[0])
             {
-                Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
-                Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
+                Equipe.BuscaID(eqp1[1]).GanharPontos(pontos);
+                Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[1]).ToString());
             }
             else
             {
-                Console.WriteLine("\n*Empate na rodada, ninguem ganhou pontos*");
+                if (eqp1[1] > eqp2[1])
+                {
+                    Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
+                    Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
+                }
+                else if (eqp1[1] < eqp2[1])
+                {
+                    Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
+                    Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
+                }
+                else
+                {
+                    Console.WriteLine("\n*Empate na rodada, ninguem ganhou pontos*");
+                }
             }
             desligaEventos();
         }
