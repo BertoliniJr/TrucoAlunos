@@ -109,7 +109,7 @@ namespace CardGame
                 truco(this, Truco.truco);
         }
 
-        public virtual Escolha trucado(Jogador trucante, Truco valor)
+        public virtual Escolha trucado(Jogador trucante, Truco valor, Carta manilha)
         {
             return Escolha.aceitar;
         }
