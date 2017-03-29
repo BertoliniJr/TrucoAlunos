@@ -41,8 +41,9 @@ namespace Truco
                 return jogaMenor();
             }
 
-            if (_mao.Count == 1)
+            if (_mao.Count == 1 && cartasRodada.Count > 3)
             {
+                pedirTruco(this, trucar());
                 return jogaMenor();
             }
             #endregion
