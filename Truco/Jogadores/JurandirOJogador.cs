@@ -24,10 +24,14 @@ namespace CardGame
             {
                 ordenar(manilha);
             }
+
+            RegraTrucar(manilha);
             Carta carta;
 
             switch (_mao.Count)
             {
+
+                #region case 3
                 case 3:
                     //Carta maiorMesa = cartasRodada.LastOrDefault();
 
@@ -119,6 +123,10 @@ namespace CardGame
                     }
 
                     return null;
+
+                #endregion
+
+                #region case 2
                 case 2:
 
 
@@ -177,53 +185,30 @@ namespace CardGame
                     }
 
                     return null;
+                #endregion
 
+                #region case 1
                 case 1:
                     carta = _mao[0];
                     _mao.RemoveAt(0);
                     return carta;
                 default: return null;
-
+                    #endregion
 
             }
         }
 
         public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
+
             cartasUsadas.Add(carta);
-
-            if(_mao.Count == 3)
+            if (jogador != this)
             {
-                int cartasBoas = 0;
-                foreach(var x in _mao)
-                {
-                    cartasBoas = x.Valor >=10 ? cartasBoas + 1 : cartasBoas;
-                }
-
-                if(cartasBoas > 1)
+                if (_mao.Count < 3 && (carta.valor(manilha) < _mao[0].valor(manilha)) || Equipe.BuscaID(this.IDEquipe).PontosEquipe < 6)
                 {
                     base.trucar(this, Truco.truco);
                 }
-
             }
-            if (_mao.Count == 2)
-            {
-
-            }
-
-            if (_mao.Count == 1)
-            {
-
-            }
-
-            //    if (jogador.IDEquipe != this.IDEquipe)
-            //{
-            //    if (_mao.Count != 2)
-            //    {
-            //        if (TrucoAuxiliar.compara(_mao[0], carta, manilha) > 0)
-            //            base.trucar(this, Truco.truco);
-            //    }
-            //}
         }
 
         public override Escolha trucado(Jogador trucante, Truco valor)
@@ -232,7 +217,7 @@ namespace CardGame
                 return Escolha.aceitar;
             else
                 return Escolha.correr;
-             
+
             //if (TrucoAuxiliar.comparar(_mao.LastOrDefault(), cartasUsadas.LastOrDefault(), manilha) > 0)
             //    return Escolha.aceitar;
         }
@@ -246,6 +231,37 @@ namespace CardGame
             if (valor == Truco.doze) return 12;
             if (valor == Truco.jogo) return 15;
             else return 0;
+        }
+
+        private void RegraTrucar(Carta manilha)
+        {
+            if (_mao.Count == 3)
+            {
+                Random dado = new Random();
+                int x = dado.Next(0, 6);
+                if (x == 1 || x == 6) base.trucar(this, Truco.truco);
+            }
+            else if (_mao.Count == 2)
+            {
+                if (cartasUsadas.Count == 4 || cartasUsadas.Count == 6)
+                {
+                    if (_mao[1].valor(manilha) > 8) base.trucar(this, Truco.truco);
+                }
+                else
+                {
+                    if (_mao[0].valor(manilha) >= 10 && _mao[1].valor(manilha) >= 10) base.trucar(this, Truco.truco);
+                }
+            }
+            else if (_mao.Count == 1)
+            {
+                if (_mao[0].valor(manilha) > 10) base.trucar(this, Truco.truco);
+            }
+        }
+        
+        public override void NovaMao()
+        {
+            base.NovaMao();
+            cartasUsadas = new List<Carta>();
         }
     }
 }
