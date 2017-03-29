@@ -230,15 +230,15 @@ namespace CardGame
                 #endregion
             }
 
-            if (correu == eqp1[1])
+            if (correu == eqp2[0])
             {
                 Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
                 Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
             }
             else if (correu == eqp1[0])
             {
-                Equipe.BuscaID(eqp1[1]).GanharPontos(pontos);
-                Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[1]).ToString());
+                Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
+                Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
             }
             else
             {
