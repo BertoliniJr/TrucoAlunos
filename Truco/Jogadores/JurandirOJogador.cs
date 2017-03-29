@@ -202,7 +202,7 @@ namespace CardGame
 
                 if(cartasBoas > 1)
                 {
-
+                    base.trucar(this, Truco.truco);
                 }
 
             }
@@ -230,7 +230,11 @@ namespace CardGame
         {
             if (trucante.IDEquipe != this.IDEquipe && Equipe.BuscaID(this.IDEquipe).PontosEquipe < valorJogoTruco(valor))
                 return Escolha.aceitar;
-            else if(TrucoAuxiliar.comparar(_mao.LastOrDefault(), cartasUsadas.LastOrDefault(), manilha) > 0)
+            else
+                return Escolha.correr;
+             
+            //if (TrucoAuxiliar.comparar(_mao.LastOrDefault(), cartasUsadas.LastOrDefault(), manilha) > 0)
+            //    return Escolha.aceitar;
         }
 
         private int valorJogoTruco(Truco valor)
