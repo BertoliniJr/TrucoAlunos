@@ -212,7 +212,7 @@ namespace CardGame
             cartasUsadas.Add(carta);
             if (!estaTrucado
                 && Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12
-                || Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe < 12)
+                && Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe < 12)
             {
                 if (jogador.IDEquipe != this.IDEquipe)
                 {
@@ -261,7 +261,7 @@ namespace CardGame
 
         private void RegraTrucar(Carta manilha)
         {
-            if (Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12 || Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe < 12)
+            if (Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12 && Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe < 12)
             {
                 if (!estaTrucado)
                 {
