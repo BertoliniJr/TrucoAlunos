@@ -54,9 +54,9 @@ namespace Truco
 
         public void TesteJura()
         {
-            Jogador jogador1 = new JurandirOJogador();
+            Jogador jogador1 = new JurandirOJogador("");
             Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new JurandirOJogador();
+            Jogador jogador3 = new JurandirOJogador("");
             Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
 
             Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
@@ -175,7 +175,7 @@ namespace Truco
         public void TesteIlusionistaEJurandi()
         {
             Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
-            Jogador jogador2 = new JurandirOJogador();
+            Jogador jogador2 = new JurandirOJogador("");
             Jogador jogador3 = new Juvenal("Juvena 3");
             Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
 
@@ -216,7 +216,7 @@ namespace Truco
         {
             Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
             Jogador jogador2 = new Juvenal("Juvena 2"); 
-            Jogador jogador3 = new JurandirOJogador();
+            Jogador jogador3 = new JurandirOJogador("");
             Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
 
             Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
@@ -256,7 +256,7 @@ namespace Truco
         {
             Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1");
             Jogador jogador2 = new Juvenal("Alfa 2");
-            Jogador jogador3 = new JurandirOJogador();
+            Jogador jogador3 = new JurandirOJogador("");
             Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
 
             Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
@@ -336,7 +336,7 @@ namespace Truco
         {
             Jogador jogador1 = new Juvenal("Juvena 1");
             Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new JurandirOJogador();
+            Jogador jogador3 = new JurandirOJogador("");
             Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
 
             Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
@@ -374,7 +374,7 @@ namespace Truco
 
         public void TesteIlusionistaEJuraAlfa()
         {
-            Jogador jogador1 = new JurandirOJogador();
+            Jogador jogador1 = new JurandirOJogador("");
             Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
             Jogador jogador3 = new JogadorEquipeAlfa("Alfa 3");
             Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");

@@ -35,9 +35,9 @@ namespace Truco
             ganheiSegunda(cartasRodada);
 
             #region UltimaCarta
-            if (_mao.Count == 1 && _mao[0].valor(manilha)>cartasRodada.Max(x=>x.valor(manilha))&&cartasRodada.Count>2)
+            if (_mao.Count == 1&&cartasRodada.Count>2 && _mao[0].valor(manilha)>cartasRodada.Max(x=>x.valor(manilha)))
             {
-                trucar(this, trucar());
+                pedirTruco(this, trucar());
                 return jogaMenor();
             }
 
@@ -124,7 +124,7 @@ namespace Truco
                     aux = _mao[i];
                     if (_mao.Last() != aux && _mao.Last().valor(manilha) >= 10)
                     {
-                        trucar(this, trucar());
+                        pedirTruco(this, trucar());
                         _mao.Remove(aux);
                         return aux;
                     }
@@ -164,16 +164,17 @@ namespace Truco
             if (trucante.IDEquipe == this.IDEquipe)
                 return Escolha.aceitar;
             //primeira rodada
-            if (_mao.Where(x => x.valor(manilha) >= 11).Count() >= 2)
+            if (_mao.Where(x => x.valor(manilha) >= 10).Count() >= 2)
             {
                 return aceitarComZap(manilha, valor);
             }
             //segunda rodada
-            if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
+            if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 9).Count() >= 1)
                 return aceitarComZap(manilha, valor);
             //terceira rodada
-            if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 11).Count() >= 1)
+            if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
                 return aceitarComZap(manilha, valor);
+            Console.WriteLine("MUITA CARTA NA MAO DE TONTO, É SÓ UM PONTO");
             return Escolha.correr;
         }
 
@@ -186,8 +187,8 @@ namespace Truco
         {
             if (_mao.Where(x => x.valor(manilha) >= 11).Count() >= 2 && _mao.Count() == 3)
             {
-                Console.WriteLine("SUBI NO MURO, CAI DE FRENTE, TRUCO SEU DEMENTE!");
-                trucar(this, trucar());
+                Console.WriteLine(frasesEfeito());
+                pedirTruco(this, trucar());
                 pontosRodada++;
             }
         }
@@ -243,6 +244,34 @@ namespace Truco
                 return aumentar(valor);
             }
             return aceitar(valor);
+        }
+
+        private void pedirTruco(Jogador jogador, CardGame.Truco pedido)
+        {
+            if (Equipe.BuscaID(IDEquipe).Adversario.PontosEquipe>=12||Equipe.BuscaID(IDEquipe).PontosEquipe>=12)
+            {
+                return;
+            }
+            Console.WriteLine(frasesEfeito());
+            base.trucar(jogador, pedido);
+        }
+
+        private string frasesEfeito()
+        {
+            Random n = new Random();
+            switch (n.Next(5))
+            {
+                case 1:
+                    return "SUBI NO MURO, CAI DE FRENTE, TRUCO SEU DEMENTE!";
+                case 2:
+                    return "JOGAR TRUCO E MUITO FACIL, PRINCIPALMENTE COM FREGUES. AGORA EU GRITO TRUCO, E QUERO VER QUEM VAI PARA O SEIS";
+                case 3:
+                    return "SUBI NO MURO E CAI DE LADO, TRUCO SEU VIADO";
+                case 4:
+                    return "É TRUUUUUUUUCO, LADRÃO!! PEDE SEIS, PEDE!";
+                default:
+                    return "";
+            }
         }
     }
 }

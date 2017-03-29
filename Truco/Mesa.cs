@@ -60,6 +60,11 @@ namespace CardGame
 
         public void Jogar()
         {
+            foreach (var equipe in equipeMesa)
+            {
+                equipe.GanharPontos(-equipe.PontosEquipe);
+            }
+
             preencheMesa();
             baralhoMesa = new Baralho();
             int r = 1;
