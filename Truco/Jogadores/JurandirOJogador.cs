@@ -10,6 +10,7 @@ namespace CardGame
     {
 
         private List<Carta> cartasUsadas = new List<Carta>();
+        private bool estaTrucado = false;
 
         public JurandirOJogador() : base("Jurandir o Pika das Galaxias")
         {
@@ -209,11 +210,17 @@ namespace CardGame
         {
 
             cartasUsadas.Add(carta);
-            if (jogador != this)
+            if (!estaTrucado 
+                && Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12 
+                || Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe < 12)
+            
             {
-                if (_mao.Count < 3 && (carta.valor(manilha) < _mao[0].valor(manilha)) || Equipe.BuscaID(this.IDEquipe).PontosEquipe < 6)
+                if (jogador.IDEquipe != this.IDEquipe)
                 {
-                    base.trucar(this, Truco.truco);
+                    if ((_mao.Count < 3 && _mao.Count > 0) && (carta.valor(manilha) < _mao[0].valor(manilha)) || Equipe.BuscaID(this.IDEquipe).PontosEquipe < 6)
+                    {
+                        base.trucar(this, Truco.truco);
+                    }
                 }
             }
         }
@@ -255,26 +262,32 @@ namespace CardGame
 
         private void RegraTrucar(Carta manilha)
         {
-            if (_mao.Count == 3)
+            if (Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12 || Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe < 12)
             {
-                Random dado = new Random();
-                int x = dado.Next(0, 6);
-                if (x == 1 || x == 6) base.trucar(this, Truco.truco);
-            }
-            else if (_mao.Count == 2)
-            {
-                if (cartasUsadas.Count == 4 || cartasUsadas.Count == 6)
+                if (!estaTrucado)
                 {
-                    if (_mao[1].valor(manilha) > 8) base.trucar(this, Truco.truco);
+                    if (_mao.Count == 3)
+                    {
+                        Random dado = new Random();
+                        int x = dado.Next(0, 6);
+                        if (x == 1 || x == 6) base.trucar(this, Truco.truco);
+                    }
+                    else if (_mao.Count == 2)
+                    {
+                        if (cartasUsadas.Count == 4 || cartasUsadas.Count == 6)
+                        {
+                            if (_mao[1].valor(manilha) > 8) base.trucar(this, Truco.truco);
+                        }
+                        else
+                        {
+                            if (_mao[0].valor(manilha) >= 10 && _mao[1].valor(manilha) >= 10) base.trucar(this, Truco.truco);
+                        }
+                    }
+                    else if (_mao.Count == 1)
+                    {
+                        if (_mao[0].valor(manilha) > 10) base.trucar(this, Truco.truco);
+                    }
                 }
-                else
-                {
-                    if (_mao[0].valor(manilha) >= 10 && _mao[1].valor(manilha) >= 10) base.trucar(this, Truco.truco);
-                }
-            }
-            else if (_mao.Count == 1)
-            {
-                if (_mao[0].valor(manilha) > 10) base.trucar(this, Truco.truco);
             }
         }
 
