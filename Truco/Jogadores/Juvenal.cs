@@ -118,17 +118,22 @@ namespace CardGame
         }
         public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
-
-            cartasJogadas.Add(carta);
-            if ( _mao.Count <= 2 )
+            if(cartasJogadas.Count == 4  || cartasJogadas.Count == 0)
             {
-                 
+                cartasJogadas = new List<Carta>();
             }
-            base.novaCarta(carta, jogador, manilha);
+            cartasJogadas.Add(carta);
+            if ( _mao.Count == 2 && (TrucoAuxiliar.gerarValorCarta(_mao[0],manilha) >=11 || TrucoAuxiliar.gerarValorCarta(_mao[1], manilha) >= 11))
+            {
+                trucar(this, Truco.truco);
+            }else if (_mao.Count == 1 && TrucoAuxiliar.gerarValorCarta(_mao[0], manilha) >= 11)
+            {
+                trucar(this, Truco.truco);
+            }
         }
         public override Escolha trucado(Jogador trucante, Truco valor)
         {
-            return base.trucado(trucante, valor);
+            return Escolha.aceitar;
         }
     }
 }

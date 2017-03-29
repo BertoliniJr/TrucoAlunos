@@ -100,11 +100,24 @@ namespace CardGame
                 trucar(this, Truco.truco);
         }
 
-        public override Escolha trucado(Jogador trucante, Truco valor)
+        public override Escolha trucado(Jogador trucante, Truco valor, Carta manilha)
         {
+            for (int i = 0; i < _mao.Count; i++)
+            {
+                if (_mao[i].valor(manilha) >= 13 )
+                {
+                    return Escolha.aumentar;
+                }else
+                {
+                    if (_mao[i].valor(manilha) > 10)
+                    {
+                        return Escolha.aceitar;
+                    }
+                }
+            }
+            return Escolha.correr;
 
-            return Escolha.aceitar;
-        }   
+         }   
 
 
     }
