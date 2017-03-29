@@ -35,9 +35,9 @@ namespace Truco
             ganheiSegunda(cartasRodada);
 
             #region UltimaCarta
-            if (_mao.Count == 1 && cartasRodada.Count > 2 && _mao[0].valor(manilha)>cartasRodada.Max(x=>x.valor(manilha)))
+            if (_mao.Count == 1&&cartasRodada.Count>2 && _mao[0].valor(manilha)>cartasRodada.Max(x=>x.valor(manilha)))
             {
-                trucar(this, trucar());
+                pedirTruco(this, trucar());
                 return jogaMenor();
             }
 
@@ -124,7 +124,7 @@ namespace Truco
                     aux = _mao[i];
                     if (_mao.Last() != aux && _mao.Last().valor(manilha) >= 10)
                     {
-                        trucar(this, trucar());
+                        pedirTruco(this, trucar());
                         _mao.Remove(aux);
                         return aux;
                     }
@@ -187,7 +187,7 @@ namespace Truco
             if (_mao.Where(x => x.valor(manilha) >= 11).Count() >= 2 && _mao.Count() == 3)
             {
                 Console.WriteLine("SUBI NO MURO, CAI DE FRENTE, TRUCO SEU DEMENTE!");
-                trucar(this, trucar());
+                pedirTruco(this, trucar());
                 pontosRodada++;
             }
         }
@@ -243,6 +243,15 @@ namespace Truco
                 return aumentar(valor);
             }
             return aceitar(valor);
+        }
+
+        private void pedirTruco(Jogador jogador, CardGame.Truco pedido)
+        {
+            if (Equipe.BuscaID(IDEquipe).Adversario.PontosEquipe>=12||Equipe.BuscaID(IDEquipe).PontosEquipe>=12)
+            {
+                return;
+            }
+            base.trucar(jogador, pedido);
         }
     }
 }
