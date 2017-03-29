@@ -8,6 +8,9 @@ namespace CardGame
 {
     class JurandirOJogador : Jogador
     {
+
+        private List<Carta> cartasUsadas = new List<Carta>();
+
         public JurandirOJogador() : base("Jurandir o Pika das Galaxias")
         {
 
@@ -52,7 +55,8 @@ namespace CardGame
                             carta = _mao[1];
                             _mao.RemoveAt(1);
                             return carta;
-                        }else
+                        }
+                        else
                         {
                             carta = _mao[0];
                             _mao.RemoveAt(0);
@@ -182,11 +186,38 @@ namespace CardGame
 
 
             }
+        }
 
+        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        {
+            cartasUsadas.Add(carta);
+            if (jogador.IDEquipe != this.IDEquipe)
+            {
+                if (_mao.Count != 2)
+                {
+                    if (TrucoAuxiliar.compara(_mao[0], carta, manilha) > 0)
+                        base.truco(this, Truco.truco);
+                }
+            }
+        }
 
+        public override Escolha trucado(Jogador trucante, Truco valor)
+        {
+            if (trucante.IDEquipe != this.IDEquipe && Equipe.BuscaID(this.IDEquipe).PontosEquipe < valorJogoTruco(valor))
+                return Escolha.aceitar;
+            else if(TrucoAuxiliar.comparar(_mao.LastOrDefault(), cartasUsadas.LastOrDefault(), manilha) > 0)
+        }
 
+        private int valorJogoTruco(Truco valor)
+        {
 
-
+            if (valor == Truco.truco) return 3;
+            if (valor == Truco.seis) return 6;
+            if (valor == Truco.nove) return 9;
+            if (valor == Truco.doze) return 12;
+            if (valor == Truco.jogo) return 15;
+            else return 0;
         }
     }
 }
+
