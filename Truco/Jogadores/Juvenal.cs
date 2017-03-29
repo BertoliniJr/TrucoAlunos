@@ -11,7 +11,7 @@ namespace CardGame
     {
         private List<Carta> cartasJogadas;
 
-        public Juvenal(string n) : base(n) { }
+        public Juvenal(string n) : base(n) { cartasJogadas = new List<Carta>(); }
         public override Carta Jogar(List<Carta> cartasMesa, Carta manilha)
         {
             //ordenando
@@ -40,7 +40,7 @@ namespace CardGame
 
             return carta;
         }
-        
+
 
         public Carta primeiroJogar(List<Carta> cartasMesa, Carta manilha)
         {
@@ -118,34 +118,54 @@ namespace CardGame
         }
         public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
-            if(cartasJogadas.Count == 4  || cartasJogadas.Count == 0)
+            if (cartasJogadas.Count == 4 || cartasJogadas.Count == 0)
             {
                 cartasJogadas = new List<Carta>();
             }
             cartasJogadas.Add(carta);
-            if ( _mao.Count == 2 && (TrucoAuxiliar.gerarValorCarta(_mao[0],manilha) >=11 || TrucoAuxiliar.gerarValorCarta(_mao[1], manilha) >= 11))
+            if (Equipe.BuscaID(IDEquipe).PontosEquipe < 12 && Equipe.BuscaID(jogador.IDEquipe).PontosEquipe < 12)
             {
-                trucar(this, Truco.truco);
-            }else if (_mao.Count == 1 && TrucoAuxiliar.gerarValorCarta(_mao[0], manilha) >= 11)
-            {
-                trucar(this, Truco.truco);
+                if (_mao.Count == 2 && (TrucoAuxiliar.gerarValorCarta(_mao[0], manilha) >= 11 || TrucoAuxiliar.gerarValorCarta(_mao[1], manilha) >= 11))
+                {
+                    base.trucar(this, Truco.truco);
+                }
+                else if (_mao.Count == 1 && TrucoAuxiliar.gerarValorCarta(_mao[0], manilha) >= 11)
+                {
+                    base.trucar(this, Truco.truco);
+                }
             }
         }
         public override Escolha trucado(Jogador trucante, Truco valor, Carta manilha)
         {
-            Escolha escolhi = Escolha.correr;
-            for (int i = 0; i < _mao.Count; i++)
+           
+            for (int i = _mao.Count-1; i >=0 ; i--)
             {
-                if (_mao[i].valor(manilha) == 14)
+                if (trucante.IDEquipe != IDEquipe)
                 {
-                    Console.WriteLine("");
-                    return Escolha.aumentar;
-                }else if (_mao[i].valor(manilha) >= 11)
-                {
-                    escolhi = Escolha.aceitar;
+                    if (_mao[i].valor(manilha) == 14)
+                    {
+                        Console.WriteLine("Aumento");
+                        Console.ReadLine();
+                        return Escolha.aumentar;
+                    }
+                    else if (_mao[i].valor(manilha) >= 11)
+                    {
+
+                        Console.WriteLine("Aceito");
+                        Console.ReadLine();
+                        return Escolha.aceitar;
+                    }
+                    else
+
+                    {
+                        Console.WriteLine("Corro" + nome);
+                        return Escolha.correr;
+                    }
                 }
             }
-            return escolhi;
+
+
+            return Escolha.correr;
         }
     }
 }
