@@ -125,7 +125,7 @@ namespace CardGame
             foreach (var item in jogadores)
             {
                 if (item != jogador)
-                    aceite.Add(new Tuple<Jogador, Escolha>(item, item.trucado(jogador, pedido)));
+                    aceite.Add(new Tuple<Jogador, Escolha>(item, item.trucado(jogador, pedido, Manilha)));
             }
             var equip = aceite.Where(x => x.Item1.IDEquipe != jogador.IDEquipe).ToList();
             if (equip.Select(x => x.Item2).Contains(Escolha.aumentar))

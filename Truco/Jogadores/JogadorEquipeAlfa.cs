@@ -20,13 +20,12 @@ namespace CardGame
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
 
-
-
             // encontra maior da mesa
             if (_mao.Count == 3)
             {
                 ordenar(manilha);
             }
+
             Carta maiorMesa = cartasRodada.LastOrDefault();
             for (int i = 0; i < cartasRodada.Count - 1; i++)
             {
@@ -46,9 +45,17 @@ namespace CardGame
             }
             else if (cartasRodada.Count == 1)
             {
+
+
+
+                carta = _mao[0];
+                _mao.RemoveAt(0);
+                return carta;
+            }
+                if (cartasRodada.Count == 2)
+                {
                 for (int i = 0; i < _mao.Count; i++)
                 {
-                    
                     if (TrucoAuxiliar.comparar(_mao[i], maiorMesa, manilha) > 0)
                     {
                         carta = _mao[i];
@@ -56,18 +63,16 @@ namespace CardGame
                         return carta;
 
                     }
-                    
                 }
                 carta = _mao[0];
                 _mao.RemoveAt(0);
                 return carta;
+                    
             }
-            else if (cartasRodada.Count == 2)
-            {
-                carta = _mao[0];
-                _mao.RemoveAt(0);
-                return carta;
-            } else
+            
+          
+                
+                else 
             {
                 for (int i = 0; i < _mao.Count; i++)
                 {
@@ -97,8 +102,14 @@ namespace CardGame
 
         public override Escolha trucado(Jogador trucante, Truco valor)
         {
-            return Escolha.aceitar;
-        }   
+            for (int i = 0; i < _mao.Count; i++)
+            {
+                if (_mao[i].valor(manilha) )
+                {
+                    return Escolha.aceitar;
+                }
+            }
+            }   
 
 
     }
