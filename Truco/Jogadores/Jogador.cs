@@ -13,7 +13,7 @@ namespace CardGame
 
         protected List<Carta> _mao;
         protected string _nome;
-        protected int IDequipe;
+        private int _idEquipe;
         public string nome
         {
             get
@@ -31,15 +31,15 @@ namespace CardGame
         {
             get
             {
-                return IDequipe;
+                return _idEquipe;
             }
 
             set
             {
-                IDequipe = value;
+                _idEquipe = value;
             }
         }
-
+        
         public Jogador(string n)
         {
             nome = n;

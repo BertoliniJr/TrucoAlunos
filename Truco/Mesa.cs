@@ -37,6 +37,8 @@ namespace CardGame
         public Mesa(List<Equipe> equipes)
         {
             equipeMesa = equipes;
+            equipes[0].Adversario = equipes[1];
+            equipes[1].Adversario = equipes[0];
         }
         private void preencheMesa()
         {

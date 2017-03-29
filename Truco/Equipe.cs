@@ -9,6 +9,7 @@ namespace CardGame
     class Equipe
     {
         private List<Jogador> jogadoresEquipe;
+        private Equipe adversario;
 
         public List<Jogador> JogadoresEquipe
         {
@@ -20,6 +21,19 @@ namespace CardGame
         public int PontosEquipe
         {
             get { return pontosEquipe; }
+        }
+
+        internal Equipe Adversario
+        {
+            get
+            {
+                return adversario;
+            }
+
+            set
+            {
+                adversario = value;
+            }
         }
 
         private static List<Equipe> listaEquipes = new List<Equipe>();
