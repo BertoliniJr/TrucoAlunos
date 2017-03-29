@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using CardGame;
 
 
-namespace Truco
+
+namespace CardGame
 {
 
    
@@ -85,6 +86,20 @@ namespace Truco
                 return carta;
             }
         }
+        public override  void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        {
+            if (jogador.IDEquipe != IDEquipe
+                && ((Carta)carta).valor(manilha) < 2
+                && _mao.Count > 0
+                && _mao.Max(a => a.valor(manilha)) > 10)
+                trucar(this, Truco.truco);
+        }
+
+        public override Escolha trucado(Jogador trucante, Truco valor)
+        {
+            return Escolha.aceitar;
+        }   
+
 
     }
 }
