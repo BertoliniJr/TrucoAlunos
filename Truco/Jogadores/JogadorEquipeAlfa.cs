@@ -93,17 +93,22 @@ namespace CardGame
         }
         public override  void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
-            for (int i = 0; i < _mao.Count; i++)
+            if (Equipe.BuscaID(IDEquipe).PontosEquipe < 12)
             {
-                if (jogador.IDEquipe != IDEquipe 
-                    && TrucoAuxiliar.comparar(_mao[i], carta, manilha)>0)
+                for (int i = 0; i < _mao.Count; i++)
                 {
-                    if (_mao[i].valor(manilha) > 10)
+                
+                    if (jogador.IDEquipe != IDEquipe
+                        && TrucoAuxiliar.comparar(_mao[i], carta, manilha) > 0)
                     {
-                        trucar(this, Truco.truco);
-                    } 
+                        if (_mao[i].valor(manilha) > 10)
+                        {
+                            trucar(this, Truco.truco);
+                        }
+                    }
+
                 }
-            }
+           }
 
 
             if (jogador.IDEquipe != IDEquipe
