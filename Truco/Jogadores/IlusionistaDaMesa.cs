@@ -257,8 +257,40 @@ namespace Truco
             base.trucar(jogador, pedido);
         }
 
-        private string frasesEfeito()
+        private Carta retornaMaiorCartaIlusionista(List<Tuple<Jogador, Carta>> rodada, Carta manilha)
         {
+            var cartasIlusionista = rodada.Where(x => x.Item1.IDEquipe == this.IDEquipe).ToList();
+            
+            Carta c = cartasIlusionista[0].Item2;
+
+            foreach (var tupla in cartasIlusionista)
+            {
+                if(TrucoAuxiliar.gerarValorCarta(tupla.Item2, manilha) > TrucoAuxiliar.gerarValorCarta(c, manilha))
+                {
+                    c = tupla.Item2;
+                }
+            }
+            return c;
+        }
+
+        private Carta retornaMaiorCartaAdversario(List<Tuple<Jogador, Carta>> rodada, Carta manilha)
+        {
+            var cartasAdversario = rodada.Where(x => x.Item1.IDEquipe == this.IDEquipe).ToList();
+
+            Carta c = cartasAdversario[0].Item2;
+
+            foreach (var tupla in cartasAdversario)
+            {
+                if (TrucoAuxiliar.gerarValorCarta(tupla.Item2, manilha) > TrucoAuxiliar.gerarValorCarta(c, manilha))
+                {
+                    c = tupla.Item2;
+                }
+            }
+            return c;
+        }
+
+        private string frasesEfeito()
+        
             Random n = new Random();
             switch (n.Next(5))
             {
