@@ -237,11 +237,25 @@ namespace CardGame
             int x = ManilhasNaMao(manilha);
             if (x >= 2)
                 return Escolha.aumentar;
+            if (x == 1)
+                return Escolha.aceitar;
             if (ptsEqpAdv > 9 && ptsMinhaEqp < 5)
                 return Escolha.aumentar;
+            if (_mao.Count == 3)
+            {
+                if (_mao[0].valor(manilha) > 7)
+                    return Escolha.aceitar;
+            }
+            if (_mao.Count == 2)
+            {
+                if (_mao[0].valor(manilha) > 7)
+                    return Escolha.aceitar;
+            }
 
+            if (_mao.Count == 0 && cartasUsadas.Last().valor(manilha) > 8)
+                return Escolha.aceitar;
 
-            if (_mao.Count != 0 &&_mao[0].valor(manilha) < 8)
+            if (_mao.Count == 1 &&_mao[0].valor(manilha) <= 3)
                 return Escolha.correr;
             else
                 return Escolha.aceitar;
