@@ -30,7 +30,7 @@ namespace Truco
             Carta aux;
             if (_mao.Count == 3)
             {
-                Magica(manilha);
+                //Magica(manilha);
                 ordenar(manilha);
             }
             ganheiPrimeira(cartasRodada);
