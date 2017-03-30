@@ -11,6 +11,8 @@ namespace CardGame
 
         private List<Carta> cartasUsadas = new List<Carta>();
         private bool estaTrucado = false;
+        private static bool ganhoPrimeira = false;
+
 
         public JurandirOJogador(string sobrenome) : base("Jurandir o "+sobrenome)
         {
@@ -108,6 +110,7 @@ namespace CardGame
                         {
                             carta = _mao[0];
                             _mao.RemoveAt(0);
+                            ganhoPrimeira = true;
                             return carta;
                         }
                         else
@@ -118,6 +121,7 @@ namespace CardGame
                                 if (TrucoAuxiliar.comparar(carta, cartasRodada[0], manilha) > 0 && TrucoAuxiliar.comparar(carta, cartasRodada[2], manilha) > 0)
                                 {
                                     _mao.RemoveAt(i);
+                                    ganhoPrimeira = true;
                                     return carta;
                                 }
                             }
@@ -142,7 +146,7 @@ namespace CardGame
 
                     if (cartasRodada.Count == 0)
                     {
-
+                        ganhoPrimeira = true;
                         carta = _mao[0];
                         _mao.RemoveAt(0);
                         return carta;
@@ -210,13 +214,15 @@ namespace CardGame
         {
 
             cartasUsadas.Add(carta);
-            if (!estaTrucado
+            if (ganhoPrimeira 
+                && !estaTrucado
                 && Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12
                 && Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe < 12)
             {
                 if (jogador.IDEquipe != this.IDEquipe)
                 {
-                    if ((_mao.Count < 3 && _mao.Count > 0) && (carta.valor(manilha) < _mao[0].valor(manilha)) || Equipe.BuscaID(this.IDEquipe).PontosEquipe < 6)
+                    if ((_mao.Count < 3 && _mao.Count > 0) 
+                        && ((carta.valor(manilha) < _mao[0].valor(manilha)) || Equipe.BuscaID(this.IDEquipe).PontosEquipe < 6))
                     {
                         base.trucar(this, Truco.truco);
                     }
@@ -228,37 +234,67 @@ namespace CardGame
         {
             int ptsMinhaEqp = Equipe.BuscaID(this.IDEquipe).PontosEquipe;
             int ptsEqpAdv = Equipe.BuscaID(trucante.IDEquipe).PontosEquipe;
-
-            if (ptsMinhaEqp - ptsEqpAdv > valorJogoTruco(valor))
-                return Escolha.aceitar;
-            if ((ptsEqpAdv > ptsMinhaEqp && ptsEqpAdv + valorJogoTruco(valor) < 15))
-                return Escolha.aceitar;
-
             int x = ManilhasNaMao(manilha);
-            if (x >= 2)
-                return Escolha.aumentar;
-            if (x == 1)
-                return Escolha.aceitar;
-            if (ptsEqpAdv > 9 && ptsMinhaEqp < 5)
-                return Escolha.aumentar;
-            if (_mao.Count == 3)
-            {
-                if (_mao[0].valor(manilha) > 7)
-                    return Escolha.aceitar;
-            }
-            if (_mao.Count == 2)
-            {
-                if (_mao[0].valor(manilha) > 7)
-                    return Escolha.aceitar;
-            }
 
-            if (_mao.Count == 0 && cartasUsadas.Last().valor(manilha) > 8)
-                return Escolha.aceitar;
+            if ((ptsEqpAdv > ptsMinhaEqp && ptsEqpAdv + valorJogoTruco(valor) < 15) && ptsMinhaEqp - ptsEqpAdv > valorJogoTruco(valor))
+            {
+                if (cartasUsadas.Count < 4 && x > 0)
+                {
+                    return Escolha.aceitar;
+                }
 
-            if (_mao.Count == 1 &&_mao[0].valor(manilha) <= 3)
-                return Escolha.correr;
-            else
-                return Escolha.aceitar;
+                if (cartasUsadas.Count < 4 && _mao[0].valor(manilha) > 8)
+                {
+                    return Escolha.aceitar;
+                }
+
+                if (ganhoPrimeira && x > 0)
+                {
+                    return Escolha.aumentar;
+                }
+
+                if (ganhoPrimeira && (cartasUsadas.Count > 3 || cartasUsadas.Count < 8) && (_mao[0].valor(manilha) > 8 || _mao[1].valor(manilha) > 8))
+                {
+                    return Escolha.aceitar;
+                }
+
+                if ((cartasUsadas.Count > 3 || cartasUsadas.Count < 8) && (_mao[0].valor(manilha) > 10))
+                {
+                    return Escolha.aceitar;
+                }
+
+
+                if (ganhoPrimeira && (_mao[0].valor(manilha) > 7))
+                {
+                    return Escolha.aceitar;
+                }
+            }
+            return Escolha.correr;
+            
+            //if (x >= 2)
+            //    return Escolha.aumentar;
+            //if (x == 1)
+            //    return Escolha.aceitar;
+            //if (ptsEqpAdv > 9 && ptsMinhaEqp < 5)
+            //    return Escolha.aumentar;
+            //if (_mao.Count == 3)
+            //{
+            //    if (_mao[0].valor(manilha) > 7)
+            //        return Escolha.aceitar;
+            //}
+            //if (_mao.Count == 2)
+            //{
+            //    if (_mao[0].valor(manilha) > 7)
+            //        return Escolha.aceitar;
+            //}
+
+            //if (_mao.Count == 0 && cartasUsadas.Last().valor(manilha) > 8)
+            //    return Escolha.aceitar;
+
+            //if (_mao.Count == 1 &&_mao[0].valor(manilha) <= 3)
+            //    return Escolha.correr;
+            //else
+            //    return Escolha.aceitar;
 
         }
 
