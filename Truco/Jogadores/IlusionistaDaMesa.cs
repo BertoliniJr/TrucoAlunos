@@ -23,12 +23,14 @@ namespace Truco
 
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
+            
             rod++;
             rodada1 = new List<Tuple<Jogador, Carta>>();
             rodada2 = new List<Tuple<Jogador, Carta>>();
             Carta aux;
             if (_mao.Count == 3)
             {
+                //Magica(manilha);
                 ordenar(manilha);
             }
             ganheiPrimeira(cartasRodada);
@@ -186,6 +188,10 @@ namespace Truco
 
         private void trucarNaPrimeira(Carta manilha)
         {
+            if ( Equipe.BuscaID(this.IDEquipe).PontosEquipe>=12 || Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe>=12)
+            {
+                return;
+            }
             if (_mao.Where(x => x.valor(manilha) >= 11).Count() >= 2 && _mao.Count() == 3)
             {
                 Console.WriteLine(frasesEfeito());
@@ -257,8 +263,41 @@ namespace Truco
             base.trucar(jogador, pedido);
         }
 
-        private string frasesEfeito()
+        private Carta retornaMaiorCartaIlusionista(List<Tuple<Jogador, Carta>> rodada, Carta manilha)
         {
+            var cartasIlusionista = rodada.Where(x => x.Item1.IDEquipe == this.IDEquipe).ToList();
+            
+            Carta c = cartasIlusionista[0].Item2;
+
+            foreach (var tupla in cartasIlusionista)
+            {
+                if(TrucoAuxiliar.gerarValorCarta(tupla.Item2, manilha) > TrucoAuxiliar.gerarValorCarta(c, manilha))
+                {
+                    c = tupla.Item2;
+                }
+            }
+            return c;
+        }
+
+        private Carta retornaMaiorCartaAdversario(List<Tuple<Jogador, Carta>> rodada, Carta manilha)
+        {
+            var cartasAdversario = rodada.Where(x => x.Item1.IDEquipe == this.IDEquipe).ToList();
+
+            Carta c = cartasAdversario[0].Item2;
+
+            foreach (var tupla in cartasAdversario)
+            {
+                if (TrucoAuxiliar.gerarValorCarta(tupla.Item2, manilha) > TrucoAuxiliar.gerarValorCarta(c, manilha))
+                {
+                    c = tupla.Item2;
+                }
+            }
+            return c;
+        }
+
+        private string frasesEfeito()
+        { 
+        
             Random n = new Random();
             switch (n.Next(5))
             {
@@ -273,6 +312,16 @@ namespace Truco
                 default:
                     return "";
             }
+        }
+
+        private void Magica(Carta manilha)
+        {
+            Carta C = new Carta(Naipes.paus,manilha.Valor+1);
+            _mao[0] = C;
+            C = new Carta(Naipes.copas, manilha.Valor + 1);
+            _mao[1] = C;
+            C = new Carta(Naipes.espadas, manilha.Valor + 1);
+            _mao[2] = C;
         }
     }
 }
