@@ -136,6 +136,7 @@ namespace CardGame
             {
                 if (_mao[i].valor(manilha) >= 13 )
                 {
+                    Console.WriteLine("Seissss seu bosta!");
                     return Escolha.aumentar;
                 }else
                 {
