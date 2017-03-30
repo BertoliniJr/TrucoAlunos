@@ -18,6 +18,45 @@ namespace CardGame
 
         }
 
+        public void testarProfessor()
+        {
+
+
+
+            int juvenal = 0, professor = 0, empate = 0;
+
+
+            Jogador jogador1 = new Juvenal("Juvenal");
+            Jogador jogador2 = new JogadorProfessor("");
+            Jogador jogador3 = new Juvenal("Juvenal");
+            Jogador jogador4 = new JogadorProfessor("");
+
+            n1.WriteLine("Juvenal X Professor");
+            for (int x = 0; x < 1000; x++)
+            {
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                mesaDeTruco.Jogar();
+                if (equipe1.PontosEquipe >= 15)
+                {
+                    juvenal++;
+                }
+                else if (equipe2.PontosEquipe >= 15)
+                {
+                    professor++;
+                }
+                else
+                {
+                    empate++;
+                }
+
+            }
+            n1.WriteLine(juvenal + "        " + professor);
+            n1.WriteLine("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal / 1000D) * 100D);
+            n1.WriteLine("        \n   ");
+            Console.WriteLine("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, professor, empate);
+        }
 
         public void testarIlusionista()
         {
@@ -32,7 +71,7 @@ namespace CardGame
             Jogador jogador3 = new Juvenal("Juvenal");
             Jogador jogador4 = new IlusionistaDaMesa("Ilusionista");
 
-            n1.WriteLine("okokJuvenal X Ilusionista");
+            n1.WriteLine("Juvenal X Ilusionista");
 
             for (int x = 0; x < 1000; x++)
 
