@@ -31,7 +31,7 @@ namespace CardGame
         {
             Manilha = M;
             pontos = 1;
-            correu = 0;
+            correu = -1;
             EquipeTrucante = -1;
         }
 
@@ -188,7 +188,7 @@ namespace CardGame
                         imaior2 = j;
                         indempate = j;
                     }
-                    if (correu != 0)
+                    if (correu > -1)
                     {
                         Console.WriteLine($"Equipe {Equipe.BuscaID(correu)} correu do truco.");
                         Equipe vencedora = Equipe.BuscaID(jogadores.Where(x => x.IDEquipe != correu).First().IDEquipe);

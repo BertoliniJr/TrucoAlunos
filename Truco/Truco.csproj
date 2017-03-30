@@ -79,6 +79,7 @@
     <Compile Include="Testes\testeIlusionista.cs" />
     <Compile Include="Testes\TesteJurandir.cs" />
     <Compile Include="Auxiliares\TrucoAuxiliar.cs" />
+    <Compile Include="Testes\TesteProfessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
