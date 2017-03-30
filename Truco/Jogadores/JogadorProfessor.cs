@@ -29,6 +29,7 @@ namespace CardGame
             avaliarTruco(a, this, manilha);
             return a;
         }
+
         private Carta menorQMata(Carta a, Carta manilha)
         {
             List<Carta> maoOrdenada = _mao.OrderBy(x => x.valor(manilha)).ToList();
@@ -67,7 +68,7 @@ namespace CardGame
 
                         case 2:
                         #region SerPenultimoJogar
-                            if (cartasRodada[0].compara(cartasRodada[0], manilha) > 0 && cartasRodada[0].valor(manilha) > 7)
+                            if (cartasRodada[0].compara(cartasRodada[1], manilha) > 0 && cartasRodada[0].valor(manilha) > 7)
                                 return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
                             if (menorQMata(cartasRodada[1], manilha) != null)
                                 return jogarCarta(menorQMata(cartasRodada[1], manilha), manilha);
@@ -75,24 +76,46 @@ namespace CardGame
                             #endregion
 
                         case 3:
-                        #region SerUltimo
+                            #region SerUltimo
+                            if (menorQMata(cartasRodada[2], manilha) != null)
+                                return jogarCarta(menorQMata(cartasRodada[2], manilha), manilha);
+                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
                         #endregion
 
                         default:
                             break;
                     }
-
                     break;
                 #endregion
 
                 case 2:
-                    #region SegundaJogada
-
-                    break;
-                #endregion
-
                 case 1:
-                    #region UltimaJogada
+                    #region SegundaOuUltimaJogada
+                    switch (cartasRodada.Count)
+                    {
+                        case 0:
+                            #region SerPrimeiroJogar
+                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                        #endregion
+
+                        case 1:
+                            #region SerPrimeirodaDuplaJogar
+                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                        #endregion
+
+                        case 2:
+                            #region SerPenultimoJogar
+                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).Last(), manilha);
+                        #endregion
+
+                        case 3:
+                            #region SerUltimo
+                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).Last(), manilha);
+                        #endregion
+
+                        default:
+                            break;
+                    }
                     break;
                 #endregion
 
@@ -187,7 +210,8 @@ namespace CardGame
         {
             int vitoria;
             cartasNaoUasadas.Remove(manilha);
-            double cartasMelhores = cartasNaoUasadas.Where(x => x.valor(manilha) >= (_mao.OrderBy(y => y.valor(manilha)).Last().valor(manilha))).Count();
+            Carta maiorcarta = (_mao.Union(cartasMao.Where(x => x.Item1.IDEquipe == IDEquipe).Select(x => x.Item2))).OrderBy(y => y.valor(manilha)).Last();
+            double cartasMelhores = cartasNaoUasadas.Where(x => x.valor(manilha) >= (maiorcarta.valor(manilha))).Count();
             double totalCartas = cartasNaoUasadas.Count();
             vitoria = (int)((1 - (cartasMelhores / totalCartas)) * 100);
             if (pontosRodada == 1)
