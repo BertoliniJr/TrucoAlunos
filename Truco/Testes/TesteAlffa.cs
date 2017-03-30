@@ -27,7 +27,7 @@ namespace Truco
                 Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
                 mesaDeTruco.Jogar();
 
-                if (equipe2.PontosEquipe == 15)
+                if (equipe2.PontosEquipe >= 15)
                 {
                     contador++;
                 }
@@ -58,7 +58,7 @@ namespace Truco
                 Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
                 mesaDeTruco.Jogar();
 
-                if (equipe2.PontosEquipe == 15)
+                if (equipe2.PontosEquipe >= 15)
                 {
                     contador++;
                 }
@@ -88,7 +88,7 @@ namespace Truco
                 Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
                 mesaDeTruco.Jogar();
 
-                if (equipe2.PontosEquipe == 15)
+                if (equipe2.PontosEquipe >= 15)
                 {
                     contador++;
                 }
@@ -118,7 +118,7 @@ namespace Truco
                 Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
                 mesaDeTruco.Jogar();
 
-                if (equipe2.PontosEquipe == 15)
+                if (equipe2.PontosEquipe >= 15)
                 {
                     contador++;
                 }
