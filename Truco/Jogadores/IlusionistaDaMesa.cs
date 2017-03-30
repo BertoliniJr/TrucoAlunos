@@ -188,6 +188,10 @@ namespace Truco
 
         private void trucarNaPrimeira(Carta manilha)
         {
+            if ( Equipe.BuscaID(this.IDEquipe).PontosEquipe>=12 || Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe>=12)
+            {
+                return;
+            }
             if (_mao.Where(x => x.valor(manilha) >= 11).Count() >= 2 && _mao.Count() == 3)
             {
                 Console.WriteLine(frasesEfeito());
