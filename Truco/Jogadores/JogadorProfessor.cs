@@ -261,7 +261,7 @@ namespace CardGame
                 switch (pedido)
                 {
                     case Truco.truco:
-                        if (90 > probabilidadeVitoria(manilha) && probabilidadeVitoria(manilha) > 70)
+                        if (90 > probabilidadeVitoria(manilha) && probabilidadeVitoria(manilha) > 50)
                             return Escolha.aceitar;
                         else if (probabilidadeVitoria(manilha) >= 80)
                             return Escolha.aumentar;

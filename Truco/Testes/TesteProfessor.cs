@@ -62,8 +62,8 @@ namespace Truco.Testes
 
             sw.WriteLine($"{equipe1} vs {equipe2}");
             sw.WriteLine();
-            sw.WriteLine($"A {equipe1} ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine($"A {equipe2} ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
+            sw.WriteLine($"A {equipe1} ganhou {v1}, {(double)(v1) / (double)((v1 + v2)) * 100D}% ");
+            sw.WriteLine($"A {equipe2} ganhou {v2}, {(double)(v2) / (double)((v1 + v2)) * 100D}% ");
             sw.WriteLine();
             sw.WriteLine();
             sw.Close();
