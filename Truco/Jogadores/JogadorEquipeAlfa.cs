@@ -73,6 +73,14 @@ namespace CardGame
                             _mao.RemoveAt(i);
                             return carta;
 
+                        }else
+                        {
+                            if(TrucoAuxiliar.comparar(cartasRodada[1],cartasRodada[0],manilha)>0 && TrucoAuxiliar.comparar(cartasRodada[1], _mao[i], manilha) > 0)
+                            {
+                                carta = _mao[0];
+                                _mao.RemoveAt(0);
+                                return carta;
+                            }
                         }
                     }
                 }
@@ -83,6 +91,27 @@ namespace CardGame
 
 
             }
+
+            if(cartasRodada.Count == 3)
+            {
+                if(TrucoAuxiliar.comparar(cartasRodada[1],cartasRodada[0],manilha)>0 && TrucoAuxiliar.comparar(cartasRodada[1], cartasRodada[2], manilha) > 0)
+                {
+                    carta = _mao[0];
+                    _mao.RemoveAt(0);
+                    return carta;
+                }else
+                {
+                    if(TrucoAuxiliar.comparar(cartasRodada[0],cartasRodada[1],manilha)>0 || TrucoAuxiliar.comparar(cartasRodada[2], cartasRodada[1], manilha) > 0)
+                    {
+                        carta = _mao.Last();
+                        return carta;
+
+                    }
+                }
+            }
+
+
+
             _mao.Remove(carta);
             return carta;
 
