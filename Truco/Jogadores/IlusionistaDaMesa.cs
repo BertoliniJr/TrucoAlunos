@@ -37,16 +37,36 @@ namespace Truco
             ganheiSegunda(cartasRodada);
 
             #region UltimaCarta
-            if (_mao.Count == 1&&cartasRodada.Count>2 && _mao[0].valor(manilha)>cartasRodada.Max(x=>x.valor(manilha)))
+            if (_mao.Count() == 1)
             {
-                pedirTruco(this, trucar());
-                return jogaMenor();
-            }
+                if (cartasRodada.Count > 2 && _mao[0].valor(manilha) > cartasRodada.Max(x => x.valor(manilha)))
+                {
+                    pedirTruco(this, trucar());
+                    return jogaMenor();
+                }
 
-            if (_mao.Count == 1 && cartasRodada.Count > 3)
-            {
-                pedirTruco(this, trucar());
-                return jogaMenor();
+                if (ganhaPrimeira)
+                {
+                    if (retornaMaiorCartaIlusionista(rodada1, manilha).valor(manilha) < retornaMaiorCartaAdversario(rodada2, manilha).valor(manilha))
+                    {
+                        pedirTruco(this, trucar());
+                        return jogaMenor();
+                    }                    
+                }
+                else if (ganhaSegunda)
+                {
+                    if (retornaMaiorCartaIlusionista(rodada2, manilha).valor(manilha) < retornaMaiorCartaAdversario(rodada1, manilha).valor(manilha))
+                    {
+                        pedirTruco(this, trucar());
+                        return jogaMenor();
+                    }
+                }                
+
+                if (cartasRodada.Count > 3 && cartasRodada.Max(x => x.valor(manilha)) < 11)
+                {
+                    pedirTruco(this, trucar());
+                    return jogaMenor();
+                } 
             }
             #endregion
 
@@ -76,6 +96,14 @@ namespace Truco
             {
                 //segundo da primeira rodada
                 trucarNaPrimeira(manilha);
+                if(_mao.Count == 3)
+                {
+                    if (cartasRodada[0].valor(manilha) == 14)
+                    {
+                        pedirTruco(this, trucar());
+                        return jogaMenor();
+                    }
+                }                
 
                 if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) < 7)
                 {

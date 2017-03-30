@@ -202,8 +202,15 @@ namespace CardGame
 
                 if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) == 0)
                 {
-                    eqp1[1] += 1;
-                    eqp2[1] += 1;
+                    if (i == 0)
+                    {
+                        eqp1[1] += 3;
+                        eqp2[1] += 3;
+                    }else
+                    {
+                        eqp1[1] += 2;
+                        eqp2[1] += 2;
+                    }
                     Console.WriteLine("*Empate*");
                     jogadores = Reordenar(jogadores, indempate);
                 }
@@ -211,21 +218,36 @@ namespace CardGame
                 {
                     if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) > 0)
                     {
-                        eqp1[1] += 1;
+                        if (i == 0)
+                        {
+                            eqp1[1] += 3;
+                        }
+                        else
+                        {
+                            eqp1[1] += 2;
+                        }
+                        
                         Console.WriteLine("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior1].nome);
                         Console.WriteLine("");
                         jogadores = Reordenar(jogadores, imaior1);
                     }
                     else
                     {
-                        eqp2[1] += 1;
+                        if (i == 0)
+                        {
+                            eqp2[1] += 3;
+                        }
+                        else
+                        {
+                            eqp2[1] += 2;
+                        }
                         Console.WriteLine("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior2].nome);
                         Console.WriteLine("");
                         jogadores = Reordenar(jogadores, imaior2);
                     }
                 }
 
-                if (eqp1[1] != eqp2[1] && (eqp1[1] == 2 || eqp2[1] == 2))
+                if (eqp1[1] != eqp2[1] && (eqp1[1] == 5 || eqp2[1] == 5))
                     break;
                 #endregion
             }
