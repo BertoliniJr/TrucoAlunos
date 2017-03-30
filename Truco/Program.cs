@@ -24,7 +24,7 @@ namespace Truco
               Console.ReadLine */
 
             TesteAlffa teste = new TesteAlffa();
-            teste.BrigaIlusionista();
+            teste.BrigaJuvenal();
         }
     }
 }
