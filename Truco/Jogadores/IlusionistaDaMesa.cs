@@ -193,16 +193,31 @@ namespace Truco
             if (trucante.IDEquipe == this.IDEquipe)
                 return Escolha.aceitar;
             //primeira rodada
-            if (_mao.Where(x => x.valor(manilha) >= 10).Count() >= 2)
+            if (_mao.Count() == 3)
             {
-                return aceitarComZap(manilha, valor);
+                if (_mao.Where(x => x.valor(manilha) >= 10).Count() >= 2)
+                {
+                    return aceitarComZap(manilha, valor);
+                } 
             }
             //segunda rodada
-            if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 9).Count() >= 1)
-                return aceitarComZap(manilha, valor);
+            if (_mao.Count == 2)
+            {
+                if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 9).Count() >= 1)
+                    return aceitarComZap(manilha, valor); 
+            }
             //terceira rodada
-            if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
-                return aceitarComZap(manilha, valor);
+            if (_mao.Count() == 1)
+            {
+                if (ganhaPrimeira)
+                    return Escolha.aceitar;
+
+                if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
+                    return aumentar(valor);
+
+                if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
+                    return aceitarComZap(manilha, valor);
+            }
             Console.WriteLine("MUITA CARTA NA MAO DE TONTO, É SÓ UM PONTO");
             return Escolha.correr;
         }
