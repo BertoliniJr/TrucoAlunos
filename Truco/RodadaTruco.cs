@@ -10,8 +10,6 @@ namespace CardGame
     class RodadaTruco : IRodada
     {
         //Eventos do truco
-        public event novacarta novaCarta;
-        public delegate void novacarta(Carta a, Jogador j, Carta manilha);
 
         private int NumCartas = 3;
         Carta Manilha;
@@ -287,7 +285,6 @@ namespace CardGame
             foreach (var jogador in jogadores)
             {
                 jogador.truco += this.OlharTruco;
-                this.novaCarta += jogador.novaCarta;
             }
         }
 
@@ -296,7 +293,14 @@ namespace CardGame
             foreach (var jogador in jogadores)
             {
                 jogador.truco -= this.OlharTruco;
-                this.novaCarta -= jogador.novaCarta;
+            }
+        }
+
+        private void novaCarta(Carta a, Jogador j, Carta manilha)
+        {
+            foreach (var jogador in jogadores)
+            {
+                jogador.novaCarta(a, j, manilha);
             }
         }
 
