@@ -290,6 +290,7 @@ namespace Truco
         }
 
         private string frasesEfeito()
+        { 
         
             Random n = new Random();
             switch (n.Next(5))
