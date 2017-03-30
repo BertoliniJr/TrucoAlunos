@@ -80,27 +80,10 @@ namespace CardGame
               
                     
             }
-            
-          
+
+            return carta;
                 
-                else 
-            {
-                for (int i = 0; i < _mao.Count; i++)
-                {
-
-                    if (TrucoAuxiliar.comparar(_mao[i], maiorMesa, manilha) > 0)
-                    {
-                         carta = _mao[i];
-                        _mao.RemoveAt(i);
-                        return carta;
-
-                    }
-                   
-                }
-                carta = _mao[0];
-                _mao.RemoveAt(0);
-                return carta;
-            }
+             
         }
         public override  void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
