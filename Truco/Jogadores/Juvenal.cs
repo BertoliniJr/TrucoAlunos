@@ -11,7 +11,10 @@ namespace CardGame
     {
         private List<Carta> cartasJogadas;
 
-        public Juvenal(string n) : base(n) { }
+        public Juvenal(string n) : base(n)
+        {
+            cartasJogadas = new List<Carta>();
+        }
         public override Carta Jogar(List<Carta> cartasMesa, Carta manilha)
         {
             //ordenando
