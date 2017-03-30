@@ -16,19 +16,20 @@ namespace Truco
             int v1 = 0;
             int v2 = 0;
 
-            Jogador jogador1 = new Jogador("Jogador 1");
-            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new Jogador("Jogador 3");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
-
 
             for (int i = 0; i < 1000; i++)
             {
+
+                Jogador jogador1 = new Jogador("Jogador 1");
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
+                Jogador jogador3 = new Jogador("Jogador 3");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -54,22 +55,22 @@ namespace Truco
 
         public void TesteJura()
         {
-            Jogador jogador1 = new JurandirOJogador("");
-            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new JurandirOJogador("");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
-
-
+            
             int v1 = 0;
             int v2 = 0;
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new JurandirOJogador("");
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
+                Jogador jogador3 = new JurandirOJogador("");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -94,15 +95,7 @@ namespace Truco
 
         public void TesteJuvena()
         {
-            Jogador jogador1 = new Juvenal("Juvena 1");
-            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new Juvenal("Juvena 3");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+            
 
 
             int v1 = 0;
@@ -110,6 +103,16 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new Juvenal("Juvena 1");
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
+                Jogador jogador3 = new Juvenal("Juvena 3");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -134,15 +137,7 @@ namespace Truco
         
         public void TesteAlfa()
         {
-            Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1");
-            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new JogadorEquipeAlfa("Juvena 3");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+           
 
 
             int v1 = 0;
@@ -150,6 +145,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1");
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
+                Jogador jogador3 = new JogadorEquipeAlfa("Juvena 3");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -174,15 +178,7 @@ namespace Truco
 
         public void TesteIlusionistaEJurandi()
         {
-            Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
-            Jogador jogador2 = new JurandirOJogador("");
-            Jogador jogador3 = new Juvenal("Juvena 3");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+            
 
 
             int v1 = 0;
@@ -190,6 +186,16 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
+                Jogador jogador2 = new JurandirOJogador("");
+                Jogador jogador3 = new Juvenal("Juvena 3");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -214,22 +220,24 @@ namespace Truco
 
         public void TesteIlusionistaEJuvenal()
         {
-            Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
-            Jogador jogador2 = new Juvenal("Juvena 2"); 
-            Jogador jogador3 = new JurandirOJogador("");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
-
+            
 
             int v1 = 0;
             int v2 = 0;
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
+                Jogador jogador2 = new Juvenal("Juvena 2");
+                Jogador jogador3 = new JurandirOJogador("");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -254,22 +262,24 @@ namespace Truco
 
         public void TesteIlusionistaEAlfa()
         {
-            Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1");
-            Jogador jogador2 = new Juvenal("Alfa 2");
-            Jogador jogador3 = new JurandirOJogador("");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
-
+            
 
             int v1 = 0;
             int v2 = 0;
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1");
+                Jogador jogador2 = new Juvenal("Alfa 2");
+                Jogador jogador3 = new JurandirOJogador("");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -294,22 +304,23 @@ namespace Truco
 
         public void TesteIlusionistaEIlusionista()
         {
-            Jogador jogador1 = new IlusionistaDaMesa("Ilusionista 1");
-            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new IlusionistaDaMesa("Ilusionista 3");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
-
+          
 
             int v1 = 0;
             int v2 = 0;
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new IlusionistaDaMesa("Ilusionista 1");
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
+                Jogador jogador3 = new IlusionistaDaMesa("Ilusionista 3");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -334,15 +345,6 @@ namespace Truco
 
         public void TesteIlusionistaEJuJu()
         {
-            Jogador jogador1 = new Juvenal("Juvena 1");
-            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new JurandirOJogador("");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
 
 
             int v1 = 0;
@@ -350,6 +352,16 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new Juvenal("Juvena 1");
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
+                Jogador jogador3 = new JurandirOJogador("");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -374,22 +386,23 @@ namespace Truco
 
         public void TesteIlusionistaEJuraAlfa()
         {
-            Jogador jogador1 = new JurandirOJogador("");
-            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new JogadorEquipeAlfa("Alfa 3");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
-
 
             int v1 = 0;
             int v2 = 0;
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new JurandirOJogador("");
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
+                Jogador jogador3 = new JogadorEquipeAlfa("Alfa 3");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -414,22 +427,23 @@ namespace Truco
 
         public void TesteIlusionistaEAlfaeJuve()
         {
-            Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
-            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-            Jogador jogador3 = new Juvenal("Juvenal 3");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
-
-            Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-            Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-
-            Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
-
 
             int v1 = 0;
             int v2 = 0;
 
             for (int i = 0; i < 1000; i++)
             {
+                Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
+                Jogador jogador3 = new Juvenal("Juvenal 3");
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+
+                Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
+                Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+
+
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
