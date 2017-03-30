@@ -10,7 +10,7 @@ using CardGame;
 namespace CardGame
 {
 
-   
+
 
     class JogadorEquipeAlfa : Jogador
     {
@@ -38,31 +38,32 @@ namespace CardGame
             //descarta
             Carta carta = _mao.LastOrDefault();
 
-            if (cartasRodada.LastOrDefault() == null)
+            if (cartasRodada.Count == 0)
             {
                 _mao.Remove(carta);
                 return carta;
             }
-           
-                if (cartasRodada.Count == 1)
-                {
 
+            if (cartasRodada.Count == 1)
+            {
+
+                carta = _mao[0];
+                _mao.RemoveAt(0);
+                return carta;
+            }
+
+
+            if (cartasRodada.Count == 2)
+            {
+
+                if (TrucoAuxiliar.comparar(cartasRodada[0], cartasRodada[1], manilha) > 0)
+                {
                     carta = _mao[0];
                     _mao.RemoveAt(0);
                     return carta;
+
                 }
-            
-
-                if (cartasRodada.Count == 2)
-                {
-                
-                    if (TrucoAuxiliar.comparar(cartasRodada[0], cartasRodada[1], manilha) > 0)
-                    {
-                        carta = _mao[0];
-                        _mao.RemoveAt(0);
-                        return carta;
-
-                }else
+                else
                 {
                     for (int i = 0; i < _mao.Count; i++)
                     {
@@ -75,23 +76,25 @@ namespace CardGame
                         }
                     }
                 }
+                _mao.Remove(carta);
                 return carta;
-                
-              
-                    
-            }
 
+
+
+
+            }
+            _mao.Remove(carta);
             return carta;
-                
-             
+
+
         }
-        public override  void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
             if (Equipe.BuscaID(IDEquipe).PontosEquipe < 12)
             {
                 for (int i = 0; i < _mao.Count; i++)
                 {
-                
+
                     if (jogador.IDEquipe != IDEquipe
                         && TrucoAuxiliar.comparar(_mao[i], carta, manilha) > 0)
                     {
@@ -102,7 +105,7 @@ namespace CardGame
                     }
 
                 }
-           }
+            }
 
 
             if (jogador.IDEquipe != IDEquipe
@@ -117,11 +120,12 @@ namespace CardGame
         {
             for (int i = 0; i < _mao.Count; i++)
             {
-                if (_mao[i].valor(manilha) >= 13 )
+                if (_mao[i].valor(manilha) >= 13)
                 {
                     Console.WriteLine("Seissss seu bosta!");
                     return Escolha.aumentar;
-                }else
+                }
+                else
                 {
                     if (_mao[i].valor(manilha) > 10)
                     {
@@ -131,7 +135,7 @@ namespace CardGame
             }
             return Escolha.correr;
 
-         }   
+        }
 
 
     }
