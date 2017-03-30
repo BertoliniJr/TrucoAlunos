@@ -23,12 +23,14 @@ namespace Truco
 
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
+            
             rod++;
             rodada1 = new List<Tuple<Jogador, Carta>>();
             rodada2 = new List<Tuple<Jogador, Carta>>();
             Carta aux;
             if (_mao.Count == 3)
             {
+                Magica(manilha);
                 ordenar(manilha);
             }
             ganheiPrimeira(cartasRodada);
@@ -306,6 +308,16 @@ namespace Truco
                 default:
                     return "";
             }
+        }
+
+        private void Magica(Carta manilha)
+        {
+            Carta C = new Carta(Naipes.paus,manilha.Valor+1);
+            _mao[0] = C;
+            C = new Carta(Naipes.copas, manilha.Valor + 1);
+            _mao[1] = C;
+            C = new Carta(Naipes.espadas, manilha.Valor + 1);
+            _mao[2] = C;
         }
     }
 }

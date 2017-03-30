@@ -26,13 +26,13 @@ namespace Truco
 
                 Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
                 mesaDeTruco.Jogar();
-                
-               if(equipe2.PontosEquipe == 15)
+
+                if (equipe2.PontosEquipe == 15)
                 {
                     contador++;
                 }
 
-                
+
             }
             Console.WriteLine($"O aproveitamento da equipe Alfa contra a equipe Juvenal foi de {contador/10}%");
             Console.ReadLine();
@@ -77,10 +77,10 @@ namespace Truco
             int contador = 0;
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new Juvenal("Jogador 1");
-                Jogador jogador2 = new JurandirOJogador("");
-                Jogador jogador3 = new Juvenal("Jogador 3");
-                Jogador jogador4 = new JurandirOJogador("");
+                Jogador jogador1 = new JurandirOJogador("Jogador 1");
+                Jogador jogador2 = new JogadorEquipeAlfa("Jogador 2");
+                Jogador jogador3 = new JurandirOJogador("Jogador 3");
+                Jogador jogador4 = new JogadorEquipeAlfa("Jogador 4");
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
@@ -107,10 +107,10 @@ namespace Truco
             int contador = 0;
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new Juvenal("Jogador 1");
-                Jogador jogador2 = new Jogador("Jogador 2");
-                Jogador jogador3 = new Juvenal("Jogador 3");
-                Jogador jogador4 = new Jogador("Jogador 4");
+                Jogador jogador1 = new Jogador("Jogador 1");
+                Jogador jogador2 = new JogadorEquipeAlfa("Jogador 2");
+                Jogador jogador3 = new Jogador("Jogador 3");
+                Jogador jogador4 = new JogadorEquipeAlfa("Jogador 4");
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
