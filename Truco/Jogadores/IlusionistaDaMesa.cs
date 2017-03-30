@@ -14,7 +14,7 @@ namespace Truco
         private static int pontosRodada = 0;
         private static bool ganhaPrimeira = false;
         private static bool ganhaSegunda = false;
-        private int rod = 0;
+        private int rod = 3;
         
         public IlusionistaDaMesa(string n) : base(n)
         {
@@ -24,9 +24,6 @@ namespace Truco
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
             
-            rod++;
-            rodada1 = new List<Tuple<Jogador, Carta>>();
-            rodada2 = new List<Tuple<Jogador, Carta>>();
             Carta aux;
             if (_mao.Count == 3)
             {
@@ -37,7 +34,7 @@ namespace Truco
             ganheiSegunda(cartasRodada);
 
             #region UltimaCarta
-            if (_mao.Count() == 1)
+           if (_mao.Count() == 1)
             {
                 if (cartasRodada.Count > 2 && _mao[0].valor(manilha) > cartasRodada.Max(x => x.valor(manilha)))
                 {
@@ -176,13 +173,14 @@ namespace Truco
         /// </summary>
         public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
+            rod++;
             Tuple<Jogador, Carta> t = new Tuple<Jogador, Carta>(jogador,carta);
-            if (rod==1)
+            if (rod/4==1)
             {
                 rodada1.Add(t);
                 return;
             }
-            if (rod==2)
+            if (rod/4==2)
             {
                 rodada2.Add(t);
                 return;
@@ -195,16 +193,31 @@ namespace Truco
             if (trucante.IDEquipe == this.IDEquipe)
                 return Escolha.aceitar;
             //primeira rodada
-            if (_mao.Where(x => x.valor(manilha) >= 10).Count() >= 2)
+            if (_mao.Count() == 3)
             {
-                return aceitarComZap(manilha, valor);
+                if (_mao.Where(x => x.valor(manilha) >= 10).Count() >= 2)
+                {
+                    return aceitarComZap(manilha, valor);
+                } 
             }
             //segunda rodada
-            if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 9).Count() >= 1)
-                return aceitarComZap(manilha, valor);
+            if (_mao.Count == 2)
+            {
+                if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 9).Count() >= 1)
+                    return aceitarComZap(manilha, valor); 
+            }
             //terceira rodada
-            if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
-                return aceitarComZap(manilha, valor);
+            if (_mao.Count() == 1)
+            {
+                if (ganhaPrimeira)
+                    return Escolha.aceitar;
+
+                if (ganhaPrimeira && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
+                    return aumentar(valor);
+
+                if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
+                    return aceitarComZap(manilha, valor);
+            }
             Console.WriteLine("MUITA CARTA NA MAO DE TONTO, É SÓ UM PONTO");
             return Escolha.correr;
         }
@@ -231,9 +244,12 @@ namespace Truco
         public override void NovaMao()
         {
             base.NovaMao();
+            rodada1 = new List<Tuple<Jogador, Carta>>();
+            rodada2 = new List<Tuple<Jogador, Carta>>();
             ganhaPrimeira = false;
             ganhaSegunda = false;
             pontosRodada = 0;
+            rod = 3;
         }
 
         private void ganheiPrimeira(List<Carta> cartasRodada)

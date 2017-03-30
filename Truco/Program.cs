@@ -23,8 +23,10 @@ namespace Truco
               mesaDeTruco.Jogar();
               Console.ReadLine */
 
-            TesteAlffa teste = new TesteAlffa();
-            teste.BrigaIlusionista();
+            //TesteAlffa teste = new TesteAlffa();
+            //teste.BrigaIlusionista();
+
+            Testes.TesteProfessor.testeProfessor();
         }
     }
 }

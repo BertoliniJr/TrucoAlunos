@@ -25,8 +25,8 @@ namespace CardGame
 
         private Carta jogarCarta(Carta a, Carta manilha)
         {
+            avaliarTruco(manilha);
             _mao.Remove(a);
-            avaliarTruco(a, this, manilha);
             return a;
         }
 
@@ -136,13 +136,15 @@ namespace CardGame
             equipeTrucante = null;
         }
 
-        private void avaliarTruco(Carta carta, Jogador jogador, Carta manilha)
+        private void avaliarTruco(Carta manilha)
         {
-            if (Equipe.BuscaID(IDEquipe).PontosEquipe < 12 || Equipe.BuscaID(IDEquipe).Adversario.PontosEquipe < 12 || IDEquipe == equipeTrucante)
+            if (Equipe.BuscaID(IDEquipe).PontosEquipe >= 12 || Equipe.BuscaID(IDEquipe).Adversario.PontosEquipe >= 12 || (equipeTrucante.HasValue && IDEquipe == equipeTrucante))
                 return;
 
             if (trucoAtual == null && (probabilidadeVitoria(manilha) > 70 || probabilidadeVitoria(manilha) < 15))
                 pedirTruco();
+            else if (trucoAtual == null)
+                return;
             else
             {
                 switch (trucoAtual.Value)
@@ -188,7 +190,7 @@ namespace CardGame
 
             cartasNaoUasadas.Remove(carta);
 
-            avaliarTruco(carta, jogador, manilha);
+            avaliarTruco(manilha);
         }
 
         private void pedirTruco()
@@ -210,7 +212,8 @@ namespace CardGame
         {
             int vitoria;
             cartasNaoUasadas.Remove(manilha);
-            Carta maiorcarta = (_mao.Union(cartasMao.Where(x => x.Item1.IDEquipe == IDEquipe).Select(x => x.Item2))).OrderBy(y => y.valor(manilha)).Last();
+            List<Carta> mesaEquipe = cartasMao.Where(x => x.Item1.IDEquipe == IDEquipe).Select(z => z.Item2).ToList();
+            Carta maiorcarta = (_mao).Union(mesaEquipe).OrderBy(y => y.valor(manilha)).Last();
             double cartasMelhores = cartasNaoUasadas.Where(x => x.valor(manilha) >= (maiorcarta.valor(manilha))).Count();
             double totalCartas = cartasNaoUasadas.Count();
             vitoria = (int)((1 - (cartasMelhores / totalCartas)) * 100);
@@ -258,7 +261,7 @@ namespace CardGame
                 switch (pedido)
                 {
                     case Truco.truco:
-                        if (90 > probabilidadeVitoria(manilha) && probabilidadeVitoria(manilha) > 70)
+                        if (90 > probabilidadeVitoria(manilha) && probabilidadeVitoria(manilha) > 50)
                             return Escolha.aceitar;
                         else if (probabilidadeVitoria(manilha) >= 80)
                             return Escolha.aumentar;

@@ -43,53 +43,47 @@ namespace CardGame
                 _mao.Remove(carta);
                 return carta;
             }
-            else if (cartasRodada.Count == 1)
-            {
+           
+                if (cartasRodada.Count == 1)
+                {
 
+                    carta = _mao[0];
+                    _mao.RemoveAt(0);
+                    return carta;
+                }
+            
 
-
-                carta = _mao[0];
-                _mao.RemoveAt(0);
-                return carta;
-            }
                 if (cartasRodada.Count == 2)
                 {
-                for (int i = 0; i < _mao.Count; i++)
-                {
-                    if (TrucoAuxiliar.comparar(_mao[i], maiorMesa, manilha) > 0)
+                
+                    if (TrucoAuxiliar.comparar(cartasRodada[0], cartasRodada[1], manilha) > 0)
                     {
-                        carta = _mao[i];
-                        _mao.RemoveAt(i);
+                        carta = _mao[0];
+                        _mao.RemoveAt(0);
                         return carta;
 
+                }else
+                {
+                    for (int i = 0; i < _mao.Count; i++)
+                    {
+                        if (TrucoAuxiliar.comparar(cartasRodada[1], cartasRodada[0], manilha) > 0 && TrucoAuxiliar.comparar(_mao[i], cartasRodada[1], manilha) > 0)
+                        {
+                            carta = _mao[i];
+                            _mao.RemoveAt(i);
+                            return carta;
+
+                        }
                     }
                 }
-                carta = _mao[0];
-                _mao.RemoveAt(0);
                 return carta;
+                
+              
                     
             }
-            
-          
+
+            return carta;
                 
-                else 
-            {
-                for (int i = 0; i < _mao.Count; i++)
-                {
-
-                    if (TrucoAuxiliar.comparar(_mao[i], maiorMesa, manilha) > 0)
-                    {
-                         carta = _mao[i];
-                        _mao.RemoveAt(i);
-                        return carta;
-
-                    }
-                   
-                }
-                carta = _mao[0];
-                _mao.RemoveAt(0);
-                return carta;
-            }
+             
         }
         public override  void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
@@ -125,6 +119,7 @@ namespace CardGame
             {
                 if (_mao[i].valor(manilha) >= 13 )
                 {
+                    Console.WriteLine("Seissss seu bosta!");
                     return Escolha.aumentar;
                 }else
                 {
