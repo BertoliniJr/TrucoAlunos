@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Truco.Auxiliares;
 
 namespace CardGame
 {
     class JogadorProfessor : Jogador
     {
-        public JogadorProfessor(string n) : base(n)
+        public JogadorProfessor(string n, Log logar) : base(n, logar)
         {
             nome = $"Professor {n}";
             cartasMao = new List<Tuple<Jogador, Carta>>();

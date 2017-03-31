@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Truco.Auxiliares;
 
 namespace CardGame
 {
@@ -18,6 +19,8 @@ namespace CardGame
         private int EquipeTrucante;
         private int correu;
 
+        private Log log;
+
         List<Carta> ListaCartas;
 
         public int getNumCartas()
@@ -25,12 +28,14 @@ namespace CardGame
             return NumCartas;
         }
 
-        public RodadaTruco(Carta M)
+        public RodadaTruco(Carta M, Log logar)
         {
             Manilha = M;
             pontos = 1;
             correu = -1;
             EquipeTrucante = -1;
+
+            log = logar;
         }
 
         private bool validarTruco(Jogador jogador, Truco pedido)
@@ -38,26 +43,26 @@ namespace CardGame
             //Validando o truco
             if (jogadores.Where(x => Equipe.BuscaID(x.IDEquipe).PontosEquipe >= 12).Count() > 0)
             {
-                Console.WriteLine($"Jogador {jogador} trucou na mão de doze. Perdeu");
+                log.logar($"Jogador {jogador} trucou na mão de doze. Perdeu");
                 correu = jogador.IDEquipe;
                 return false;
             }
 
             if (jogador.IDEquipe == EquipeTrucante)
             {
-                Console.WriteLine($"Jogador {jogador} trucou, mas equipe já está trucando");
+                log.logar($"Jogador {jogador} trucou, mas equipe já está trucando");
                 return false;
             }
 
             if (this.pontos >= pedido.pontosTruco())
             {
-                Console.WriteLine($"Jogador {jogador} pediu {pedido}, mas a partida já está valendo mais");
+                log.logar($"Jogador {jogador} pediu {pedido}, mas a partida já está valendo mais");
                 return false;
             }
 
             if (Truco.jogo.pontosTruco() == this.pontos)
             {
-                Console.WriteLine("Partida já está valendo jogo");
+                log.logar("Partida já está valendo jogo");
                 return false;
             }
             return true;
@@ -69,7 +74,7 @@ namespace CardGame
             {
                 return;
             }
-            Console.WriteLine($"{jogador} pedindo {pedido}");
+            log.logar($"{jogador} pedindo {pedido}");
             //Perguntando jogadores se aceitam
             Tuple<Jogador, Escolha> aceite = aceita(jogador, pedido);
 
@@ -77,13 +82,13 @@ namespace CardGame
             switch (aceite.Item2)
             {
                 case Escolha.correr:
-                    Console.WriteLine($"Equipe {Equipe.BuscaID(aceite.Item1.IDEquipe)} correu");
+                    log.logar($"Equipe {Equipe.BuscaID(aceite.Item1.IDEquipe)} correu");
                     correu = aceite.Item1.IDEquipe;
                     break;
                 case Escolha.aceitar:
                     this.pontos = pedido.pontosTruco();
                     EquipeTrucante = jogador.IDEquipe;
-                    Console.WriteLine($"{aceite.Item1} aceitou o truco");
+                    log.logar($"{aceite.Item1} aceitou o truco");
                     break;
                 case Escolha.aumentar:
                     #region aumentar
@@ -151,8 +156,8 @@ namespace CardGame
             if (Equipe.BuscaID(eqp1[0]).PontosEquipe >= 12 || Equipe.BuscaID(eqp2[0]).PontosEquipe >= 12)
             {
                 pontos = 3;
-                Console.WriteLine("Mão de 12");
-                Console.WriteLine("");
+                log.logar("Mão de 12");
+                log.logar("");
             }
 
             int indempate = 0;
@@ -171,7 +176,7 @@ namespace CardGame
                     #region loop da mão
                     ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
                     Carta X = ListaCartas.Last();
-                    Console.WriteLine(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), TrucoAuxiliar.gerarValorCarta(X, Manilha));
+                    log.logar(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), TrucoAuxiliar.gerarValorCarta(X, Manilha));
                     novaCarta(X, jogadores[j], Manilha);
 
                     if (jogadores[j].IDEquipe == eqp1[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior1, Manilha) > 0)
@@ -188,10 +193,10 @@ namespace CardGame
                     }
                     if (correu > -1)
                     {
-                        Console.WriteLine($"Equipe {Equipe.BuscaID(correu)} correu do truco.");
+                        log.logar($"Equipe {Equipe.BuscaID(correu)} correu do truco.");
                         Equipe vencedora = Equipe.BuscaID(jogadores.Where(x => x.IDEquipe != correu).First().IDEquipe);
                         vencedora.GanharPontos(pontos);
-                        Console.WriteLine("A {0}, ganhou a rodada !", vencedora.ToString());
+                        log.logar("A {0}, ganhou a rodada !", vencedora.ToString());
                         desligaEventos();
                         return;
                     }
@@ -209,7 +214,7 @@ namespace CardGame
                         eqp1[1] += 2;
                         eqp2[1] += 2;
                     }
-                    Console.WriteLine("*Empate*");
+                    log.logar("*Empate*");
                     jogadores = Reordenar(jogadores, indempate);
                 }
                 else
@@ -225,8 +230,8 @@ namespace CardGame
                             eqp1[1] += 2;
                         }
                         
-                        Console.WriteLine("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior1].nome);
-                        Console.WriteLine("");
+                        log.logar("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior1].nome);
+                        log.logar("");
                         jogadores = Reordenar(jogadores, imaior1);
                     }
                     else
@@ -239,8 +244,8 @@ namespace CardGame
                         {
                             eqp2[1] += 2;
                         }
-                        Console.WriteLine("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior2].nome);
-                        Console.WriteLine("");
+                        log.logar("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior2].nome);
+                        log.logar("");
                         jogadores = Reordenar(jogadores, imaior2);
                     }
                 }
@@ -253,28 +258,28 @@ namespace CardGame
             if (correu == eqp2[0])
             {
                 Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
-                Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
+                log.logar("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
             }
             else if (correu == eqp1[0])
             {
                 Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
-                Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
+                log.logar("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
             }
             else
             {
                 if (eqp1[1] > eqp2[1])
                 {
                     Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
-                    Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
+                    log.logar("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
                 }
                 else if (eqp1[1] < eqp2[1])
                 {
                     Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
-                    Console.WriteLine("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
+                    log.logar("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
                 }
                 else
                 {
-                    Console.WriteLine("\n*Empate na rodada, ninguem ganhou pontos*");
+                    log.logar("\n*Empate na rodada, ninguem ganhou pontos*");
                 }
             }
             desligaEventos();

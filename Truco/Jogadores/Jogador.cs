@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Truco.Auxiliares;
 
 namespace CardGame
 {
@@ -26,6 +27,7 @@ namespace CardGame
                 _nome = value;
             }
         }
+        protected Log log;
 
         public int IDEquipe
         {
@@ -40,10 +42,11 @@ namespace CardGame
             }
         }
         
-        public Jogador(string n)
+        public Jogador(string n, Log logar)
         {
             nome = n;
             _mao = new List<Carta>();
+            log = logar;
         }
 
         public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)

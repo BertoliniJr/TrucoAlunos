@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Truco;
+using Truco.Auxiliares;
 
 namespace CardGame
 {
     class TesteGrupo3
     {
-        public StreamWriter n1;
+        private Log log;
 
-        public TesteGrupo3()
+        public TesteGrupo3(Log logar)
         {
-            n1 = new StreamWriter("Teste.txt");
-
+            log = logar;
         }
 
         public void testarProfessor()
@@ -26,17 +26,17 @@ namespace CardGame
             int juvenal = 0, professor = 0, empate = 0;
 
 
-            Jogador jogador1 = new Juvenal("Juvenal");
-            Jogador jogador2 = new JogadorProfessor("");
-            Jogador jogador3 = new Juvenal("Juvenal");
-            Jogador jogador4 = new JogadorProfessor("");
+            Jogador jogador1 = new Juvenal("Juvenal", log);
+            Jogador jogador2 = new JogadorProfessor("", log);
+            Jogador jogador3 = new Juvenal("Juvenal", log);
+            Jogador jogador4 = new JogadorProfessor("", log);
 
-            n1.WriteLine("Juvenal X Professor");
+            log.logar("Juvenal X Professor", TipoLog.logTeste);
             for (int x = 0; x < 1000; x++)
             {
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
                 mesaDeTruco.Jogar();
                 if (equipe1.PontosEquipe >= 15)
                 {
@@ -52,10 +52,10 @@ namespace CardGame
                 }
 
             }
-            n1.WriteLine(juvenal + "        " + professor);
-            n1.WriteLine("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal / 1000D) * 100D);
-            n1.WriteLine("        \n   ");
-            Console.WriteLine("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, professor, empate);
+            log.logar(juvenal + "        " + professor, TipoLog.logTeste);
+            log.logar("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal / 1000D) * 100D, TipoLog.logTeste);
+            log.logar("        \n   ", TipoLog.logTeste);
+            log.logar("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, professor, empate, TipoLog.logTeste);
         }
 
         public void testarIlusionista()
@@ -66,12 +66,12 @@ namespace CardGame
             int juvenal = 0, ilusionista = 0, empate = 0;
 
 
-            Jogador jogador1 = new Juvenal("Juvenal");
-            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista");
-            Jogador jogador3 = new Juvenal("Juvenal");
-            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista");
+            Jogador jogador1 = new Juvenal("Juvenal", log);
+            Jogador jogador2 = new IlusionistaDaMesa("Ilusionista", log);
+            Jogador jogador3 = new Juvenal("Juvenal", log);
+            Jogador jogador4 = new IlusionistaDaMesa("Ilusionista", log);
 
-            n1.WriteLine("Juvenal X Ilusionista");
+            log.logar("Juvenal X Ilusionista", TipoLog.logTeste);
 
             for (int x = 0; x < 1000; x++)
 
@@ -83,7 +83,7 @@ namespace CardGame
 
 
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
 
                 mesaDeTruco.Jogar();
@@ -105,10 +105,10 @@ namespace CardGame
                 }
 
             }
-            n1.WriteLine(juvenal + "            " + ilusionista);
-            n1.WriteLine("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal / 1000D) * 100D);
-            n1.WriteLine("          \n ");
-            Console.WriteLine("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, ilusionista, empate);
+            log.logar(juvenal + "            " + ilusionista, TipoLog.logTeste);
+            log.logar("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal / 1000D) * 100D, TipoLog.logTeste);
+            log.logar("          \n ", TipoLog.logTeste);
+            log.logar("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, ilusionista, empate, TipoLog.logTeste);
 
         }
 
@@ -120,12 +120,12 @@ namespace CardGame
             int juvenal = 0, Jurandir = 0, empate = 0;
 
 
-            Jogador jogador1 = new Juvenal("Juvenal");
-            Jogador jogador2 = new JurandirOJogador("");
-            Jogador jogador3 = new Juvenal("Juvenal");
-            Jogador jogador4 = new JurandirOJogador("");
+            Jogador jogador1 = new Juvenal("Juvenal", log);
+            Jogador jogador2 = new JurandirOJogador("", log);
+            Jogador jogador3 = new Juvenal("Juvenal", log);
+            Jogador jogador4 = new JurandirOJogador("", log);
 
-            n1.WriteLine("Juvenal X Jurandir");
+            log.logar("Juvenal X Jurandir", TipoLog.logTeste);
             for (int x = 0; x < 1000; x++)
 
             {
@@ -136,7 +136,7 @@ namespace CardGame
 
 
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
 
                 mesaDeTruco.Jogar();
@@ -158,10 +158,10 @@ namespace CardGame
                 }
 
             }
-            n1.WriteLine(juvenal + "        " + Jurandir);
-            n1.WriteLine("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal / 1000D) * 100D);
-            n1.WriteLine("        \n   ");
-            Console.WriteLine("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, Jurandir, empate);
+            log.logar(juvenal + "        " + Jurandir, TipoLog.logTeste);
+            log.logar("Juvenal ganhou {0}% das vezes \n\n", ((double)juvenal / 1000D) * 100D, TipoLog.logTeste);
+            log.logar("        \n   ", TipoLog.logTeste);
+            log.logar("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, Jurandir, empate, TipoLog.logTeste);
 
         }
 
@@ -171,12 +171,12 @@ namespace CardGame
             int juvenal = 0, alfa = 0, empate = 0;
 
 
-            Jogador jogador1 = new Juvenal("Juvenal");
-            Jogador jogador2 = new JogadorEquipeAlfa("Jogador Alfa");
-            Jogador jogador3 = new Juvenal("Juvenal");
-            Jogador jogador4 = new JogadorEquipeAlfa("Jogador Alfa");
+            Jogador jogador1 = new Juvenal("Juvenal", log);
+            Jogador jogador2 = new JogadorEquipeAlfa("Jogador Alfa", log);
+            Jogador jogador3 = new Juvenal("Juvenal", log);
+            Jogador jogador4 = new JogadorEquipeAlfa("Jogador Alfa", log);
 
-            n1.WriteLine("Juvenal X EquipeAlfa");
+            log.logar("Juvenal X EquipeAlfa", TipoLog.logTeste);
             for (int x = 0; x < 1000; x++)
 
             {
@@ -187,7 +187,7 @@ namespace CardGame
 
 
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
 
                 mesaDeTruco.Jogar();
@@ -209,20 +209,14 @@ namespace CardGame
                 }
 
             }
-            n1.WriteLine(juvenal + "       " + alfa);
-            n1.WriteLine("Juvenal ganhou {0}% das vezes \n\n ", ((double)juvenal / 1000D) * 100D);
-            n1.WriteLine("      \n     ");
+            log.logar(juvenal + "       " + alfa, TipoLog.logTeste);
+            log.logar("Juvenal ganhou {0}% das vezes \n\n ", ((double)juvenal / 1000D) * 100D, TipoLog.logTeste);
+            log.logar("      \n     ", TipoLog.logTeste);
 
-            Console.WriteLine("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, alfa, empate);
-
-        }
-
-        public void fechaArquivo()
-        {
-
-            n1.Close();
+            log.logar("A equipe 1 ganhou {0} vezes, e a equipe 2 ganhour {1}, ficou {2}", juvenal, alfa, empate, TipoLog.logTeste);
 
         }
+        
 
 
 

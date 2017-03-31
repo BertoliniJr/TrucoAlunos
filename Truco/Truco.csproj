@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Auxiliares\EnumeradorEscolha.cs" />
     <Compile Include="Auxiliares\EnumeradorTruco.cs" />
+    <Compile Include="Auxiliares\Log.cs" />
+    <Compile Include="Auxiliares\TipoLog.cs" />
     <Compile Include="Baralho.cs" />
     <Compile Include="Carta.cs" />
     <Compile Include="Auxiliares\EnumeradorNaipe.cs" />

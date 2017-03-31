@@ -5,11 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using CardGame;
 using System.IO;
+using Truco.Auxiliares;
 
 namespace Truco
 {
     public class testeIlusionista
     {
+        private Log log;
+        public testeIlusionista(Log logar)
+        {
+            log = logar;
+        }
         public void testePC()
         {
             
@@ -20,15 +26,15 @@ namespace Truco
             for (int i = 0; i < 1000; i++)
             {
 
-                Jogador jogador1 = new Jogador("Jogador 1");
-                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-                Jogador jogador3 = new Jogador("Jogador 3");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new Jogador("Jogador 1", log);
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2", log);
+                Jogador jogador3 = new Jogador("Jogador 3", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
@@ -41,15 +47,11 @@ namespace Truco
                 }
             }
 
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe PC vs Equipe Ilusionista");
-            sw.WriteLine();
-            sw.WriteLine("A equipe PC ganhou {0}, {1}% ", v1 , (double)(v1)/(double)((v1+v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista ganhou {0}, {1}% ", v2 , (double)(v2)/(double)((v1+v2))* 100D);
-            sw.WriteLine();
-            sw.Close();
+            log.logar("Equipe PC vs Equipe Ilusionista", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe PC ganhou {0}, {1}% ", v1 , (double)(v1)/(double)((v1+v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista ganhou {0}, {1}% ", v2 , (double)(v2)/(double)((v1+v2))* 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
 
         }
 
@@ -61,15 +63,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new JurandirOJogador("");
-                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-                Jogador jogador3 = new JurandirOJogador("");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new JurandirOJogador("", log);
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2", log);
+                Jogador jogador3 = new JurandirOJogador("", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
@@ -81,16 +83,12 @@ namespace Truco
                     v2++;
                 }
             }
-
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Jura vs Equipe Ilusionista");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Jura ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            
+            log.logar("Equipe Jura vs Equipe Ilusionista", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Jura ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
 
         public void TesteJuvena()
@@ -103,15 +101,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new Juvenal("Juvena 1");
-                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-                Jogador jogador3 = new Juvenal("Juvena 3");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new Juvenal("Juvena 1", log);
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2", log);
+                Jogador jogador3 = new Juvenal("Juvena 3", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
@@ -124,15 +122,11 @@ namespace Truco
                 }
             }
 
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Juvena vs Equipe Ilusionista");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Juvena ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            log.logar("Equipe Juvena vs Equipe Ilusionista", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Juvena ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
         
         public void TesteAlfa()
@@ -145,15 +139,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1");
-                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-                Jogador jogador3 = new JogadorEquipeAlfa("Juvena 3");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1", log);
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2", log);
+                Jogador jogador3 = new JogadorEquipeAlfa("Juvena 3", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
                 {
@@ -164,16 +158,12 @@ namespace Truco
                     v2++;
                 }
             }
-
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Alfa vs Equipe Ilusionista");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Alfa ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            
+            log.logar("Equipe Alfa vs Equipe Ilusionista", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Alfa ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
 
         public void TesteIlusionistaEJurandi()
@@ -186,15 +176,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
-                Jogador jogador2 = new JurandirOJogador("");
-                Jogador jogador3 = new Juvenal("Juvena 3");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1", log);
+                Jogador jogador2 = new JurandirOJogador("", log);
+                Jogador jogador3 = new Juvenal("Juvena 3", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
@@ -207,15 +197,11 @@ namespace Truco
                 }
             }
 
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Alfa e Juvenal vs Equipe Ilusionista e Jurandi");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Alfa e Juvenal ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista e Jurandi ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            log.logar("Equipe Alfa e Juvenal vs Equipe Ilusionista e Jurandi", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Alfa e Juvenal ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista e Jurandi ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
 
         public void TesteIlusionistaEJuvenal()
@@ -227,15 +213,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
-                Jogador jogador2 = new Juvenal("Juvena 2");
-                Jogador jogador3 = new JurandirOJogador("");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1", log);
+                Jogador jogador2 = new Juvenal("Juvena 2", log);
+                Jogador jogador3 = new JurandirOJogador("", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
 
                 mesaDeTruco.Jogar();
@@ -248,16 +234,12 @@ namespace Truco
                     v2++;
                 }
             }
-
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Alfa e Jurandi vs Equipe Ilusionista e Juvenal");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Alfa e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista e Juvenal ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            
+            log.logar("Equipe Alfa e Jurandi vs Equipe Ilusionista e Juvenal", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Alfa e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista e Juvenal ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
 
         public void TesteIlusionistaEAlfa()
@@ -269,15 +251,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1");
-                Jogador jogador2 = new Juvenal("Alfa 2");
-                Jogador jogador3 = new JurandirOJogador("");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new JogadorEquipeAlfa("Juvena 1", log);
+                Jogador jogador2 = new Juvenal("Alfa 2", log);
+                Jogador jogador3 = new JurandirOJogador("", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
 
                 mesaDeTruco.Jogar();
@@ -291,15 +273,11 @@ namespace Truco
                 }
             }
 
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Juvenal e Jurandi vs Equipe Ilusionista e Alfa");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Juvenal e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista e Alfa ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            log.logar("Equipe Juvenal e Jurandi vs Equipe Ilusionista e Alfa", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Juvenal e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista e Alfa ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
 
         public void TesteIlusionistaEIlusionista()
@@ -311,15 +289,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new IlusionistaDaMesa("Ilusionista 1");
-                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-                Jogador jogador3 = new IlusionistaDaMesa("Ilusionista 3");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new IlusionistaDaMesa("Ilusionista 1", log);
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2", log);
+                Jogador jogador3 = new IlusionistaDaMesa("Ilusionista 3", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
@@ -332,15 +310,11 @@ namespace Truco
                 }
             }
 
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Ilusionista e Ilusionista vs Equipe Ilusionista e Ilusionista");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Ilusionista 1 ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista 2 ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            log.logar("Equipe Ilusionista e Ilusionista vs Equipe Ilusionista e Ilusionista", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Ilusionista 1 ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista 2 ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
 
         public void TesteIlusionistaEJuJu()
@@ -352,15 +326,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new Juvenal("Juvena 1");
-                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-                Jogador jogador3 = new JurandirOJogador("");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new Juvenal("Juvena 1", log);
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2", log);
+                Jogador jogador3 = new JurandirOJogador("", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
                 mesaDeTruco.Jogar();
                 if (mesaDeTruco.EquipeMesa[0].PontosEquipe >= 15)
@@ -373,15 +347,11 @@ namespace Truco
                 }
             }
 
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Juvenal e Jurandi vs Equipe Ilusionista e Ilusionista");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Juvenal e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista  ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            log.logar("Equipe Juvenal e Jurandi vs Equipe Ilusionista e Ilusionista", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Juvenal e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista  ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
 
         public void TesteIlusionistaEJuraAlfa()
@@ -392,15 +362,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new JurandirOJogador("");
-                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-                Jogador jogador3 = new JogadorEquipeAlfa("Alfa 3");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new JurandirOJogador("", log);
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2", log);
+                Jogador jogador3 = new JogadorEquipeAlfa("Alfa 3", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
 
                 mesaDeTruco.Jogar();
@@ -414,15 +384,11 @@ namespace Truco
                 }
             }
 
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Alfa e Jurandi vs Equipe Ilusionista e Ilusionista");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Alfa e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            log.logar("Equipe Alfa e Jurandi vs Equipe Ilusionista e Ilusionista", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Alfa e Jurandi ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
 
         public void TesteIlusionistaEAlfaeJuve()
@@ -433,15 +399,15 @@ namespace Truco
 
             for (int i = 0; i < 1000; i++)
             {
-                Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1");
-                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2");
-                Jogador jogador3 = new Juvenal("Juvenal 3");
-                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4");
+                Jogador jogador1 = new JogadorEquipeAlfa("Alfa 1", log);
+                Jogador jogador2 = new IlusionistaDaMesa("Ilusionista 2", log);
+                Jogador jogador3 = new Juvenal("Juvenal 3", log);
+                Jogador jogador4 = new IlusionistaDaMesa("Ilusionista 4", log);
 
                 Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
                 Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
 
-                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
+                Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 }, log);
 
 
                 mesaDeTruco.Jogar();
@@ -455,15 +421,11 @@ namespace Truco
                 }
             }
 
-            FileStream fs = new FileStream("Arquivo.txt", FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-
-            sw.WriteLine("Equipe Juvenal e Alfa vs Equipe Ilusionista e Ilusionista");
-            sw.WriteLine();
-            sw.WriteLine("A equipe Juvenal e Alfa ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine("A equipe Ilusionista 2 ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D);
-            sw.WriteLine();
-            sw.Close();
+            log.logar("Equipe Juvenal e Alfa vs Equipe Ilusionista e Ilusionista", TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
+            log.logar("A equipe Juvenal e Alfa ganhou {0}, {1}% ", v1, (double)(v1) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("A equipe Ilusionista 2 ganhou {0}, {1}% ", v2, (double)(v2) / (double)((v1 + v2)) * 100D, TipoLog.logTeste);
+            log.logar("", TipoLog.logTeste);
         }
     }
 

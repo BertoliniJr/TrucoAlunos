@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Truco;
+using Truco.Auxiliares;
 
 namespace CardGame
 {
@@ -11,7 +12,7 @@ namespace CardGame
     {
         private List<Carta> cartasJogadas;
 
-        public Juvenal(string n) : base(n)
+        public Juvenal(string n, Log logar) : base(n, logar)
         {
             cartasJogadas = new List<Carta>();
         }
@@ -141,7 +142,6 @@ namespace CardGame
             {
                 if (_mao[i].valor(manilha) == 14)
                 {
-                    Console.WriteLine("");
                     return Escolha.aumentar;
                 }else if (_mao[i].valor(manilha) >= 11)
                 {

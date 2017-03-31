@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Truco.Auxiliares;
 
 namespace CardGame
 {
     class Mesa
     {
         private Baralho baralhoMesa;
+        private Log log;
         
 
         public Baralho BaralhoMesa
@@ -34,11 +36,12 @@ namespace CardGame
 
         private Jogador[] posicoes;
         
-        public Mesa(List<Equipe> equipes)
+        public Mesa(List<Equipe> equipes, Log logar)
         {
             equipeMesa = equipes;
             equipes[0].Adversario = equipes[1];
             equipes[1].Adversario = equipes[0];
+            log = logar;
         }
         private void preencheMesa()
         {
@@ -72,19 +75,19 @@ namespace CardGame
             {
                 baralhoMesa.embaralhar();
 
-                Console.WriteLine();
-                Console.WriteLine("--------------------");
-                Console.WriteLine("Iniciando Rodada {0}",r);
-                Console.WriteLine("--------------------");
+                log.logar();
+                log.logar("--------------------");
+                log.logar("Iniciando Rodada {0}",r);
+                log.logar("--------------------");
                 Carta queimada = baralhoMesa.pegarProxima();
-                Console.WriteLine("\n:::::Carta queimada: {0} de {1}", queimada.nomeValor(), queimada.Naipe);
+                log.logar("\n:::::Carta queimada: {0} de {1}", queimada.nomeValor(), queimada.Naipe);
                 foreach (var equipe in equipeMesa)
                 {
                     Console.Write("\n*{0}: {1} Pontos* ", equipe.ToString(),equipe.PontosEquipe );
                 }
-                Console.WriteLine("\n");
+                log.logar("\n");
 
-                rodadaMesa = new RodadaTruco(queimada);
+                rodadaMesa = new RodadaTruco(queimada, log);
 
                 foreach (var jogador in posicoes)
                 {
@@ -103,7 +106,7 @@ namespace CardGame
                 {
                     if (equipe.PontosEquipe >= 15)
                     {
-                        Console.WriteLine("\n***** Equipe dos jogadores {0} venceu *****", equipe.ToString());
+                        log.logar("\n***** Equipe dos jogadores {0} venceu *****", equipe.ToString());
                         return;
                     }
                         

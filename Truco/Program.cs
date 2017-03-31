@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CardGame;
+using Truco.Auxiliares;
 
 namespace Truco
 {
@@ -25,8 +26,10 @@ namespace Truco
 
             //TesteAlffa teste = new TesteAlffa();
             //teste.BrigaIlusionista();
-
-            Testes.TesteProfessor.testeProfessor();
+            using (Log log = new Log())
+            {
+                Testes.TesteProfessor.testeProfessor(log);
+            }
         }
     }
 }

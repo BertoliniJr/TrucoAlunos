@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Truco.Auxiliares;
 
 namespace CardGame
 {
@@ -14,7 +15,7 @@ namespace CardGame
         private static bool ganhoPrimeira = false;
 
 
-        public JurandirOJogador(string sobrenome) : base("Jurandir o "+sobrenome)
+        public JurandirOJogador(string sobrenome, Log logar) : base("Jurandir o "+sobrenome, logar)
         {
 
         }

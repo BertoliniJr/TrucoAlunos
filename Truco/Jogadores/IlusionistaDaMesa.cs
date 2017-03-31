@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CardGame;
+using Truco.Auxiliares;
 
 namespace Truco
 {
@@ -16,7 +17,7 @@ namespace Truco
         private static bool ganhaSegunda = false;
         private int rod = 3;
         
-        public IlusionistaDaMesa(string n) : base(n)
+        public IlusionistaDaMesa(string n, Log logar) : base(n, logar)
         {
         }
 
@@ -104,7 +105,7 @@ namespace Truco
 
                 if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) < 7)
                 {
-                    Console.WriteLine("Faz ai parceiro.");
+                    log.logar("Faz ai parceiro.", TipoLog.logJogador);
                     return jogaMenor();
                 }
                 for (int i = 0; i < _mao.Count; i++)
@@ -218,7 +219,7 @@ namespace Truco
                 if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
                     return aceitarComZap(manilha, valor);
             }
-            Console.WriteLine("MUITA CARTA NA MAO DE TONTO, É SÓ UM PONTO");
+            log.logar("MUITA CARTA NA MAO DE TONTO, É SÓ UM PONTO", TipoLog.logJogador);
             return Escolha.correr;
         }
 
@@ -235,7 +236,7 @@ namespace Truco
             }
             if (_mao.Where(x => x.valor(manilha) >= 11).Count() >= 2 && _mao.Count() == 3)
             {
-                Console.WriteLine(frasesEfeito());
+                log.logar(frasesEfeito(), TipoLog.logJogador);
                 pedirTruco(this, trucar());
                 pontosRodada++;
             }
@@ -303,7 +304,7 @@ namespace Truco
             {
                 return;
             }
-            Console.WriteLine(frasesEfeito());
+            log.logar(frasesEfeito(), TipoLog.logJogador);
             base.trucar(jogador, pedido);
         }
 

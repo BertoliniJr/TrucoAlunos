@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CardGame;
-
-
+using Truco.Auxiliares;
 
 namespace CardGame
 {
@@ -15,7 +14,7 @@ namespace CardGame
     class JogadorEquipeAlfa : Jogador
     {
 
-        public JogadorEquipeAlfa(string n) : base(n) { }
+        public JogadorEquipeAlfa(string n, Log logar) : base(n, logar) { }
 
         public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
@@ -151,7 +150,7 @@ namespace CardGame
             {
                 if (_mao[i].valor(manilha) >= 13)
                 {
-                    Console.WriteLine("Seissss seu bosta!");
+                    log.logar("Seissss seu bosta!", TipoLog.logJogador);
                     return Escolha.aumentar;
                 }
                 else
