@@ -9,11 +9,11 @@ using Truco.Enumeradores;
 
 namespace Truco.Baralhos
 {
-    class BaralhoMalMal : IBaralho
+    class BaralhoBuraco
     {
         public List<ICartas> baralho = new List<ICartas>();
 
-        public BaralhoMalMal()
+        public BaralhoBuraco()
         {
             criarBaralho();
         }
@@ -26,7 +26,7 @@ namespace Truco.Baralhos
             while (contador < 2)
             {
                 for (int i = 1; i <= 13; i++)
-                {                   
+                {
                     ICartas c1 = new Carta(Naipes.copas, i);
                     ICartas c2 = new Carta(Naipes.espadas, i);
                     ICartas c3 = new Carta(Naipes.ouros, i);
@@ -57,6 +57,6 @@ namespace Truco.Baralhos
             baralho.RemoveAt(0);
             return aux;
         }
-
     }
+}
 }
