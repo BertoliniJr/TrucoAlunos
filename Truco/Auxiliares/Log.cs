@@ -5,11 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Truco.Enumeradores;
+using Truco.Interfaces;
 
 namespace Truco.Auxiliares
 {
-    public class Log : IDisposable
+    public class Log : IDisposable, ILog
     {
+        private static Log Instanciada;
+        private Dictionary<TipoLog, StreamWriter> caminho;
+
         public void Dispose()
         {
             foreach (var item in caminho.Values)
@@ -19,9 +23,7 @@ namespace Truco.Auxiliares
             }
         }
 
-        private Dictionary<TipoLog, StreamWriter> caminho;
-
-        public Log()
+        private Log()
         {
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             caminho = new Dictionary<TipoLog, StreamWriter>();
@@ -37,17 +39,24 @@ namespace Truco.Auxiliares
             }
         }
 
+        public static ILog getLog()
+        {
+            if (Instanciada == null)
+            {
+                Instanciada = new Log();
+            }
+
+            return Instanciada;
+        }
+
         public void logar(string msg, TipoLog tipo = TipoLog.logControle)
         {
             caminho[tipo].WriteLine(msg);
         }
-
-        
         public void logar(string msg, params object[] args)
         {
             caminho[TipoLog.logControle].WriteLine(String.Format(msg, args));
         }
-
         public void logar()
         {
             caminho[TipoLog.logControle].WriteLine();
