@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Truco.Auxiliares;
+using Truco.Enumeradores;
 
 namespace CardGame
 {
     class Jogador
     {
         public event trucoseubosta truco;
-        public delegate void trucoseubosta(Jogador jogador, Truco truco);        
+        public delegate void trucoseubosta(Jogador jogador, EnumTruco truco);        
 
         protected List<Carta> _mao;
         protected string _nome;
@@ -109,10 +110,10 @@ namespace CardGame
                 && ((Carta)carta).valor(manilha) < 2
                 && _mao.Count > 0
                 && _mao.Max(a => a.valor(manilha)) > 10)
-                truco(this, Truco.truco);
+                truco(this, EnumTruco.truco);
         }
 
-        public virtual Escolha trucado(Jogador trucante, Truco valor, Carta manilha)
+        public virtual Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
         {
             return Escolha.aceitar;
         }
@@ -122,7 +123,7 @@ namespace CardGame
             return this.nome;
         }
 
-        protected void trucar (Jogador jogador, Truco pedido)
+        protected void trucar (Jogador jogador, EnumTruco pedido)
         {
             truco(jogador, pedido);
         }

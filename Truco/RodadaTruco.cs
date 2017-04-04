@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Truco.Auxiliares;
+using Truco.Enumeradores;
 
 namespace CardGame
 {
@@ -38,7 +39,7 @@ namespace CardGame
             log = logar;
         }
 
-        private bool validarTruco(Jogador jogador, Truco pedido)
+        private bool validarTruco(Jogador jogador, EnumTruco pedido)
         {
             //Validando o truco
             if (jogadores.Where(x => Equipe.BuscaID(x.IDEquipe).PontosEquipe >= 12).Count() > 0)
@@ -60,7 +61,7 @@ namespace CardGame
                 return false;
             }
 
-            if (Truco.jogo.pontosTruco() == this.pontos)
+            if (EnumTruco.jogo.pontosTruco() == this.pontos)
             {
                 log.logar("Partida já está valendo jogo");
                 return false;
@@ -68,7 +69,7 @@ namespace CardGame
             return true;
         }
 
-        protected virtual void OlharTruco(Jogador jogador, Truco pedido)
+        protected virtual void OlharTruco(Jogador jogador, EnumTruco pedido)
         {
             if (!validarTruco(jogador, pedido))
             {
@@ -78,7 +79,7 @@ namespace CardGame
             //Perguntando jogadores se aceitam
             Tuple<Jogador, Escolha> aceite = aceita(jogador, pedido);
 
-            Truco pedidoAtual = pedido;
+            EnumTruco pedidoAtual = pedido;
             switch (aceite.Item2)
             {
                 case Escolha.correr:
@@ -107,7 +108,7 @@ namespace CardGame
                                 EquipeTrucante = jogador.IDEquipe;
                                 return;
                             case Escolha.aumentar:
-                                if (pedidoAtual == Truco.jogo)
+                                if (pedidoAtual == EnumTruco.jogo)
                                 {
                                     this.pontos = 15;
                                     EquipeTrucante = aceite.Item1.IDEquipe;
@@ -122,7 +123,7 @@ namespace CardGame
             }
         }
 
-        private Tuple<Jogador, Escolha> aceita(Jogador jogador, Truco pedido)
+        private Tuple<Jogador, Escolha> aceita(Jogador jogador, EnumTruco pedido)
         {
             List<Tuple<Jogador, Escolha>> aceite = new List<Tuple<Jogador, Escolha>>();
             foreach (var item in jogadores)

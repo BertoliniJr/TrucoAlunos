@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CardGame;
 using Truco.Auxiliares;
+using Truco.Enumeradores;
 
 namespace CardGame
 {
@@ -128,7 +129,7 @@ namespace CardGame
                     {
                         if (_mao[i].valor(manilha) > 10)
                         {
-                            trucar(this, Truco.truco);
+                            trucar(this, EnumTruco.truco);
                         }
                     }
 
@@ -141,10 +142,10 @@ namespace CardGame
                 && _mao.Count > 0
                 && _mao.Max(a => a.valor(manilha)) > 10)
 
-                trucar(this, Truco.truco);
+                trucar(this, EnumTruco.truco);
         }
 
-        public override Escolha trucado(Jogador trucante, Truco valor, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
         {
             for (int i = 0; i < _mao.Count; i++)
             {

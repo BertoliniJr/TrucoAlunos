@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CardGame;
 using System.IO;
 using Truco.Auxiliares;
+using Truco.Enumeradores;
 
 namespace Truco
 {

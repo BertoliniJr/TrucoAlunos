@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Truco.Auxiliares;
+using Truco.Enumeradores;
 
 namespace CardGame
 {
@@ -225,13 +226,13 @@ namespace CardGame
                     if ((_mao.Count < 3 && _mao.Count > 0) 
                         && ((carta.valor(manilha) < _mao[0].valor(manilha)) || Equipe.BuscaID(this.IDEquipe).PontosEquipe < 6))
                     {
-                        base.trucar(this, Truco.truco);
+                        base.trucar(this, EnumTruco.truco);
                     }
                 }
             }
         }
 
-        public override Escolha trucado(Jogador trucante, Truco valor, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
         {
             int ptsMinhaEqp = Equipe.BuscaID(this.IDEquipe).PontosEquipe;
             int ptsEqpAdv = Equipe.BuscaID(trucante.IDEquipe).PontosEquipe;
@@ -299,14 +300,14 @@ namespace CardGame
 
         }
 
-        private int valorJogoTruco(Truco valor)
+        private int valorJogoTruco(EnumTruco valor)
         {
 
-            if (valor == Truco.truco) return 3;
-            if (valor == Truco.seis) return 6;
-            if (valor == Truco.nove) return 9;
-            if (valor == Truco.doze) return 12;
-            if (valor == Truco.jogo) return 15;
+            if (valor == EnumTruco.truco) return 3;
+            if (valor == EnumTruco.seis) return 6;
+            if (valor == EnumTruco.nove) return 9;
+            if (valor == EnumTruco.doze) return 12;
+            if (valor == EnumTruco.jogo) return 15;
             else return 0;
         }
 
@@ -320,22 +321,22 @@ namespace CardGame
                     {
                         Random dado = new Random();
                         int x = dado.Next(0, 6);
-                        if (x == 1 || x == 6) base.trucar(this, Truco.truco);
+                        if (x == 1 || x == 6) base.trucar(this, EnumTruco.truco);
                     }
                     else if (_mao.Count == 2)
                     {
                         if (cartasUsadas.Count == 4 || cartasUsadas.Count == 6)
                         {
-                            if (_mao[1].valor(manilha) > 8) base.trucar(this, Truco.truco);
+                            if (_mao[1].valor(manilha) > 8) base.trucar(this, EnumTruco.truco);
                         }
                         else
                         {
-                            if (_mao[0].valor(manilha) >= 10 && _mao[1].valor(manilha) >= 10) base.trucar(this, Truco.truco);
+                            if (_mao[0].valor(manilha) >= 10 && _mao[1].valor(manilha) >= 10) base.trucar(this, EnumTruco.truco);
                         }
                     }
                     else if (_mao.Count == 1)
                     {
-                        if (_mao[0].valor(manilha) > 10) base.trucar(this, Truco.truco);
+                        if (_mao[0].valor(manilha) > 10) base.trucar(this, EnumTruco.truco);
                     }
                 }
             }

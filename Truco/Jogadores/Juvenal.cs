@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Truco;
 using Truco.Auxiliares;
+using Truco.Enumeradores;
 
 namespace CardGame
 {
@@ -129,13 +129,13 @@ namespace CardGame
             cartasJogadas.Add(carta);
             if ( _mao.Count == 2 && (TrucoAuxiliar.gerarValorCarta(_mao[0],manilha) >=11 || TrucoAuxiliar.gerarValorCarta(_mao[1], manilha) >= 11))
             {
-                trucar(this, Truco.truco);
+                trucar(this, EnumTruco.truco);
             }else if (_mao.Count == 1 && TrucoAuxiliar.gerarValorCarta(_mao[0], manilha) >= 11)
             {
-                trucar(this, Truco.truco);
+                trucar(this, EnumTruco.truco);
             }
         }
-        public override Escolha trucado(Jogador trucante, Truco valor, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
         {
             Escolha escolhi = Escolha.correr;
             for (int i = 0; i < _mao.Count; i++)

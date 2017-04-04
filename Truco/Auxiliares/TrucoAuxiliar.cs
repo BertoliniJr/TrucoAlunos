@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Truco.Enumeradores;
 
 namespace CardGame
 {
@@ -51,56 +52,56 @@ namespace CardGame
             return pesoCarta;
         }
 
-        public static int pontosTruco(this Truco pedido)
+        public static int pontosTruco(this EnumTruco pedido)
         {
             switch (pedido)
             {
-                case Truco.truco:
+                case EnumTruco.truco:
                     return 3;
-                case Truco.seis:
+                case EnumTruco.seis:
                     return 6;
-                case Truco.nove:
+                case EnumTruco.nove:
                     return 9;
-                case Truco.doze:
+                case EnumTruco.doze:
                     return 12;
-                case Truco.jogo:
+                case EnumTruco.jogo:
                     return 15;
                 default:
                     return 1;
             }
         }
 
-        public static Truco proximo(this Truco pedido)
+        public static EnumTruco proximo(this EnumTruco pedido)
         {
             switch (pedido)
             {
-                case Truco.truco:
-                    return Truco.seis;
-                case Truco.seis:
-                    return Truco.nove;
-                case Truco.nove:
-                    return Truco.doze;
-                case Truco.doze:
-                    return Truco.jogo;
+                case EnumTruco.truco:
+                    return EnumTruco.seis;
+                case EnumTruco.seis:
+                    return EnumTruco.nove;
+                case EnumTruco.nove:
+                    return EnumTruco.doze;
+                case EnumTruco.doze:
+                    return EnumTruco.jogo;
                 default:
-                    return Truco.truco;
+                    return EnumTruco.truco;
             }
         }
 
-        public static Truco? trucoPorPontos(this int valor)
+        public static EnumTruco? trucoPorPontos(this int valor)
         {
             switch (valor)
             {
                 case 3:
-                    return Truco.truco;
+                    return EnumTruco.truco;
                 case 6:
-                    return Truco.seis;
+                    return EnumTruco.seis;
                 case 9:
-                    return Truco.nove;
+                    return EnumTruco.nove;
                 case 12:
-                    return Truco.doze;
+                    return EnumTruco.doze;
                 case 15:
-                    return Truco.jogo;
+                    return EnumTruco.jogo;
                 default:
                     return null;
             }

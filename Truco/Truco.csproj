@@ -56,14 +56,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auxiliares\EnumeradorEscolha.cs" />
-    <Compile Include="Auxiliares\EnumeradorTruco.cs" />
+    <Compile Include="Enumeradores\EnumeradorEscolha.cs" />
+    <Compile Include="Enumeradores\EnumeradorTruco.cs" />
     <Compile Include="Auxiliares\Log.cs" />
-    <Compile Include="Auxiliares\TipoLog.cs" />
+    <Compile Include="Enumeradores\TipoLog.cs" />
     <Compile Include="Baralho.cs" />
     <Compile Include="Carta.cs" />
-    <Compile Include="Auxiliares\EnumeradorNaipe.cs" />
+    <Compile Include="Enumeradores\EnumeradorNaipe.cs" />
+    <Compile Include="Enumeradores\EnumTipoJogo.cs" />
     <Compile Include="Equipe.cs" />
+    <Compile Include="Interfaces\IBaralho.cs" />
+    <Compile Include="Interfaces\ICalculoCartas.cs" />
+    <Compile Include="Interfaces\ICartas.cs" />
+    <Compile Include="Interfaces\IControler.cs" />
+    <Compile Include="Interfaces\IEquipe.cs" />
+    <Compile Include="Interfaces\IJogador.cs" />
+    <Compile Include="Interfaces\IJogar.cs" />
+    <Compile Include="Interfaces\ILog.cs" />
+    <Compile Include="Interfaces\IRodada.cs" />
+    <Compile Include="Interfaces\ITipoJogo.cs" />
     <Compile Include="Jogadores\IlusionistaDaMesa.cs" />
     <Compile Include="Jogadores\JogadorProfessor.cs" />
     <Compile Include="Jogadores\JurandirOJogador.cs" />

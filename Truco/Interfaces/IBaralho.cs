@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Truco.Auxiliares
+namespace Truco.Interfaces
 {
-    public enum TipoLog
+    interface IBaralho
     {
-        logControle,
-        logJogador,
-        logTeste,
-        logErro
+        void embaralhar();
+        ICartas pegarProxima();
+        void recolher();
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Truco.Auxiliares;
+using Truco.Enumeradores;
 
 namespace CardGame
 {
@@ -19,7 +20,7 @@ namespace CardGame
         }
 
         private List<Tuple<Jogador, Carta>> cartasMao;
-        private Truco? trucoAtual;
+        private EnumTruco? trucoAtual;
         private int? equipeTrucante;
         private List<Carta> cartasNaoUasadas;
         private int pontosRodada;
@@ -150,23 +151,23 @@ namespace CardGame
             {
                 switch (trucoAtual.Value)
                 {
-                    case Truco.truco:
+                    case EnumTruco.truco:
                         if (probabilidadeVitoria(manilha) > 75)
                             pedirTruco();
                         break;
-                    case Truco.seis:
+                    case EnumTruco.seis:
                         if (probabilidadeVitoria(manilha) > 80 && Equipe.BuscaID(IDEquipe).PontosEquipe < 9)
                             pedirTruco();
                         break;
-                    case Truco.nove:
+                    case EnumTruco.nove:
                         if (probabilidadeVitoria(manilha) > 84 && Equipe.BuscaID(IDEquipe).PontosEquipe < 6)
                             pedirTruco();
                         break;
-                    case Truco.doze:
+                    case EnumTruco.doze:
                         if (probabilidadeVitoria(manilha) > 90 && Equipe.BuscaID(IDEquipe).PontosEquipe < 3)
                             pedirTruco();
                         break;
-                    case Truco.jogo:
+                    case EnumTruco.jogo:
                         break;
                     default:
                         break;
@@ -199,7 +200,7 @@ namespace CardGame
             if (trucoAtual == null)
             {
                 equipeTrucante = IDEquipe;
-                trucoAtual = Truco.truco;
+                trucoAtual = EnumTruco.truco;
             }
             else
             {
@@ -249,7 +250,7 @@ namespace CardGame
             return retorno;
         }
 
-        public override Escolha trucado(Jogador trucante, Truco pedido, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco pedido, Carta manilha)
         {
             if (trucante.IDEquipe == IDEquipe)
             {
@@ -261,14 +262,14 @@ namespace CardGame
             {
                 switch (pedido)
                 {
-                    case Truco.truco:
+                    case EnumTruco.truco:
                         if (90 > probabilidadeVitoria(manilha) && probabilidadeVitoria(manilha) > 50)
                             return Escolha.aceitar;
                         else if (probabilidadeVitoria(manilha) >= 80)
                             return Escolha.aumentar;
                         else return Escolha.correr;
 
-                    case Truco.seis:
+                    case EnumTruco.seis:
                         if ( (Equipe.BuscaID(IDEquipe).PontosEquipe >= 9 && probabilidadeVitoria(manilha) > 75)
                             || (probabilidadeVitoria(manilha) < 90 && probabilidadeVitoria(manilha) > 75))
                             return Escolha.aceitar;
@@ -276,7 +277,7 @@ namespace CardGame
                             return Escolha.aumentar;
                         else return Escolha.correr;
 
-                    case Truco.nove:
+                    case EnumTruco.nove:
                         if ((Equipe.BuscaID(IDEquipe).PontosEquipe >= 6 && probabilidadeVitoria(manilha) > 75)
                             || (probabilidadeVitoria(manilha) < 90 && probabilidadeVitoria(manilha) > 75))
                             return Escolha.aceitar;
@@ -284,7 +285,7 @@ namespace CardGame
                             return Escolha.aumentar;
                         else return Escolha.correr;
 
-                    case Truco.doze:
+                    case EnumTruco.doze:
                         if ((Equipe.BuscaID(IDEquipe).PontosEquipe >= 3 && probabilidadeVitoria(manilha) > 75)
                             || (probabilidadeVitoria(manilha) < 90 && probabilidadeVitoria(manilha) > 75))
                             return Escolha.aceitar;
@@ -292,7 +293,7 @@ namespace CardGame
                             return Escolha.aumentar;
                         else return Escolha.correr;
 
-                    case Truco.jogo:
+                    case EnumTruco.jogo:
                         if (probabilidadeVitoria(manilha) > 80)
                             return Escolha.aceitar;
                         else return Escolha.correr;

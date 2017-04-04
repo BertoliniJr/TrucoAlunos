@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardGame
+namespace Truco.Enumeradores
 {
-    public enum Truco
+    public enum Escolha
     {
-        truco,
-        seis,
-        nove,
-        doze,
-        jogo
+        correr,
+        aceitar,
+        aumentar
     };
 }

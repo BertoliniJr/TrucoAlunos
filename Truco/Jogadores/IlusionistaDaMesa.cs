@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CardGame;
 using Truco.Auxiliares;
+using Truco.Enumeradores;
 
 namespace Truco
 {
@@ -189,7 +190,7 @@ namespace Truco
             
         }
 
-        public override Escolha trucado(Jogador trucante, CardGame.Truco valor, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
         {
             if (trucante.IDEquipe == this.IDEquipe)
                 return Escolha.aceitar;
@@ -223,9 +224,9 @@ namespace Truco
             return Escolha.correr;
         }
 
-        private CardGame.Truco trucar()
+        private EnumTruco trucar()
         {
-            return (CardGame.Truco)pontosRodada;
+            return (EnumTruco)pontosRodada;
         }
 
         private void trucarNaPrimeira(Carta manilha)
@@ -277,19 +278,19 @@ namespace Truco
             return aux;
         }
 
-        private Escolha aceitar(CardGame.Truco valor)
+        private Escolha aceitar(EnumTruco valor)
         {
             pontosRodada = (int)valor;
             return Escolha.aceitar;
         }
 
-        private Escolha aumentar(CardGame.Truco valor)
+        private Escolha aumentar(EnumTruco valor)
         {
             pontosRodada = (int)valor;
             return Escolha.aumentar;
         }
 
-        private Escolha aceitarComZap(Carta manilha, CardGame.Truco valor)
+        private Escolha aceitarComZap(Carta manilha, EnumTruco valor)
         {
             if (_mao.Last().valor(manilha) == 14)
             {
@@ -298,7 +299,7 @@ namespace Truco
             return aceitar(valor);
         }
 
-        private void pedirTruco(Jogador jogador, CardGame.Truco pedido)
+        private void pedirTruco(Jogador jogador, EnumTruco pedido)
         {
             if (Equipe.BuscaID(IDEquipe).Adversario.PontosEquipe>=12||Equipe.BuscaID(IDEquipe).PontosEquipe>=12)
             {
