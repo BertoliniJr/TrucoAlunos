@@ -76,34 +76,89 @@ namespace CardGame
 
         #endregion
 
+
+        /// <summary>
+        /// Cosntrutor generico de mesa onde os jogadores e as equipes ainda não foram declaradas
+        /// </summary>
+        public Mesa()
+        {
+            gamers = new List<IJogador>();
+            equipeMesa = new List<IEquipe>();
+        }
+
+        /// <summary>
+        /// Inicia a Lista de equipes a partir das lista de jogadores recebidas
+        /// </summary>
+        /// <param name="jogadores"></param>
         public Mesa(List<IJogador> jogadores)
         {
             gamers = jogadores;
             redistribuirEquipes();
+        }
+
+        /// <summary>
+        /// Construtor onde as equipes já estão iniciadas
+        /// </summary>
+        /// <param name="equipes"></param>
+        public Mesa(List<IEquipe> equipes)
+        {
+            equipeMesa = equipes;
+            gamers = new List<IJogador>();
+
+            foreach (IEquipe x in equipes)
+            {
+                gamers.Concat(x.jogadores);
+            }
 
         }
 
+
+
+        /// <summary>
+        /// Metodo para adicionar um novo jogador na mesa.
+        /// </summary>
+        /// <param name="jog"></param>
         public void AddJogador(IJogador jog)
         {
             gamers.Add(jog);
         }
 
         //Métodos Interface
+
+        /// <summary>
+        /// Metodo para iniciar o jogo chamando a rodada.
+        /// </summary>
         public void jogar()
         {
-            IRodada rodada = FabricaRodada.CriarRodada();
-            while(rodada.fim() == false)
+
+            if (gamers.Count == 0)
             {
-                rodada.rodar();
+                throw new Exception();
             }
-           
+            else
+            {
+                IRodada rodada = FabricaRodada.CriarRodada();
+                while (rodada.fim() == false)
+                {
+                    rodada.rodar();
+                }
+            }
+
         }
 
+        /// <summary>
+        /// Preencher a lista de jogadores no meu jogo atual
+        /// </summary>
+        /// <param name="jogadores"></param>
         public void setJogadores(List<IJogador> jogadores)
         {
             gamers = jogadores;
         }
 
+
+        /// <summary>
+        /// Redistribui os jogadores cadastrados entre equipes para que o jogo comece
+        /// </summary>
         public void redistribuirEquipes()
         {
 
@@ -135,7 +190,7 @@ namespace CardGame
                 Random rdn = new Random();
                 int aleatorio;
 
-                while(aux.Count > 0)
+                while (aux.Count > 0)
                 {
                     aleatorio = rdn.Next(0, aux.Count);
                     Equipe unique = new Equipe(new List<IJogador>() { aux[aleatorio] });
@@ -148,6 +203,11 @@ namespace CardGame
 
         }
 
+
+        /// <summary>
+        /// Setar as possiveis equipes para o jogo poder começar
+        /// </summary>
+        /// <param name="equipe"></param>
         public void setEquipe(List<IEquipe> equipe)
         {
             this.equipeMesa = equipe;
