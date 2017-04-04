@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Rodada.cs" />
     <Compile Include="Enumeradores\EnumeradorEscolha.cs" />
     <Compile Include="Enumeradores\EnumeradorTruco.cs" />
     <Compile Include="Auxiliares\Log.cs" />
@@ -79,12 +80,13 @@
     <Compile Include="Jogadores\JogadorProfessor.cs" />
     <Compile Include="Jogadores\JurandirOJogador.cs" />
     <Compile Include="Jogadores\Juvenal.cs" />
-    <Compile Include="IRodada.cs" />
     <Compile Include="Jogadores\Jogador.cs" />
     <Compile Include="Jogadores\JogadorEquipeAlfa.cs" />
     <Compile Include="Mesa.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RodadaMalmal.cs" />
+    <Compile Include="RodadaPoker.cs" />
     <Compile Include="RodadaTruco.cs" />
     <Compile Include="Testes\TesteGrupo3.cs" />
     <Compile Include="Testes\TesteAlffa.cs" />
