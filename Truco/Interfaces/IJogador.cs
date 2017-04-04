@@ -10,7 +10,7 @@ namespace Truco.Interfaces
     {
         string nome { get; }
         IEquipe equipe { get; set; }
-
+        IJogar joga { get; set; }
         ICartas jogar();
         void receberCarta(ICartas carta);
         void novaMao();

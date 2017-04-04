@@ -9,7 +9,7 @@ using CardGame;
 
 namespace Truco.Baralhos
 {
-    class BaralhoPife
+    class BaralhoPife : IBaralho
     {
         public List<ICartas> baralho = new List<ICartas>();
 

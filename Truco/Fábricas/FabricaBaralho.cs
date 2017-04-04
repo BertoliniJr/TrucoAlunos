@@ -11,12 +11,38 @@ namespace Truco.Fábricas
 {
     class FabricaBaralho
     {
-        public static IBaralho CriarBaralho(IJogo jogo)
+        public static IBaralho CriarBaralho()
         {
-            if(jogo.tipoJogo == EnumTipoJogo.truco)
+            switch (Jogo.getJogo().tipoJogo)
             {
-                IBaralho baralho = new BaralhoTruco();
-                return baralho;
+                case EnumTipoJogo.truco:
+                    IBaralho baralhoTruco = new BaralhoTruco();
+                    return baralhoTruco;
+                    
+                case EnumTipoJogo.poker:
+                    IBaralho baralhoPoker = new BaralhoPoker();
+                    return baralhoPoker;
+                   
+                case EnumTipoJogo.malmal:
+                    IBaralho baralhoMalMal = new BaralhoMalMal();
+                    return baralhoMalMal;
+                    
+                case EnumTipoJogo.buraco:
+                    IBaralho baralhoBuraco = new BaralhoBuraco();
+                    return baralhoBuraco;
+
+                case EnumTipoJogo.pife:
+                    IBaralho baralhoPife = new BaralhoPife();
+                    return baralhoPife;
+
+                default:
+                    break;
+            }
+
+
+            if(Jogo.getJogo().tipoJogo == EnumTipoJogo.truco)
+            {
+                
             }
             return null;            
         }

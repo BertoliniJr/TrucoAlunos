@@ -8,7 +8,7 @@ using Truco.Interfaces;
 
 namespace Truco.Jogar
 {
-    class JogarMalMal : IJogar
+    class JogarMalMal : JogarAbstrato
     {
         public EnumTipoJogo Jogo
         {
@@ -23,7 +23,12 @@ namespace Truco.Jogar
             }
         }
 
-        public ICartas jogar()
+        public JogarMalMal(IJogador jogador, List<ICartas> mao) : base(jogador, mao)
+        {
+
+        }
+
+        public override ICartas jogar()
         {
             throw new NotImplementedException();
         }
