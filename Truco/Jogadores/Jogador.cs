@@ -130,7 +130,7 @@ namespace CardGame
         //    truco(jogador, pedido);
         //}
 
-        public void jogar()
+        public ICartas jogar()
         {
             if (joga == null || Jogo.getJogo().tipoJogo != joga.jogo)
             {
@@ -155,7 +155,7 @@ namespace CardGame
                         break;
                 }
             }
-            joga.jogar();
+            return joga.jogar();
         }
 
         public void receberCarta(ICartas carta)
