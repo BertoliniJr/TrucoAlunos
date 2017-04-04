@@ -9,13 +9,13 @@ using Truco.Interfaces;
 namespace CardGame
 {
 
-   public  class Carta:ICartas
+   public  class Carta : ICartas
     {
 
         Naipes naipe;
-        string valor;
+        int valor;
    
-        public  Carta(Naipes naipe, string valor)
+        public  Carta(Naipes naipe, int valor)
         {
             this.naipe = naipe;
             this.valor = valor;
@@ -23,10 +23,10 @@ namespace CardGame
 
         public string nomeValor()
         {
-            if (valor == "1") return "A";
-            else if (valor == "12") return "J";
-            else if (valor == "11") return "Q";
-            else if (valor == "13") return "K";
+            if (valor == 1) return "A";
+            else if (valor == 12) return "J";
+            else if (valor == 11) return "Q";
+            else if (valor == 13) return "K";
             else return Convert.ToString(valor);
         }
 
@@ -38,7 +38,7 @@ namespace CardGame
             }
         }
 
-        public string Valor
+        public int Valor
         {
             set
             {
@@ -46,22 +46,30 @@ namespace CardGame
             }
         }
 
+        public ICalculoCartas calculo
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override string ToString()
         {
-            return $"{this.nomeValor()} de {this.Naipe}";
+            return $"{this.nomeValor()} de {getNaipe()}";
         }
 
         public Naipes getNaipe()
         {
             return naipe;
         }
-
-        public ICalculoCartas getCalculo()
-        {
-            return null;
-        }
-
-        public string getValor()
+        
+        public int getValor()
         {
             return valor;
         }
