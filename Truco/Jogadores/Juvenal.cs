@@ -10,132 +10,132 @@ namespace CardGame
 {
     class Juvenal : Jogador
     {
-        private List<Carta> cartasJogadas;
+        private List<ICartas> ICartassJogadas;
 
         public Juvenal(string n, Log logar) : base(n, logar)
         {
-            cartasJogadas = new List<Carta>();
+            ICartassJogadas = new List<ICartas>();
         }
-        public override Carta Jogar(List<Carta> cartasMesa, Carta manilha)
+        public override ICartas Jogar(List<ICartas> ICartassMesa, ICartas manilha)
         {
             //ordenando
             if (_mao.Count == 3)
             {
                 ordenar(manilha);
             }
-            Carta carta = _mao[0];
+            ICartas ICartas = _mao[0];
             //primeiro a jogar
-            if (cartasMesa.Count == 0)
+            if (ICartassMesa.Count == 0)
             {
-                carta = primeiroJogar(cartasMesa, manilha);
+                ICartas = primeiroJogar(ICartassMesa, manilha);
             }//segundo a jogar
-            else if (cartasMesa.Count == 1)
+            else if (ICartassMesa.Count == 1)
             {
-                carta = segundoJogar(cartasMesa, manilha);
+                ICartas = segundoJogar(ICartassMesa, manilha);
             } // terceiro a jogar
-            else if (cartasMesa.Count == 2)
+            else if (ICartassMesa.Count == 2)
             {
-                carta = terceiroJogar(cartasMesa, manilha);
+                ICartas = terceiroJogar(ICartassMesa, manilha);
             }// quarto a jogar
-            else if (cartasMesa.Count == 3)
+            else if (ICartassMesa.Count == 3)
             {
-                carta = quartoJogar(cartasMesa, manilha);
+                ICartas = quartoJogar(ICartassMesa, manilha);
             }
 
-            return carta;
+            return ICartas;
         }
         
 
-        public Carta primeiroJogar(List<Carta> cartasMesa, Carta manilha)
+        public ICartas primeiroJogar(List<ICartas> ICartassMesa, ICartas manilha)
         {
-            Carta carta = _mao.Last();
+            ICartas ICartas = _mao.Last();
             _mao.Remove(_mao.Last());
-            return carta;
+            return ICartas;
         }
-        public Carta segundoJogar(List<Carta> cartasMesa, Carta manilha)
+        public ICartas segundoJogar(List<ICartas> ICartassMesa, ICartas manilha)
         {
-            Carta carta = _mao[0];
+            ICartas ICartas = _mao[0];
             for (int i = 0; i < _mao.Count; i++)
             {
-                if (TrucoAuxiliar.compara(_mao[i], cartasMesa[0], manilha) > 0)
+                if (TrucoAuxiliar.compara(_mao[i], ICartassMesa[0], manilha) > 0)
                 {
-                    carta = _mao[i];
+                    ICartas = _mao[i];
                     _mao.RemoveAt(i);
                     break;
                 }
             }
 
-            return carta;
+            return ICartas;
         }
-        public Carta terceiroJogar(List<Carta> cartasMesa, Carta manilha)
+        public ICartas terceiroJogar(List<ICartas> ICartassMesa, ICartas manilha)
         {
-            Carta carta = _mao[0];
-            if (TrucoAuxiliar.gerarValorCarta(cartasMesa[0], manilha) > TrucoAuxiliar.gerarValorCarta(cartasMesa[1], manilha))
+            ICartas ICartas = _mao[0];
+            if (TrucoAuxiliar.gerarValorICartas(ICartassMesa[0], manilha) > TrucoAuxiliar.gerarValorICartas(ICartassMesa[1], manilha))
             {
-                carta = _mao[0];
+                ICartas = _mao[0];
                 _mao.RemoveAt(0);
             }
             else
             {
                 for (int i = 0; i < _mao.Count; i++)
                 {
-                    if (TrucoAuxiliar.compara(_mao[i], cartasMesa[1], manilha) > 0)
+                    if (TrucoAuxiliar.compara(_mao[i], ICartassMesa[1], manilha) > 0)
                     {
-                        carta = _mao[i];
+                        ICartas = _mao[i];
                         _mao.RemoveAt(i);
                         break;
                     }
                 }
             }
-            return carta;
+            return ICartas;
         }
-        public Carta quartoJogar(List<Carta> cartasMesa, Carta manilha)
+        public ICartas quartoJogar(List<ICartas> ICartassMesa, ICartas manilha)
         {
-            Carta carta = _mao[0];
-            if (TrucoAuxiliar.gerarValorCarta(cartasMesa[1], manilha) > TrucoAuxiliar.gerarValorCarta(cartasMesa[0], manilha) && TrucoAuxiliar.gerarValorCarta(cartasMesa[1], manilha) > TrucoAuxiliar.gerarValorCarta(cartasMesa[2], manilha))
+            ICartas ICartas = _mao[0];
+            if (TrucoAuxiliar.gerarValorICartas(ICartassMesa[1], manilha) > TrucoAuxiliar.gerarValorICartas(ICartassMesa[0], manilha) && TrucoAuxiliar.gerarValorICartas(ICartassMesa[1], manilha) > TrucoAuxiliar.gerarValorICartas(ICartassMesa[2], manilha))
             {
-                carta = _mao[0];
+                ICartas = _mao[0];
                 _mao.RemoveAt(0);
             }
             else
             {
-                Carta maior = null;
-                if (TrucoAuxiliar.gerarValorCarta(cartasMesa[0], manilha) > TrucoAuxiliar.gerarValorCarta(cartasMesa[2], manilha))
+                ICartas maior = null;
+                if (TrucoAuxiliar.gerarValorICartas(ICartassMesa[0], manilha) > TrucoAuxiliar.gerarValorICartas(ICartassMesa[2], manilha))
                 {
-                    maior = cartasMesa[0];
+                    maior = ICartassMesa[0];
                 }
                 else
                 {
-                    maior = cartasMesa[2];
+                    maior = ICartassMesa[2];
                 }
                 for (int i = 0; i < _mao.Count; i++)
                 {
                     if (TrucoAuxiliar.compara(_mao[i], maior, manilha) > 0)
                     {
-                        carta = _mao[i];
+                        ICartas = _mao[i];
                         _mao.RemoveAt(i);
                         break;
                     }
                 }
             }
-            return carta;
+            return ICartas;
         }
-        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        public override void novaICartas(ICartas ICartas, Jogador jogador, ICartas manilha)
         {
-            if(cartasJogadas.Count == 4  || cartasJogadas.Count == 0)
+            if(ICartassJogadas.Count == 4  || ICartassJogadas.Count == 0)
             {
-                cartasJogadas = new List<Carta>();
+                ICartassJogadas = new List<ICartas>();
             }
-            cartasJogadas.Add(carta);
-            if ( _mao.Count == 2 && (TrucoAuxiliar.gerarValorCarta(_mao[0],manilha) >=11 || TrucoAuxiliar.gerarValorCarta(_mao[1], manilha) >= 11))
+            ICartassJogadas.Add(ICartas);
+            if ( _mao.Count == 2 && (TrucoAuxiliar.gerarValorICartas(_mao[0],manilha) >=11 || TrucoAuxiliar.gerarValorICartas(_mao[1], manilha) >= 11))
             {
                 trucar(this, EnumTruco.truco);
-            }else if (_mao.Count == 1 && TrucoAuxiliar.gerarValorCarta(_mao[0], manilha) >= 11)
+            }else if (_mao.Count == 1 && TrucoAuxiliar.gerarValorICartas(_mao[0], manilha) >= 11)
             {
                 trucar(this, EnumTruco.truco);
             }
         }
-        public override Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco valor, ICartas manilha)
         {
             Escolha escolhi = Escolha.correr;
             for (int i = 0; i < _mao.Count; i++)

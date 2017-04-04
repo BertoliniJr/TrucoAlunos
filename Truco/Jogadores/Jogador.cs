@@ -13,7 +13,7 @@ namespace CardGame
         public event trucoseubosta truco;
         public delegate void trucoseubosta(Jogador jogador, EnumTruco truco);        
 
-        protected List<Carta> _mao;
+        protected List<ICartas> _mao;
         protected string _nome;
         private int _idEquipe;
         public string nome
@@ -46,74 +46,74 @@ namespace CardGame
         public Jogador(string n, Log logar)
         {
             nome = n;
-            _mao = new List<Carta>();
+            _mao = new List<ICartas>();
             log = logar;
         }
 
-        public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
+        public virtual ICartas Jogar(List<ICartas> ICartassRodada, ICartas manilha)
         {
             // encontra maior da mesa
             if (_mao.Count == 3)
             {
                 ordenar(manilha);
             }
-            Carta maiorMesa = cartasRodada.LastOrDefault();
-            for (int i = 0; i < cartasRodada.Count - 1; i++)
+            ICartas maiorMesa = ICartassRodada.LastOrDefault();
+            for (int i = 0; i < ICartassRodada.Count - 1; i++)
             {
-                if (TrucoAuxiliar.comparar(cartasRodada[i], maiorMesa, manilha) > 0)
+                if (TrucoAuxiliar.comparar(ICartassRodada[i], maiorMesa, manilha) > 0)
                 {
-                    maiorMesa = cartasRodada[i];
+                    maiorMesa = ICartassRodada[i];
                 }
             }
-            //descarta
-            Carta carta = _mao[0];
+            //desICartas
+            ICartas ICartas = _mao[0];
             if (maiorMesa == null)
             {
                 _mao.RemoveAt(0);
-                return carta;
+                return ICartas;
             }
             else
             {
                 for (int i = 0; i < _mao.Count; i++)
                 {
-                    carta = _mao[i];
-                    if (TrucoAuxiliar.comparar(carta, maiorMesa, manilha) > 0)
+                    ICartas = _mao[i];
+                    if (TrucoAuxiliar.comparar(ICartas, maiorMesa, manilha) > 0)
                     {
                         _mao.RemoveAt(i);
-                        return carta;
+                        return ICartas;
                     }
                 }
-                carta = _mao[0];
+                ICartas = _mao[0];
                 _mao.RemoveAt(0);
-                return carta;
+                return ICartas;
             }
         }
 
-        protected void ordenar(Carta manilha)
+        protected void ordenar(ICartas manilha)
         {
-            _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorCarta(x, manilha)).ToList();
+            _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorICartas(x, manilha)).ToList();
         }
 
-        public void ReceberCarta(Carta c)
+        public void ReceberICartas(ICartas c)
         {
             _mao.Add(c);
         }
 
         public virtual void NovaMao()
         {
-            _mao = new List<Carta>();
+            _mao = new List<ICartas>();
         }
 
-        public virtual void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        public virtual void novaICartas(ICartas ICartas, Jogador jogador, ICartas manilha)
         {
             if (jogador.IDEquipe != IDEquipe
-                && ((Carta)carta).valor(manilha) < 2
+                && ((ICartas)ICartas).valor(manilha) < 2
                 && _mao.Count > 0
                 && _mao.Max(a => a.valor(manilha)) > 10)
                 truco(this, EnumTruco.truco);
         }
 
-        public virtual Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
+        public virtual Escolha trucado(Jogador trucante, EnumTruco valor, ICartas manilha)
         {
             return Escolha.aceitar;
         }

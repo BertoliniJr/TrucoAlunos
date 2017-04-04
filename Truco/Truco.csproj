@@ -56,6 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Baralhos\BaralhoMalMal.cs" />
+    <Compile Include="Baralhos\BaralhoPoker.cs" />
+    <Compile Include="Baralhos\BaralhoTruco.cs" />
     <Compile Include="Enumeradores\EnumeradorEscolha.cs" />
     <Compile Include="Enumeradores\EnumeradorTruco.cs" />
     <Compile Include="Auxiliares\Log.cs" />
