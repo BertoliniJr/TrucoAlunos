@@ -14,7 +14,8 @@ namespace CardGame
 
         Naipes naipe;
         int valor;
-   
+        int peso;
+        
         public  Carta(Naipes naipe, int valor)
         {
             this.naipe = naipe;
@@ -50,28 +51,42 @@ namespace CardGame
         {
             get
             {
-                throw new NotImplementedException();
+                return calculo;
             }
 
             set
             {
-                throw new NotImplementedException();
+                calculo = value;
             }
         }
 
-        public override string ToString()
+        Naipes ICartas.Naipe
         {
-            return $"{this.nomeValor()} de {getNaipe()}";
-        }
-
-        public Naipes getNaipe()
-        {
-            return naipe;
+            get
+            {
+                return naipe;
+            }
         }
         
+        public override string ToString()
+        {
+            return $"{this.nomeValor()} de {this.naipe}";
+        }
+
         public int getValor()
         {
-            return valor;
+            return valor; 
+
+        }
+
+        public int getPeso()
+        {
+            return peso;
+        }
+
+        public void setPeso(ICartas carta)
+        {
+            this.peso = calculo.getPeso(carta);
         }
     }
 }

@@ -67,11 +67,12 @@
     <Compile Include="Enumeradores\EnumeradorTruco.cs" />
     <Compile Include="Auxiliares\Log.cs" />
     <Compile Include="Enumeradores\TipoLog.cs" />
-    <Compile Include="Baralho.cs" />
     <Compile Include="Carta.cs" />
     <Compile Include="Enumeradores\EnumeradorNaipe.cs" />
     <Compile Include="Enumeradores\EnumTipoJogo.cs" />
     <Compile Include="Equipe.cs" />
+    <Compile Include="Fábricas\FabricaBaralho.cs" />
+    <Compile Include="Fábricas\FabricaRodada.cs" />
     <Compile Include="InfoJogo\InfoJogoTruco.cs" />
     <Compile Include="Interfaces\IBaralho.cs" />
     <Compile Include="Interfaces\ICalculoCartas.cs" />
@@ -87,9 +88,9 @@
     <Compile Include="Jogadores\JogadorProfessor.cs" />
     <Compile Include="Jogadores\JurandirOJogador.cs" />
     <Compile Include="Jogadores\Juvenal.cs" />
-    <Compile Include="IRodada.cs" />
     <Compile Include="Jogadores\Jogador.cs" />
     <Compile Include="Jogadores\JogadorEquipeAlfa.cs" />
+    <Compile Include="Jogar\JogarAbstrato.cs" />
     <Compile Include="Jogar\JogarBuraco.cs" />
     <Compile Include="Jogar\JogarMalMal.cs" />
     <Compile Include="Jogar\JogarPife.cs" />

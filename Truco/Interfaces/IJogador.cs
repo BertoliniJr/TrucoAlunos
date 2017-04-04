@@ -11,7 +11,8 @@ namespace Truco.Interfaces
         string nome { get; }
         IEquipe equipe { get; set; }
 
-        void jogar();
+        ICartas jogar();
         void receberCarta(ICartas carta);
+        void novaMao();
     }
 }

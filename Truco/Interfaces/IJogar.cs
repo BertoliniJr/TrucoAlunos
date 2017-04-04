@@ -9,7 +9,8 @@ namespace Truco.Interfaces
 {
     public interface IJogar
     {
-        EnumTipoJogo Jogo { get; set; }
+        EnumTipoJogo jogo { get; set; }
         ICartas jogar();
+        IJogador jogadorAtual { get; set; }
     }
 }

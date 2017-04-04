@@ -8,8 +8,11 @@ namespace Truco.Interfaces
 {
     public interface ICartas
     {
-        Truco.Enumeradores.Naipes getNaipe();
+        Truco.Enumeradores.Naipes Naipe { get; }
         ICalculoCartas calculo { get; set; }
         int getValor();
+        int getPeso();
+        void setPeso(ICartas carta);
+        
     }
 }

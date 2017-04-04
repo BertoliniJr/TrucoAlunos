@@ -13,10 +13,10 @@ namespace CardGame
 {
     class Jogador:IJogador
     {
-        public event trucoseubosta truco;
-        public delegate void trucoseubosta(Jogador jogador, EnumTruco truco);
-        private EnumTipoJogo jogo;
-        protected IJogar teste { get; set; }
+        //public event trucoseubosta truco;
+        //public delegate void trucoseubosta(Jogador jogador, EnumTruco truco);
+
+        protected IJogar joga;
 
         protected List<ICartas> _mao;
         protected string _nome;
@@ -30,7 +30,6 @@ namespace CardGame
 
         }
         protected Log log;
-
         public int IDEquipe
         {
             get
@@ -44,25 +43,13 @@ namespace CardGame
             }
         }
 
-        public IEquipe equipe
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public IEquipe equipe { get; set; }
 
         public Jogador(string n, Log logar)
         {
             _nome = n;
             _mao = new List<ICartas>();
             log = logar;
-            jogo = Jogo.getJogo().tipoJogo;
         }
 
         //public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
@@ -104,71 +91,71 @@ namespace CardGame
         //    }
         //}
 
-        protected void ordenar(Carta manilha)
-        {
-            _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorICartas(x, manilha)).ToList();
-        }
+        //protected void ordenar(ICartas manilha)
+        //{
+        //    _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorICartas(x, manilha)).ToList();
+        //}
 
-        public void ReceberCarta(Carta c)
+        public void ReceberCarta(ICartas c)
         {
             _mao.Add(c);
         }
 
-        public virtual void NovaMao()
+        public virtual void novaMao()
         {
             _mao = new List<ICartas>();
         }
 
-        public virtual void novaCarta(Carta carta, Jogador jogador, Carta manilha)
-        {
-            if (jogador.IDEquipe != IDEquipe
-                && ((Carta)carta).valor(manilha) < 2
-                && _mao.Count > 0
-                && _mao.Max(a => a.valor(manilha)) > 10)
-                truco(this, EnumTruco.truco);
-        }
+        //public virtual void novaCarta(ICartas carta, Jogador jogador, ICartas manilha)
+        //{
+        //    if (jogador.IDEquipe != IDEquipe
+        //        && ((ICartas)carta).valor(manilha) < 2
+        //        && _mao.Count > 0
+        //        && _mao.Max(a => a.valor(manilha)) > 10)
+        //        truco(this, EnumTruco.truco);
+        //}
 
-        public virtual Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
-        {
-            return Escolha.aceitar;
-        }
+        //public virtual Escolha trucado(Jogador trucante, EnumTruco valor, ICartas manilha)
+        //{
+        //    return Escolha.aceitar;
+        //}
 
         public override string ToString()
         {
             return this.nome;
         }
 
-        protected void trucar (Jogador jogador, EnumTruco pedido)
-        {
-            truco(jogador, pedido);
-        }
+        //protected void trucar (Jogador jogador, EnumTruco pedido)
+        //{
+        //    truco(jogador, pedido);
+        //}
 
-        public void jogar()
+        public ICartas jogar()
         {
-            if (Jogo.getJogo().tipoJogo!=this.jogo||teste ==null)
+            if (joga == null || Jogo.getJogo().tipoJogo != joga.jogo)
             {
                 switch (Jogo.getJogo().tipoJogo)
                 {
                     case EnumTipoJogo.truco:
-                        teste = new JogarTruco();
+                        joga = new JogarTruco(this,_mao);
                         break;
                     case EnumTipoJogo.poker:
-                        teste = new JogarPoker();
+                        joga = new JogarPoker();
                         break;
                     case EnumTipoJogo.malmal:
-                        teste = new JogarMalMal();
+                        joga = new JogarMalMal();
                         break;
                     case EnumTipoJogo.buraco:
-                        teste = new JogarBuraco();
+                        joga = new JogarBuraco();
                         break;
                     case EnumTipoJogo.pife:
-                        teste = new JogarPife();
+                        joga = new JogarPife();
                         break;
                     default:
                         break;
                 }
             }
-            teste.jogar();
+            return joga.jogar();
         }
 
         public void receberCarta(ICartas carta)
