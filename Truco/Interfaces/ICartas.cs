@@ -9,7 +9,7 @@ namespace Truco.Interfaces
     interface ICartas
     {
         Truco.Enumeradores.Naipes getNaipe();
-        ICalculoCartas getCalculo();
+        ICalculoCartas calculo { get; set; }
         string getValor();
     }
 }
