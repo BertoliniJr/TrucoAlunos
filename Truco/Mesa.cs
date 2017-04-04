@@ -12,7 +12,6 @@ namespace CardGame
 {
     class Mesa : IControler
     {
-        private Baralho baralhoMesa;
         private Log log;
         private List<IJogador> gamers;
         private List<IEquipe> equipeMesa;
