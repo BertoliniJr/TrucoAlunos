@@ -5,13 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Truco.Auxiliares;
 using Truco.Enumeradores;
+using Truco.Interfaces;
+using Truco.Jogar;
 
 namespace CardGame
 {
-    class Jogador
+    class Jogador:IJogador
     {
         public event trucoseubosta truco;
-        public delegate void trucoseubosta(Jogador jogador, EnumTruco truco);        
+        public delegate void trucoseubosta(Jogador jogador, EnumTruco truco);
+        private EnumTipoJogo jogo;
+        protected IJogar teste { get; set; }
 
         protected List<Carta> _mao;
         protected string _nome;
@@ -23,10 +27,6 @@ namespace CardGame
                 return _nome;
             }
 
-            set
-            {
-                _nome = value;
-            }
         }
         protected Log log;
 
@@ -42,12 +42,26 @@ namespace CardGame
                 _idEquipe = value;
             }
         }
-        
+
+        public IEquipe equipe
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public Jogador(string n, Log logar)
         {
-            nome = n;
+            _nome = n;
             _mao = new List<Carta>();
             log = logar;
+            //jogo = Jogo.GetJogo().GetTipoJogo();
         }
 
         public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
@@ -126,6 +140,19 @@ namespace CardGame
         protected void trucar (Jogador jogador, EnumTruco pedido)
         {
             truco(jogador, pedido);
+        }
+
+        public void jogar()
+        {
+            //if (teste!=null || Jogo.GetJogo().GetTipoJogo)
+            //{
+            //    teste.jogar();
+            //}
+        }
+
+        public void receberCarta(ICartas carta)
+        {
+            throw new NotImplementedException();
         }
     }
 }
