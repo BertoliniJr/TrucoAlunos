@@ -17,7 +17,7 @@ namespace CardGame
 
         public JogadorEquipeAlfa(string n, Log logar) : base(n, logar) { }
 
-        public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
+        public override ICartas Jogar(List<ICartas> ICartassRodada, ICartas manilha)
         {
 
             // encontra maior da mesa
@@ -26,85 +26,85 @@ namespace CardGame
                 ordenar(manilha);
             }
 
-            Carta maiorMesa = cartasRodada.LastOrDefault();
-            for (int i = 0; i < cartasRodada.Count - 1; i++)
+            ICartas maiorMesa = ICartassRodada.LastOrDefault();
+            for (int i = 0; i < ICartassRodada.Count - 1; i++)
             {
-                if (TrucoAuxiliar.comparar(cartasRodada[i], maiorMesa, manilha) > 0)
+                if (TrucoAuxiliar.comparar(ICartassRodada[i], maiorMesa, manilha) > 0)
                 {
-                    maiorMesa = cartasRodada[i];
+                    maiorMesa = ICartassRodada[i];
                 }
             }
 
-            //descarta
-            Carta carta = _mao.LastOrDefault();
+            //desICartas
+            ICartas ICartas = _mao.LastOrDefault();
 
-            if (cartasRodada.Count == 0)
+            if (ICartassRodada.Count == 0)
             {
-                _mao.Remove(carta);
-                return carta;
+                _mao.Remove(ICartas);
+                return ICartas;
             }
 
-            if (cartasRodada.Count == 1)
+            if (ICartassRodada.Count == 1)
             {
 
-                carta = _mao[0];
+                ICartas = _mao[0];
                 _mao.RemoveAt(0);
-                return carta;
+                return ICartas;
             }
 
 
-            if (cartasRodada.Count == 2)
+            if (ICartassRodada.Count == 2)
             {
 
-                if (TrucoAuxiliar.comparar(cartasRodada[0], cartasRodada[1], manilha) > 0)
+                if (TrucoAuxiliar.comparar(ICartassRodada[0], ICartassRodada[1], manilha) > 0)
                 {
-                    carta = _mao[0];
+                    ICartas = _mao[0];
                     _mao.RemoveAt(0);
-                    return carta;
+                    return ICartas;
 
                 }
                 else
                 {
                     for (int i = 0; i < _mao.Count; i++)
                     {
-                        if (TrucoAuxiliar.comparar(cartasRodada[1], cartasRodada[0], manilha) > 0 && TrucoAuxiliar.comparar(_mao[i], cartasRodada[1], manilha) > 0)
+                        if (TrucoAuxiliar.comparar(ICartassRodada[1], ICartassRodada[0], manilha) > 0 && TrucoAuxiliar.comparar(_mao[i], ICartassRodada[1], manilha) > 0)
                         {
-                            carta = _mao[i];
+                            ICartas = _mao[i];
                             _mao.RemoveAt(i);
-                            return carta;
+                            return ICartas;
 
                         }else
                         {
-                            if(TrucoAuxiliar.comparar(cartasRodada[1],cartasRodada[0],manilha)>0 && TrucoAuxiliar.comparar(cartasRodada[1], _mao[i], manilha) > 0)
+                            if(TrucoAuxiliar.comparar(ICartassRodada[1],ICartassRodada[0],manilha)>0 && TrucoAuxiliar.comparar(ICartassRodada[1], _mao[i], manilha) > 0)
                             {
-                                carta = _mao[0];
+                                ICartas = _mao[0];
                                 _mao.RemoveAt(0);
-                                return carta;
+                                return ICartas;
                             }
                         }
                     }
                 }
-                _mao.Remove(carta);
-                return carta;
+                _mao.Remove(ICartas);
+                return ICartas;
 
 
 
 
             }
 
-            if(cartasRodada.Count == 3)
+            if(ICartassRodada.Count == 3)
             {
-                if(TrucoAuxiliar.comparar(cartasRodada[1],cartasRodada[0],manilha)>0 && TrucoAuxiliar.comparar(cartasRodada[1], cartasRodada[2], manilha) > 0)
+                if(TrucoAuxiliar.comparar(ICartassRodada[1],ICartassRodada[0],manilha)>0 && TrucoAuxiliar.comparar(ICartassRodada[1], ICartassRodada[2], manilha) > 0)
                 {
-                    carta = _mao[0];
+                    ICartas = _mao[0];
                     _mao.RemoveAt(0);
-                    return carta;
+                    return ICartas;
                 }else
                 {
-                    if(TrucoAuxiliar.comparar(cartasRodada[0],cartasRodada[1],manilha)>0 || TrucoAuxiliar.comparar(cartasRodada[2], cartasRodada[1], manilha) > 0)
+                    if(TrucoAuxiliar.comparar(ICartassRodada[0],ICartassRodada[1],manilha)>0 || TrucoAuxiliar.comparar(ICartassRodada[2], ICartassRodada[1], manilha) > 0)
                     {
-                        carta = _mao.Last();
-                        return carta;
+                        ICartas = _mao.Last();
+                        return ICartas;
 
                     }
                 }
@@ -112,12 +112,12 @@ namespace CardGame
 
 
 
-            _mao.Remove(carta);
-            return carta;
+            _mao.Remove(ICartas);
+            return ICartas;
 
 
         }
-        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        public override void novaICartas(ICartas ICartas, Jogador jogador, ICartas manilha)
         {
             if (Equipe.BuscaID(IDEquipe).PontosEquipe < 12)
             {
@@ -125,7 +125,7 @@ namespace CardGame
                 {
 
                     if (jogador.IDEquipe != IDEquipe
-                        && TrucoAuxiliar.comparar(_mao[i], carta, manilha) > 0)
+                        && TrucoAuxiliar.comparar(_mao[i], ICartas, manilha) > 0)
                     {
                         if (_mao[i].valor(manilha) > 10)
                         {
@@ -138,14 +138,14 @@ namespace CardGame
 
 
             if (jogador.IDEquipe != IDEquipe
-                && ((Carta)carta).valor(manilha) < 2
+                && ((ICartas)ICartas).valor(manilha) < 2
                 && _mao.Count > 0
                 && _mao.Max(a => a.valor(manilha)) > 10)
 
                 trucar(this, EnumTruco.truco);
         }
 
-        public override Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco valor, ICartas manilha)
         {
             for (int i = 0; i < _mao.Count; i++)
             {
