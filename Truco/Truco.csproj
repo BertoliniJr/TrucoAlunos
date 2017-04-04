@@ -56,6 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Baralhos\BaralhoMalMal.cs" />
+    <Compile Include="Baralhos\BaralhoPoker.cs" />
+    <Compile Include="Baralhos\BaralhoTruco.cs" />
     <Compile Include="Enumeradores\EnumeradorEscolha.cs" />
     <Compile Include="Enumeradores\EnumeradorTruco.cs" />
     <Compile Include="Auxiliares\Log.cs" />
@@ -74,7 +77,7 @@
     <Compile Include="Interfaces\IJogar.cs" />
     <Compile Include="Interfaces\ILog.cs" />
     <Compile Include="Interfaces\IRodada.cs" />
-    <Compile Include="Interfaces\ITipoJogo.cs" />
+    <Compile Include="Interfaces\IJogo.cs" />
     <Compile Include="Jogadores\IlusionistaDaMesa.cs" />
     <Compile Include="Jogadores\JogadorProfessor.cs" />
     <Compile Include="Jogadores\JurandirOJogador.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="Testes\TesteJurandir.cs" />
     <Compile Include="Auxiliares\TrucoAuxiliar.cs" />
     <Compile Include="Testes\TesteProfessor.cs" />
+    <Compile Include="TipoJogo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
