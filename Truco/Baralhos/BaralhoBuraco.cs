@@ -9,7 +9,7 @@ using Truco.Enumeradores;
 
 namespace Truco.Baralhos
 {
-    class BaralhoBuraco
+    class BaralhoBuraco : IBaralho
     {
         public List<ICartas> baralho = new List<ICartas>();
 
@@ -59,4 +59,4 @@ namespace Truco.Baralhos
         }
     }
 }
-}
+
