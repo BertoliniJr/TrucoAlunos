@@ -59,19 +59,22 @@ namespace CardGame
             }
         }
 
-        public override string ToString()
+        Naipes ICartas.Naipe
         {
-            return $"{this.nomeValor()} de {getNaipe()}";
+            get
+            {
+                return naipe;
+            }
         }
 
-        public Naipes getNaipe()
+        public override string ToString()
         {
-            return naipe;
+            return $"{this.nomeValor()} de {Naipes}";
         }
-        
+
         public int getValor()
         {
-            return valor;
+            return valor; 
         }
     }
 }

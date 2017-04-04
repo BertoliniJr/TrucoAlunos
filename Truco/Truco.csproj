@@ -59,6 +59,7 @@
     <Compile Include="Baralhos\BaralhoMalMal.cs" />
     <Compile Include="Baralhos\BaralhoPoker.cs" />
     <Compile Include="Baralhos\BaralhoTruco.cs" />
+    <Compile Include="Baralhos\BaralhoPife.cs" />
     <Compile Include="CalculoCarta\CalculoCartasMalMal.cs" />
     <Compile Include="CalculoCarta\CalculoCartasPife.cs" />
     <Compile Include="CalculoCarta\CalculoCartasPoker.cs" />
