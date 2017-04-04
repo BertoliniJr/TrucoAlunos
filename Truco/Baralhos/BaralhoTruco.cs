@@ -26,9 +26,14 @@ namespace Truco.Baralhos
                 if (i != 8 && i != 9 && i != 10)
                 {
                     ICartas c1 = new Carta(Naipes.copas, i);
+                    c1.setPeso(c1);
                     ICartas c2 = new Carta(Naipes.espadas, i);
+                    c2.setPeso(c2);
                     ICartas c3 = new Carta(Naipes.ouros, i);
+                    c3.setPeso(c3);
                     ICartas c4 = new Carta(Naipes.paus, i);
+                    c4.setPeso(c4);
+
                     baralho.Add(c1);
                     baralho.Add(c2);
                     baralho.Add(c3);
