@@ -9,7 +9,7 @@ using Truco.Interfaces;
 namespace CardGame
 {
 
-   public  class Carta:ICartas
+   public  class Carta : ICartas
     {
 
         Naipes naipe;
@@ -46,21 +46,29 @@ namespace CardGame
             }
         }
 
+        public ICalculoCartas calculo
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override string ToString()
         {
-            return $"{this.nomeValor()} de {this.Naipe}";
+            return $"{this.nomeValor()} de {getNaipe()}";
         }
 
         public Naipes getNaipe()
         {
             return naipe;
         }
-
-        public ICalculoCartas getCalculo()
-        {
-            return null;
-        }
-
+        
         public string getValor()
         {
             return valor;
