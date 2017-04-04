@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Truco;
+using Truco.InfoJogo;
 using Truco.Auxiliares;
 using Truco.Enumeradores;
 using Truco.Interfaces;
@@ -18,7 +19,7 @@ namespace CardGame
         private int NumCartas = 3;
         Carta Manilha;
         private int pontos=1;
-        private Jogador[] jogadores;
+        private IJogador[] jogadores;
         private int EquipeTrucante=-1;
         private int correu=-1;
 
@@ -33,8 +34,13 @@ namespace CardGame
 
         public RodadaTruco(List<Equipe> equipes) :base()
         {
-             = equipes[0].JogadoresEquipe[0]
-            
+
+            Jogo.getJogo().infoJogo = new InfoJogoTruco();
+            (Jogo.getJogo().infoJogo as InfoJogoTruco).jogadores[0] = equipes[0].jogadores[0];
+            (Jogo.getJogo().infoJogo as InfoJogoTruco).jogadores[1] = equipes[1].jogadores[0];
+            (Jogo.getJogo().infoJogo as InfoJogoTruco).jogadores[2] = equipes[0].jogadores[1];
+            (Jogo.getJogo().infoJogo as InfoJogoTruco).jogadores[3] = equipes[1].jogadores[1];
+
         }
 
         private bool validarTruco(Jogador jogador, EnumTruco pedido)
@@ -141,9 +147,9 @@ namespace CardGame
 
 
 
-        private Jogador[] circulaVetor(Jogador[] jogadores)
+        private IJogador[] circulaVetor(IJogador[] jogadores)
         {
-            Jogador aux = jogadores[0];
+            IJogador aux = jogadores[0];
 
             for (int i = 0; i < jogadores.Length - 1; i++)
             {
@@ -158,10 +164,10 @@ namespace CardGame
         public override void rodar()
         {
 
-            
 
 
-            Jogador[] jogadoresParametro = circulaVetor(Jogo.getJogo);
+
+            IJogador[] jogadoresParametro = circulaVetor((Jogo.getJogo().infoJogo as InfoJogoTruco).jogadores);
 
             // Inicialização dos sinais do truco
             jogadores = jogadoresParametro;
@@ -174,18 +180,19 @@ namespace CardGame
                 jogador.NovaMao();
                 for (int i = 0; i < 3; i++)
                 {
-                    jogador.ReceberCarta(baralho.pegarProxima());
+                    jogador.receberCarta(baralho.pegarProxima());
                 }
             }
 
             // variaveis de controle
-            int[] eqp1 = new int[2];
-            int[] eqp2 = new int[2];
-            eqp1[0] = jogadores[0].IDEquipe;
-            eqp2[0] = jogadores[1].IDEquipe;
+            Dictionary<IEquipe, int> pontosMao = new Dictionary<IEquipe, int>();
+
+            pontosMao.Add(jogadores[0].equipe, 0);
+            pontosMao.Add(jogadores[1].equipe, 0);
+
 
             // Mão de doze
-            if (Equipe.BuscaID(eqp1[0]).PontosEquipe >= 12 || Equipe.BuscaID(eqp2[0]).PontosEquipe >= 12)
+            if (jogadores[0].equipe.pontos >= 12 || jogadores[0].equipe.pontos >= 12)
             {
                 pontos = 3;
                 log.logar("Mão de 12");
@@ -206,18 +213,18 @@ namespace CardGame
                 for (int j = 0; j < 4; j++)
                 {
                     #region loop da mão
-                    ListaCartas.Add(jogadores[j].Jogar(ListaCartas, Manilha));
+                    ListaCartas.Add(jogadores[j].jogar());
                     Carta X = ListaCartas.Last();
-                    log.logar(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), TrucoAuxiliar.gerarValorCarta(X, Manilha));
-                    novaCarta(X, jogadores[j], Manilha);
+                    log.logar(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), X.getPeso);
+                    novaCarta(X, jogadores[j]);
 
-                    if (jogadores[j].IDEquipe == eqp1[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior1, Manilha) > 0)
+                    if (jogadores[j].equipe == pontosMao.Keys.First() && (ListaCartas[j].getPeso > maior1.getPeso)
                     {
                         maior1 = ListaCartas[j];
                         imaior1 = j;
                         indempate = j;
                     }
-                    if (jogadores[j].IDEquipe == eqp2[0] && TrucoAuxiliar.comparar(ListaCartas[j], maior2, Manilha) > 0)
+                    if (jogadores[j].equipe == pontosMao.Keys.Last() && (ListaCartas[j].getPeso > maior1.getPeso))
                     {
                         maior2 = ListaCartas[j];
                         imaior2 = j;
@@ -235,31 +242,34 @@ namespace CardGame
                     #endregion
                 }
 
-                if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) == 0)
+                if (maior1.getPeso == maior2.getPeso)
                 {
                     if (i == 0)
                     {
-                        eqp1[1] += 3;
-                        eqp2[1] += 3;
-                    }else
+                        pontosMao[pontosMao.Keys.First()] += 3;
+                        pontosMao[pontosMao.Keys.Last()] += 3;
+                    }
+                    else
                     {
-                        eqp1[1] += 2;
-                        eqp2[1] += 2;
+                        pontosMao[pontosMao.Keys.First()] += 2;
+                        pontosMao[pontosMao.Keys.Last()] += 2;
                     }
                     log.logar("*Empate*");
                     jogadores = Reordenar(jogadores, indempate);
                 }
                 else
                 {
-                    if (TrucoAuxiliar.comparar(maior1, maior2, Manilha) > 0)
+                    if (maior1.getPeso > maior2.getPeso)
                     {
                         if (i == 0)
                         {
-                            eqp1[1] += 3;
+                            pontosMao[pontosMao.Keys.First()] += 3;
+                            
                         }
                         else
                         {
-                            eqp1[1] += 2;
+                            pontosMao[pontosMao.Keys.First()] += 2;
+                         
                         }
                         
                         log.logar("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior1].nome);
@@ -270,11 +280,12 @@ namespace CardGame
                     {
                         if (i == 0)
                         {
-                            eqp2[1] += 3;
+                            pontosMao[pontosMao.Keys.Last()] += 3;
+                           
                         }
                         else
                         {
-                            eqp2[1] += 2;
+                            pontosMao[pontosMao.Keys.Last()] += 2;
                         }
                         log.logar("\nA equipe do jogador{0}, ganhou a mão.", jogadores[imaior2].nome);
                         log.logar("");
@@ -282,7 +293,7 @@ namespace CardGame
                     }
                 }
 
-                if (eqp1[1] != eqp2[1] && (eqp1[1] == 5 || eqp2[1] == 5))
+                if (pontosMao[pontosMao.Keys.First()] != pontosMao[pontosMao.Keys.Last()] && (pontosMao[pontosMao.Keys.First()] == 5 || pontosMao[pontosMao.Keys.Last()] == 5))
                     break;
                 #endregion
             }
@@ -299,15 +310,15 @@ namespace CardGame
             }
             else
             {
-                if (eqp1[1] > eqp2[1])
+                if (pontosMao[pontosMao.Keys.First()] > pontosMao[pontosMao.Keys.Last()])
                 {
-                    Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
-                    log.logar("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
+                    pontosMao.Keys.First().pontos+=pontos;
+                    log.logar("A {0}, ganhou a rodada !", pontosMao.Keys.First().ToString());
                 }
-                else if (eqp1[1] < eqp2[1])
+                else if (pontosMao[pontosMao.Keys.First()] < pontosMao[pontosMao.Keys.Last()])
                 {
-                    Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
-                    log.logar("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
+                    pontosMao.Keys.Last().pontos += pontos;
+                    log.logar("A {0}, ganhou a rodada !", pontosMao.Keys.Last().ToString());
                 }
                 else
                 {
@@ -333,18 +344,18 @@ namespace CardGame
             }
         }
 
-        private void novaCarta(Carta a, Jogador j, Carta manilha)
+        private void novaCarta(Carta a, IJogador j)
         {
             foreach (var jogador in jogadores)
             {
-                jogador.novaCarta(a, j, manilha);
+                jogador.novaCarta(a, j);
             }
         }
 
-        static Jogador[] Reordenar(Jogador[] jogadores, int k)
+        static IJogador[] Reordenar(IJogador[] jogadores, int k)
         {
             int i = 0;
-            Jogador[] vet = new Jogador[jogadores.Length];
+            IJogador[] vet = new IJogador[jogadores.Length];
             while (i < jogadores.Length)
             {
                 vet[i] = jogadores[k];
