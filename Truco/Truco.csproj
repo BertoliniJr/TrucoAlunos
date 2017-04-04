@@ -89,6 +89,7 @@
     <Compile Include="Jogadores\Juvenal.cs" />
     <Compile Include="Jogadores\Jogador.cs" />
     <Compile Include="Jogadores\JogadorEquipeAlfa.cs" />
+    <Compile Include="Jogar\JogarAbstrato.cs" />
     <Compile Include="Jogar\JogarBuraco.cs" />
     <Compile Include="Jogar\JogarMalMal.cs" />
     <Compile Include="Jogar\JogarPife.cs" />

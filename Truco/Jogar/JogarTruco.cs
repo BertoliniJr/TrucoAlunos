@@ -10,25 +10,19 @@ using Truco.Interfaces;
 
 namespace Truco.Jogar
 {
-    class JogarTruco : IJogar
+    class JogarTruco : JogarAbstrato
     {
         public event trucoseubosta truco;
         public delegate void trucoseubosta(IJogador jogador, EnumTruco truco);
 
         private InfoJogoTruco info;
-        public EnumTipoJogo jogo { get; set; }
 
-        public IJogador jogadorAtual { get; set; }
-        private List<ICartas> maoJogador;
-        public JogarTruco(IJogador jogador, List<ICartas> mao)
+        public JogarTruco(IJogador jogador, List<ICartas> mao) : base (jogador, mao)
         {
-            jogo = Jogo.getJogo().tipoJogo;
             info = Jogo.getJogo().infoJogo as InfoJogoTruco;
-            maoJogador = mao;
-            jogadorAtual = jogador;
         }
 
-        public ICartas jogar()
+        public override ICartas jogar()
         {
 
             // encontra maior da mesa
@@ -66,11 +60,6 @@ namespace Truco.Jogar
                 maoJogador.RemoveAt(0);
                 return carta;
             }
-        }
-
-        protected void ordenar(List<ICartas> mao)
-        {
-            mao = mao.OrderBy(x => TrucoAuxiliar.gerarValorICartas(x, info.manilha)).ToList();
         }
 
         public virtual void novaCarta(ICartas carta, IJogador jogador)
