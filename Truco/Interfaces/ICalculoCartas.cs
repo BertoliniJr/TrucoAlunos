@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Truco.Interfaces
 {
-    interface ICalculoCartas
+    public interface ICalculoCartas
     {
         int getPeso();
     }

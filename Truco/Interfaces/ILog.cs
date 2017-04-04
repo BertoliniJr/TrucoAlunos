@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Truco.Interfaces
 {
-    interface ILog
+    public interface ILog
     {
         void logar(string msg, Truco.Enumeradores.TipoLog tipolog);
     }

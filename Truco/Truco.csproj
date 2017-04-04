@@ -95,7 +95,7 @@
     <Compile Include="Testes\TesteJurandir.cs" />
     <Compile Include="Auxiliares\TrucoAuxiliar.cs" />
     <Compile Include="Testes\TesteProfessor.cs" />
-    <Compile Include="TipoJogo.cs" />
+    <Compile Include="Jogo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
