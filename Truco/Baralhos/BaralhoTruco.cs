@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Truco.Enumeradores;
 using Truco.Interfaces;
+using CardGame;
+using Truco.Enumeradores;
 
-namespace CardGame
+namespace Truco.Baralhos
 {
-
-    class Baralho : IBaralho
+    class BaralhoTruco : IBaralho
     {
         public List<ICartas> baralho = new List<ICartas>();
 
-        public Baralho()
+        public BaralhoTruco()
         {
             criarBaralho();
         }

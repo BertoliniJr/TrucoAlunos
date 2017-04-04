@@ -2,7 +2,7 @@
 
 namespace Truco.Interfaces
 {
-    interface ITipoJogo
+    interface IJogo
     {
         EnumTipoJogo GetTipoJogo();
         object GetInfoJogo();

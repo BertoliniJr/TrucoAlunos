@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Truco.Enumeradores;
 using Truco.Interfaces;
+using CardGame;
+using Truco.Enumeradores;
 
-namespace CardGame
+namespace Truco.Baralhos
 {
-
-    class Baralho : IBaralho
+    class BaralhoMalMal
     {
         public List<ICartas> baralho = new List<ICartas>();
 
-        public Baralho()
+        public BaralhoMalMal()
         {
             criarBaralho();
         }
@@ -21,9 +21,11 @@ namespace CardGame
         private void criarBaralho()
         {
             baralho = new List<ICartas>();
-            for (int i = 1; i <= 13; i++)
+            int contador = 0;
+
+            while (contador < 2)
             {
-                if (i != 8 && i != 9 && i != 10)
+                for (int i = 1; i <= 13; i++)
                 {
                     string valor = "";
                     if (i == 1) valor = "A";
@@ -40,6 +42,7 @@ namespace CardGame
                     baralho.Add(c3);
                     baralho.Add(c4);
                 }
+                contador++;
             }
         }
 
@@ -61,7 +64,6 @@ namespace CardGame
             return aux;
         }
 
-
     }
-
+}
 }

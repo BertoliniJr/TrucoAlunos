@@ -13,28 +13,28 @@ namespace CardGame
         public JogadorProfessor(string n, Log logar) : base(n, logar)
         {
             nome = $"Professor {n}";
-            cartasMao = new List<Tuple<Jogador, Carta>>();
+            ICartassMao = new List<Tuple<Jogador, ICartas>>();
             trucoAtual = null;
-            cartasNaoUasadas = geraBaralho();
+            ICartassNaoUasadas = geraBaralho();
             equipeTrucante = null;
         }
 
-        private List<Tuple<Jogador, Carta>> cartasMao;
+        private List<Tuple<Jogador, ICartas>> ICartassMao;
         private EnumTruco? trucoAtual;
         private int? equipeTrucante;
-        private List<Carta> cartasNaoUasadas;
+        private List<ICartas> ICartassNaoUasadas;
         private int pontosRodada;
 
-        private Carta jogarCarta(Carta a, Carta manilha)
+        private ICartas jogarICartas(ICartas a, ICartas manilha)
         {
             avaliarTruco(manilha);
             _mao.Remove(a);
             return a;
         }
 
-        private Carta menorQMata(Carta a, Carta manilha)
+        private ICartas menorQMata(ICartas a, ICartas manilha)
         {
-            List<Carta> maoOrdenada = _mao.OrderBy(x => x.valor(manilha)).ToList();
+            List<ICartas> maoOrdenada = _mao.OrderBy(x => x.valor(manilha)).ToList();
             foreach (var item in maoOrdenada)
             {
                 if (item.compara(a, manilha) > 0)
@@ -43,11 +43,11 @@ namespace CardGame
             return null;
         }
 
-        public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
+        public override ICartas Jogar(List<ICartas> ICartassRodada, ICartas manilha)
         {
             if (_mao.Count == 3)
             foreach (var item in _mao)
-                cartasNaoUasadas.Remove(item);
+                ICartassNaoUasadas.Remove(item);
 
             if (probabilidadeVitoria(manilha) > 70)
                 pedirTruco();
@@ -56,32 +56,32 @@ namespace CardGame
             {
                 case 3:
                     #region PrimeiraJogada
-                    switch (cartasRodada.Count)
+                    switch (ICartassRodada.Count)
                     {
                         case 0:
                         #region SerPrimeiroJogar
-                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                            return jogarICartas(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
                         #endregion
 
                         case 1:
                         #region SerPrimeirodaDuplaJogar
-                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                            return jogarICartas(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
                         #endregion
 
                         case 2:
                         #region SerPenultimoJogar
-                            if (cartasRodada[0].compara(cartasRodada[1], manilha) > 0 && cartasRodada[0].valor(manilha) > 7)
-                                return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
-                            if (menorQMata(cartasRodada[1], manilha) != null)
-                                return jogarCarta(menorQMata(cartasRodada[1], manilha), manilha);
-                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                            if (ICartassRodada[0].compara(ICartassRodada[1], manilha) > 0 && ICartassRodada[0].valor(manilha) > 7)
+                                return jogarICartas(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                            if (menorQMata(ICartassRodada[1], manilha) != null)
+                                return jogarICartas(menorQMata(ICartassRodada[1], manilha), manilha);
+                            return jogarICartas(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
                             #endregion
 
                         case 3:
                             #region SerUltimo
-                            if (menorQMata(cartasRodada[2], manilha) != null)
-                                return jogarCarta(menorQMata(cartasRodada[2], manilha), manilha);
-                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                            if (menorQMata(ICartassRodada[2], manilha) != null)
+                                return jogarICartas(menorQMata(ICartassRodada[2], manilha), manilha);
+                            return jogarICartas(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
                         #endregion
 
                         default:
@@ -93,26 +93,26 @@ namespace CardGame
                 case 2:
                 case 1:
                     #region SegundaOuUltimaJogada
-                    switch (cartasRodada.Count)
+                    switch (ICartassRodada.Count)
                     {
                         case 0:
                             #region SerPrimeiroJogar
-                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                            return jogarICartas(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
                         #endregion
 
                         case 1:
                             #region SerPrimeirodaDuplaJogar
-                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
+                            return jogarICartas(_mao.OrderBy(x => x.valor(manilha)).First(), manilha);
                         #endregion
 
                         case 2:
                             #region SerPenultimoJogar
-                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).Last(), manilha);
+                            return jogarICartas(_mao.OrderBy(x => x.valor(manilha)).Last(), manilha);
                         #endregion
 
                         case 3:
                             #region SerUltimo
-                            return jogarCarta(_mao.OrderBy(x => x.valor(manilha)).Last(), manilha);
+                            return jogarICartas(_mao.OrderBy(x => x.valor(manilha)).Last(), manilha);
                         #endregion
 
                         default:
@@ -132,13 +132,13 @@ namespace CardGame
         public override void NovaMao()
         {
             base.NovaMao();
-            cartasMao = new List<Tuple<Jogador, Carta>>();
+            ICartassMao = new List<Tuple<Jogador, ICartas>>();
             trucoAtual = null;
-            cartasNaoUasadas = geraBaralho();
+            ICartassNaoUasadas = geraBaralho();
             equipeTrucante = null;
         }
 
-        private void avaliarTruco(Carta manilha)
+        private void avaliarTruco(ICartas manilha)
         {
             if (Equipe.BuscaID(IDEquipe).PontosEquipe >= 12 || Equipe.BuscaID(IDEquipe).Adversario.PontosEquipe >= 12 || (equipeTrucante.HasValue && IDEquipe == equipeTrucante))
                 return;
@@ -175,22 +175,22 @@ namespace CardGame
             }
         }
         
-        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        public override void novaICartas(ICartas ICartas, Jogador jogador, ICartas manilha)
         {
-            if (cartasMao == null || cartasMao.Count == 4)
-                cartasMao = new List<Tuple<Jogador, Carta>>();
+            if (ICartassMao == null || ICartassMao.Count == 4)
+                ICartassMao = new List<Tuple<Jogador, ICartas>>();
             
-            cartasMao.Add(new Tuple<Jogador, Carta>(jogador, carta));
+            ICartassMao.Add(new Tuple<Jogador, ICartas>(jogador, ICartas));
 
-            if (cartasMao.Count == 4)
+            if (ICartassMao.Count == 4)
             {
-                cartasMao = cartasMao.OrderByDescending(x => x.Item2.valor(manilha)).ToList();
-                if (cartasMao[0].Item2.compara(cartasMao[1].Item2, manilha) == 0
-                    && cartasMao[0].Item1.IDEquipe == IDEquipe)
+                ICartassMao = ICartassMao.OrderByDescending(x => x.Item2.valor(manilha)).ToList();
+                if (ICartassMao[0].Item2.compara(ICartassMao[1].Item2, manilha) == 0
+                    && ICartassMao[0].Item1.IDEquipe == IDEquipe)
                     pontosRodada = 1;
             }
 
-            cartasNaoUasadas.Remove(carta);
+            ICartassNaoUasadas.Remove(ICartas);
 
             avaliarTruco(manilha);
         }
@@ -210,47 +210,47 @@ namespace CardGame
             base.trucar(this, trucoAtual.Value);
         }
 
-        private int probabilidadeVitoria(Carta manilha)
+        private int probabilidadeVitoria(ICartas manilha)
         {
             int vitoria;
-            cartasNaoUasadas.Remove(manilha);
-            List<Carta> mesaEquipe = cartasMao.Where(x => x.Item1.IDEquipe == IDEquipe).Select(z => z.Item2).ToList();
-            Carta maiorcarta = (_mao).Union(mesaEquipe).OrderBy(y => y.valor(manilha)).Last();
-            double cartasMelhores = cartasNaoUasadas.Where(x => x.valor(manilha) >= (maiorcarta.valor(manilha))).Count();
-            double totalCartas = cartasNaoUasadas.Count();
-            vitoria = (int)((1 - (cartasMelhores / totalCartas)) * 100);
+            ICartassNaoUasadas.Remove(manilha);
+            List<ICartas> mesaEquipe = ICartassMao.Where(x => x.Item1.IDEquipe == IDEquipe).Select(z => z.Item2).ToList();
+            ICartas maiorICartas = (_mao).Union(mesaEquipe).OrderBy(y => y.valor(manilha)).Last();
+            double ICartassMelhores = ICartassNaoUasadas.Where(x => x.valor(manilha) >= (maiorICartas.valor(manilha))).Count();
+            double totalICartass = ICartassNaoUasadas.Count();
+            vitoria = (int)((1 - (ICartassMelhores / totalICartass)) * 100);
             if (pontosRodada == 1)
                 return vitoria;
             else
             {
                 if (_mao.Count() > 1)
                 {
-                    cartasMelhores = cartasNaoUasadas.Where(x => x.valor(manilha) >= (_mao.OrderByDescending(y => y.valor(manilha)).ToList()[1].valor(manilha))).Count();
-                    totalCartas = cartasNaoUasadas.Count();
-                    return (vitoria * (int)((1 - (cartasMelhores / totalCartas)) * 100))/100;
+                    ICartassMelhores = ICartassNaoUasadas.Where(x => x.valor(manilha) >= (_mao.OrderByDescending(y => y.valor(manilha)).ToList()[1].valor(manilha))).Count();
+                    totalICartass = ICartassNaoUasadas.Count();
+                    return (vitoria * (int)((1 - (ICartassMelhores / totalICartass)) * 100))/100;
                 }
                 else
                     return vitoria;
             }
         }
 
-        private static List<Carta> geraBaralho()
+        private static List<ICartas> geraBaralho()
         {
-            List<Carta> retorno = new List<Carta>();
+            List<ICartas> retorno = new List<ICartas>();
             for (int i = 1; i < 14; i++)
             {
                 if (i != 8 && i != 9 && i != 10)
                 {
-                    retorno.Add(new Carta(Naipes.copas, i));
-                    retorno.Add(new Carta(Naipes.espadas, i));
-                    retorno.Add(new Carta(Naipes.ouros, i));
-                    retorno.Add(new Carta(Naipes.paus, i));
+                    retorno.Add(new ICartas(Naipes.copas, i));
+                    retorno.Add(new ICartas(Naipes.espadas, i));
+                    retorno.Add(new ICartas(Naipes.ouros, i));
+                    retorno.Add(new ICartas(Naipes.paus, i));
                 }
             }
             return retorno;
         }
 
-        public override Escolha trucado(Jogador trucante, EnumTruco pedido, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco pedido, ICartas manilha)
         {
             if (trucante.IDEquipe == IDEquipe)
             {

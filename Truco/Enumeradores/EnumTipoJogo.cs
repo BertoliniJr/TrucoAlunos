@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Truco.Enumeradores
 {
-    enum EnumTipoJogo
+    public enum EnumTipoJogo
     {
-        truco,
-        poker,
-        malmal,
-        buraco,
-        pife
+        truco = 2,
+        poker = 1,
+        malmal = 3,
+        buraco = 4,
+        pife = 5
     }
 }
