@@ -8,6 +8,6 @@ namespace Truco.Interfaces
 {
     public interface ICalculoCartas
     {
-        int getPeso();
+        int getPeso(ICartas carta);
     }
 }

@@ -64,6 +64,7 @@ namespace CardGame
                 {
                     jogador.equipe = this;
                 }
+                jogadoresEquipe = value;
             }
         }
 

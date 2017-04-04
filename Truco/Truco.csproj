@@ -67,7 +67,7 @@
     <Compile Include="Enumeradores\EnumeradorTruco.cs" />
     <Compile Include="Auxiliares\Log.cs" />
     <Compile Include="Enumeradores\TipoLog.cs" />
-    <Compile Include="Baralho.cs" />
+    <Compile Include="FabricaBaralho.cs" />
     <Compile Include="Carta.cs" />
     <Compile Include="Enumeradores\EnumeradorNaipe.cs" />
     <Compile Include="Enumeradores\EnumTipoJogo.cs" />
