@@ -89,7 +89,9 @@
     <Compile Include="IRodada.cs" />
     <Compile Include="Jogadores\Jogador.cs" />
     <Compile Include="Jogadores\JogadorEquipeAlfa.cs" />
+    <Compile Include="Jogar\JogarBuraco.cs" />
     <Compile Include="Jogar\JogarMalMal.cs" />
+    <Compile Include="Jogar\JogarPife.cs" />
     <Compile Include="Jogar\JogarPoker.cs" />
     <Compile Include="Jogar\JogarTruco.cs" />
     <Compile Include="Mesa.cs" />
