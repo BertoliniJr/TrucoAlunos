@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Truco.Interfaces
 {
-    interface IControler
+    public interface IControler
     {
         void jogar();
         void setJogadores(List<IJogador> jogadores);

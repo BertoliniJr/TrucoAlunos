@@ -5,15 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Truco.Auxiliares;
 using Truco.Enumeradores;
+using Truco.Interfaces;
+using Truco.Jogar;
 
 namespace CardGame
 {
-    class Jogador
+    class Jogador:IJogador
     {
         public event trucoseubosta truco;
-        public delegate void trucoseubosta(Jogador jogador, EnumTruco truco);        
+        public delegate void trucoseubosta(Jogador jogador, EnumTruco truco);
+        private EnumTipoJogo jogo;
+        protected IJogar teste { get; set; }
 
-        protected List<ICartas> _mao;
+        protected List<Carta> _mao;
         protected string _nome;
         private int _idEquipe;
         public string nome
@@ -23,10 +27,6 @@ namespace CardGame
                 return _nome;
             }
 
-            set
-            {
-                _nome = value;
-            }
         }
         protected Log log;
 
@@ -42,78 +42,92 @@ namespace CardGame
                 _idEquipe = value;
             }
         }
-        
-        public Jogador(string n, Log logar)
+
+        public IEquipe equipe
         {
-            nome = n;
-            _mao = new List<ICartas>();
-            log = logar;
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public virtual ICartas Jogar(List<ICartas> ICartassRodada, ICartas manilha)
+        public Jogador(string n, Log logar)
+        {
+            _nome = n;
+            _mao = new List<Carta>();
+            log = logar;
+            //jogo = Jogo.GetJogo().GetTipoJogo();
+        }
+
+        public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
         {
             // encontra maior da mesa
             if (_mao.Count == 3)
             {
                 ordenar(manilha);
             }
-            ICartas maiorMesa = ICartassRodada.LastOrDefault();
-            for (int i = 0; i < ICartassRodada.Count - 1; i++)
+            Carta maiorMesa = cartasRodada.LastOrDefault();
+            for (int i = 0; i < cartasRodada.Count - 1; i++)
             {
-                if (TrucoAuxiliar.comparar(ICartassRodada[i], maiorMesa, manilha) > 0)
+                if (TrucoAuxiliar.comparar(cartasRodada[i], maiorMesa, manilha) > 0)
                 {
-                    maiorMesa = ICartassRodada[i];
+                    maiorMesa = cartasRodada[i];
                 }
             }
-            //desICartas
-            ICartas ICartas = _mao[0];
+            //descarta
+            Carta carta = _mao[0];
             if (maiorMesa == null)
             {
                 _mao.RemoveAt(0);
-                return ICartas;
+                return carta;
             }
             else
             {
                 for (int i = 0; i < _mao.Count; i++)
                 {
-                    ICartas = _mao[i];
-                    if (TrucoAuxiliar.comparar(ICartas, maiorMesa, manilha) > 0)
+                    carta = _mao[i];
+                    if (TrucoAuxiliar.comparar(carta, maiorMesa, manilha) > 0)
                     {
                         _mao.RemoveAt(i);
-                        return ICartas;
+                        return carta;
                     }
                 }
-                ICartas = _mao[0];
+                carta = _mao[0];
                 _mao.RemoveAt(0);
-                return ICartas;
+                return carta;
             }
         }
 
-        protected void ordenar(ICartas manilha)
+        protected void ordenar(Carta manilha)
         {
-            _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorICartas(x, manilha)).ToList();
+            _mao = _mao.OrderBy(x => TrucoAuxiliar.gerarValorCarta(x, manilha)).ToList();
         }
 
-        public void ReceberICartas(ICartas c)
+        public void ReceberCarta(Carta c)
         {
             _mao.Add(c);
         }
 
         public virtual void NovaMao()
         {
-            _mao = new List<ICartas>();
+            _mao = new List<Carta>();
         }
 
-        public virtual void novaICartas(ICartas ICartas, Jogador jogador, ICartas manilha)
+        public virtual void novaCarta(Carta carta, Jogador jogador, Carta manilha)
         {
             if (jogador.IDEquipe != IDEquipe
-                && ((ICartas)ICartas).valor(manilha) < 2
+                && ((Carta)carta).valor(manilha) < 2
                 && _mao.Count > 0
                 && _mao.Max(a => a.valor(manilha)) > 10)
                 truco(this, EnumTruco.truco);
         }
 
-        public virtual Escolha trucado(Jogador trucante, EnumTruco valor, ICartas manilha)
+        public virtual Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
         {
             return Escolha.aceitar;
         }
@@ -126,6 +140,19 @@ namespace CardGame
         protected void trucar (Jogador jogador, EnumTruco pedido)
         {
             truco(jogador, pedido);
+        }
+
+        public void jogar()
+        {
+            //if (teste!=null || Jogo.GetJogo().GetTipoJogo)
+            //{
+            //    teste.jogar();
+            //}
+        }
+
+        public void receberCarta(ICartas carta)
+        {
+            throw new NotImplementedException();
         }
     }
 }

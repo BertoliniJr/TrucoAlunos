@@ -81,7 +81,7 @@
     <Compile Include="Interfaces\IJogar.cs" />
     <Compile Include="Interfaces\ILog.cs" />
     <Compile Include="Interfaces\IRodada.cs" />
-    <Compile Include="Interfaces\ITipoJogo.cs" />
+    <Compile Include="Interfaces\IJogo.cs" />
     <Compile Include="Jogadores\IlusionistaDaMesa.cs" />
     <Compile Include="Jogadores\JogadorProfessor.cs" />
     <Compile Include="Jogadores\JurandirOJogador.cs" />
@@ -89,6 +89,9 @@
     <Compile Include="IRodada.cs" />
     <Compile Include="Jogadores\Jogador.cs" />
     <Compile Include="Jogadores\JogadorEquipeAlfa.cs" />
+    <Compile Include="Jogar\JogarMalMal.cs" />
+    <Compile Include="Jogar\JogarPoker.cs" />
+    <Compile Include="Jogar\JogarTruco.cs" />
     <Compile Include="Mesa.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Testes\TesteJurandir.cs" />
     <Compile Include="Auxiliares\TrucoAuxiliar.cs" />
     <Compile Include="Testes\TesteProfessor.cs" />
+    <Compile Include="Jogo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
