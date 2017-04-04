@@ -10,6 +10,6 @@ namespace Truco.Interfaces
     {
         Truco.Enumeradores.Naipes getNaipe();
         ICalculoCartas calculo { get; set; }
-        string getValor();
+        int getValor();
     }
 }

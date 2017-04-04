@@ -25,16 +25,10 @@ namespace Truco.Baralhos
             {
                 if (i != 8 && i != 9 && i != 10)
                 {
-                    string valor = "";
-                    if (i == 1) valor = "A";
-                    else if (i == 12) valor = "J";
-                    else if (i == 11) valor = "Q";
-                    else if (i == 13) valor = "K";
-                    else valor = i.ToString();
-                    ICartas c1 = new Carta(Naipes.copas, valor);
-                    ICartas c2 = new Carta(Naipes.espadas, valor);
-                    ICartas c3 = new Carta(Naipes.ouros, valor);
-                    ICartas c4 = new Carta(Naipes.paus, valor);
+                    ICartas c1 = new Carta(Naipes.copas, i);
+                    ICartas c2 = new Carta(Naipes.espadas, i);
+                    ICartas c3 = new Carta(Naipes.ouros, i);
+                    ICartas c4 = new Carta(Naipes.paus, i);
                     baralho.Add(c1);
                     baralho.Add(c2);
                     baralho.Add(c3);
