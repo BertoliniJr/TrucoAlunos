@@ -13,5 +13,6 @@ namespace Truco.Interfaces
 
         void jogar();
         void receberCarta(ICartas carta);
+        void novaMao();
     }
 }
