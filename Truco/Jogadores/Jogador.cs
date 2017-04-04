@@ -101,7 +101,7 @@ namespace CardGame
             _mao.Add(c);
         }
 
-        public virtual void NovaMao()
+        public virtual void novaMao()
         {
             _mao = new List<ICartas>();
         }
@@ -155,7 +155,7 @@ namespace CardGame
                         break;
                 }
             }
-            joga.jogar(_mao);
+            joga.jogar();
         }
 
         public void receberCarta(ICartas carta)
