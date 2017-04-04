@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Truco.Interfaces
 {
-    interface IEquipe
+    public interface IEquipe
     {
         int pontos { get; set; }
         List<IJogador> jogadores { get; set; }

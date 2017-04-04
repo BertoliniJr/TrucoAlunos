@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Truco.Enumeradores;
 using Truco.Interfaces;
+using CardGame;
+using Truco.Enumeradores;
 
-namespace CardGame
+namespace Truco.Baralhos
 {
-
-    class Baralho : IBaralho
+    class BaralhoMalMal
     {
         public List<ICartas> baralho = new List<ICartas>();
 
-        public Baralho()
+        public BaralhoMalMal()
         {
             criarBaralho();
         }
@@ -21,25 +21,22 @@ namespace CardGame
         private void criarBaralho()
         {
             baralho = new List<ICartas>();
-            for (int i = 1; i <= 13; i++)
+            int contador = 0;
+
+            while (contador < 2)
             {
-                if (i != 8 && i != 9 && i != 10)
-                {
-                    string valor = "";
-                    if (i == 1) valor = "A";
-                    else if (i == 12) valor = "J";
-                    else if (i == 11) valor = "Q";
-                    else if (i == 13) valor = "K";
-                    else valor = i.ToString();
-                    ICartas c1 = new Carta(Naipes.copas, valor);
-                    ICartas c2 = new Carta(Naipes.espadas, valor);
-                    ICartas c3 = new Carta(Naipes.ouros, valor);
-                    ICartas c4 = new Carta(Naipes.paus, valor);
+                for (int i = 1; i <= 13; i++)
+                {                   
+                    ICartas c1 = new Carta(Naipes.copas, i);
+                    ICartas c2 = new Carta(Naipes.espadas, i);
+                    ICartas c3 = new Carta(Naipes.ouros, i);
+                    ICartas c4 = new Carta(Naipes.paus, i);
                     baralho.Add(c1);
                     baralho.Add(c2);
                     baralho.Add(c3);
                     baralho.Add(c4);
                 }
+                contador++;
             }
         }
 
@@ -61,7 +58,5 @@ namespace CardGame
             return aux;
         }
 
-
     }
-
 }

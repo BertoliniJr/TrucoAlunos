@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Truco.Interfaces;
 
 namespace CardGame
 {
-    class Equipe
+    class Equipe : IEquipe
     {
-        private List<Jogador> jogadoresEquipe;
+        private List<IJogador> jogadoresEquipe;
         private Equipe adversario;
-
-        public List<Jogador> JogadoresEquipe
-        {
-            get { return jogadoresEquipe; }
-            set { jogadoresEquipe = value; }
-        }
         private int pontosEquipe;
+        private static List<Equipe> listaEquipes = new List<Equipe>();
 
-        public int PontosEquipe
-        {
-            get { return pontosEquipe; }
-        }
+        //public List<Jogador> JogadoresEquipe
+        //{
+        //    get { return jogadoresEquipe; }
+        //    set { jogadoresEquipe = value; }
+        //}
+
+        //public int PontosEquipe
+        //{
+        //    get { return pontosEquipe; }
+        //}
 
         internal Equipe Adversario
         {
@@ -36,25 +38,57 @@ namespace CardGame
             }
         }
 
-        private static List<Equipe> listaEquipes = new List<Equipe>();
+        public int pontos
+        {
+            get
+            {
+                return pontosEquipe;
+            }
 
-        public Equipe(List<Jogador> jogadores)
+            set
+            {
+                pontosEquipe += value;
+            }
+        }
+
+        public List<IJogador> jogadores
+        {
+            get
+            {
+                return jogadoresEquipe;
+            }
+
+            set
+            {
+                foreach (var jogador in value)
+                {
+                    jogador.equipe = this;
+                }
+            }
+        }
+
+        public string identificador
+        {
+            get;
+        }
+
+        public Equipe(List<IJogador> jogadores)
         {
             jogadoresEquipe = jogadores;
             pontosEquipe = 0;
             
             Equipe.listaEquipes.Add(this);
 
-            foreach (var jogador in jogadores)
-            {
-                jogador.IDEquipe = listaEquipes.Count - 1;
-            }
+            //foreach (var jogador in jogadores)
+            //{
+            //    jogador.IDEquipe = listaEquipes.Count - 1;
+            //}
         }
 
-        public void GanharPontos(int p)
-        {
-            pontosEquipe += p;
-        }
+        //public void GanharPontos(int p)
+        //{
+        //    pontosEquipe += p;
+        //}
         
         public static Equipe BuscaID(int id)
         {

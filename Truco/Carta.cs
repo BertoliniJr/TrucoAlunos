@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Truco.Enumeradores;
+using Truco.Interfaces;
 
 namespace CardGame
 {
 
-   public  class Carta
+   public  class Carta : ICartas
     {
 
         Naipes naipe;
@@ -31,11 +32,6 @@ namespace CardGame
 
         public Naipes Naipe
         {
-            get
-            {
-                return naipe;
-            }
-
             set
             {
                 naipe = value;
@@ -44,20 +40,38 @@ namespace CardGame
 
         public int Valor
         {
-            get
-            {
-                return valor;
-            }
-
             set
             {
                 valor = value;
             }
         }
 
+        public ICalculoCartas calculo
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override string ToString()
         {
-            return $"{this.nomeValor()} de {this.Naipe}";
+            return $"{this.nomeValor()} de {getNaipe()}";
+        }
+
+        public Naipes getNaipe()
+        {
+            return naipe;
+        }
+        
+        public int getValor()
+        {
+            return valor;
         }
     }
 }

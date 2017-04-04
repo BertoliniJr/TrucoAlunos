@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Truco.Interfaces
 {
-    interface IBaralho
+    public interface IBaralho
     {
         void embaralhar();
         ICartas pegarProxima();
