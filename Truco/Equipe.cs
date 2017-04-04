@@ -60,10 +60,9 @@ namespace CardGame
 
             set
             {
-                jogadoresEquipe = value;
                 foreach (var jogador in value)
                 {
-                    //jogador.equipe
+                    jogador.equipe = this;
                 }
             }
         }
