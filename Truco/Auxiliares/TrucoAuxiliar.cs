@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Truco.Enumeradores;
+using Truco.Interfaces;
 
 namespace CardGame
 {
@@ -18,21 +19,21 @@ namespace CardGame
             return valorA - valorB;
         }
 
-        public static int gerarValorICartas(ICartas ICartas, ICartas manilha)
+        public static int gerarValorICartas(ICartas Carta, ICartas manilha)
         {
-            int valorManilha = manilha.Valor == 13 ? 1 : manilha.Valor == 7 ? 10 : manilha.Valor + 1;
+            int valorManilha = manilha.getValor() == 13 ? 1 : manilha.getValor() == 7 ? 10 : manilha.getValor() + 1;
 
-            int pesoICartas = ICartas.Valor - 3;
+            int pesoICartas = Carta.getValor() - 3;
             if (pesoICartas < 1)
                 pesoICartas = pesoICartas + 13;
             if (pesoICartas > 4)
                 pesoICartas = pesoICartas - 3;
 
-            if (ICartas.Valor == valorManilha)
+            if (Carta.getValor() == valorManilha)
             {
                 pesoICartas = 10;
 
-                switch (ICartas.Naipe)
+                switch (Carta.getNaipe())
                 {
                     case Naipes.ouros:
                         pesoICartas = pesoICartas + 1;
