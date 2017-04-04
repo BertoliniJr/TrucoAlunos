@@ -70,7 +70,7 @@ namespace CardGame
         
         public override string ToString()
         {
-            return $"{this.nomeValor()} de {Naipe}";
+            return $"{this.nomeValor()} de {this.naipe}";
         }
 
         public int getValor()
