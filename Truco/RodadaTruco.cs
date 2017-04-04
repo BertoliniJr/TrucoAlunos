@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Truco;
 using Truco.Auxiliares;
 using Truco.Enumeradores;
+using Truco.Interfaces;
 
 namespace CardGame
 {
 
-    class RodadaTruco : IRodada
+    class RodadaTruco : Rodada
     {
         //Eventos do truco
 
         private int NumCartas = 3;
         Carta Manilha;
-        private int pontos;
+        private int pontos=1;
         private Jogador[] jogadores;
-        private int EquipeTrucante;
-        private int correu;
+        private int EquipeTrucante=-1;
+        private int correu=-1;
 
         private Log log;
 
@@ -29,14 +31,10 @@ namespace CardGame
             return NumCartas;
         }
 
-        public RodadaTruco(Carta M, Log logar)
+        public RodadaTruco(List<Equipe> equipes) :base()
         {
-            Manilha = M;
-            pontos = 1;
-            correu = -1;
-            EquipeTrucante = -1;
-
-            log = logar;
+             = equipes[0].JogadoresEquipe[0]
+            
         }
 
         private bool validarTruco(Jogador jogador, EnumTruco pedido)
@@ -141,11 +139,44 @@ namespace CardGame
 
         }
 
-        public void Rodar(Jogador[] jogadoresParametro)
+
+
+        private Jogador[] circulaVetor(Jogador[] jogadores)
         {
+            Jogador aux = jogadores[0];
+
+            for (int i = 0; i < jogadores.Length - 1; i++)
+            {
+                jogadores[i] = jogadores[i + 1];
+            }
+            jogadores[jogadores.Length - 1] = aux;
+
+            return jogadores;
+        }
+
+
+        public override void rodar()
+        {
+
+            
+
+
+            Jogador[] jogadoresParametro = circulaVetor(Jogo.getJogo);
+
             // Inicialização dos sinais do truco
             jogadores = jogadoresParametro;
             this.ligaEventos();
+            Baralho baralho=new Baralho();
+            baralho.embaralhar();
+
+            foreach (var jogador in jogadores)
+            {
+                jogador.NovaMao();
+                for (int i = 0; i < 3; i++)
+                {
+                    jogador.ReceberCarta(baralho.pegarProxima());
+                }
+            }
 
             // variaveis de controle
             int[] eqp1 = new int[2];
@@ -322,6 +353,11 @@ namespace CardGame
 
             }
             return vet;
+        }
+
+        public override bool fim()
+        {
+            return(equipes[0].pontos>=15 || equipes[1].pontos>=15);
         }
     }
 }
