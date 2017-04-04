@@ -16,7 +16,7 @@ namespace CardGame
         //public event trucoseubosta truco;
         //public delegate void trucoseubosta(Jogador jogador, EnumTruco truco);
 
-        protected IJogar joga;
+        public IJogar joga { get; set; }
 
         protected List<ICartas> _mao;
         protected string _nome;
@@ -140,16 +140,16 @@ namespace CardGame
                         joga = new JogarTruco(this,_mao);
                         break;
                     case EnumTipoJogo.poker:
-                        joga = new JogarPoker();
+                        joga = new JogarPoker(this,_mao);
                         break;
                     case EnumTipoJogo.malmal:
-                        joga = new JogarMalMal();
+                        joga = new JogarMalMal(this,_mao);
                         break;
                     case EnumTipoJogo.buraco:
-                        joga = new JogarBuraco();
+                        joga = new JogarBuraco(this,_mao);
                         break;
                     case EnumTipoJogo.pife:
-                        joga = new JogarPife();
+                        joga = new JogarPife(this,_mao);
                         break;
                     default:
                         break;
