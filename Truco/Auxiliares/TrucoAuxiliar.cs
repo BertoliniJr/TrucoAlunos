@@ -5,51 +5,52 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Truco.Enumeradores;
+using Truco.Interfaces;
 
 namespace CardGame
 {
     public static class TrucoAuxiliar
     {
-        public static int comparar(Carta a, Carta b, Carta manilha)
+        public static int comparar(ICartas a, ICartas b, ICartas manilha)
         {
-            int valorA = a == null ? 0 : gerarValorCarta(a, manilha);
-            int valorB = b == null ? 0 : gerarValorCarta(b, manilha);
+            int valorA = a == null ? 0 : gerarValorICartas(a, manilha);
+            int valorB = b == null ? 0 : gerarValorICartas(b, manilha);
 
             return valorA - valorB;
         }
 
-        public static int gerarValorCarta(Carta carta, Carta manilha)
+        public static int gerarValorICartas(ICartas Carta, ICartas manilha)
         {
-            int valorManilha = manilha.Valor == 13 ? 1 : manilha.Valor == 7 ? 10 : manilha.Valor + 1;
+            int valorManilha = manilha.getValor() == 13 ? 1 : manilha.getValor() == 7 ? 10 : manilha.getValor() + 1;
 
-            int pesoCarta = carta.Valor - 3;
-            if (pesoCarta < 1)
-                pesoCarta = pesoCarta + 13;
-            if (pesoCarta > 4)
-                pesoCarta = pesoCarta - 3;
+            int pesoICartas = Carta.getValor() - 3;
+            if (pesoICartas < 1)
+                pesoICartas = pesoICartas + 13;
+            if (pesoICartas > 4)
+                pesoICartas = pesoICartas - 3;
 
-            if (carta.Valor == valorManilha)
+            if (Carta.getValor() == valorManilha)
             {
-                pesoCarta = 10;
+                pesoICartas = 10;
 
-                switch (carta.Naipe)
+                switch (Carta.getNaipe())
                 {
                     case Naipes.ouros:
-                        pesoCarta = pesoCarta + 1;
+                        pesoICartas = pesoICartas + 1;
                         break;
                     case Naipes.espadas:
-                        pesoCarta = pesoCarta + 2;
+                        pesoICartas = pesoICartas + 2;
                         break;
                     case Naipes.copas:
-                        pesoCarta = pesoCarta + 3;
+                        pesoICartas = pesoICartas + 3;
                         break;
                     case Naipes.paus:
-                        pesoCarta = pesoCarta + 4;
+                        pesoICartas = pesoICartas + 4;
                         break;
                 }
             }
 
-            return pesoCarta;
+            return pesoICartas;
         }
 
         public static int pontosTruco(this EnumTruco pedido)
@@ -107,12 +108,12 @@ namespace CardGame
             }
         }
 
-        public static int valor(this Carta a, Carta manilha)
+        public static int valor(this ICartas a, ICartas manilha)
         {
-            return gerarValorCarta(a, manilha);
+            return gerarValorICartas(a, manilha);
         }
 
-        public static int compara(this Carta a, Carta b, Carta manilha)
+        public static int compara(this ICartas a, ICartas b, ICartas manilha)
         {
             return comparar(a, b, manilha);
         }

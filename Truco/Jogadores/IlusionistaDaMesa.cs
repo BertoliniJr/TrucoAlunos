@@ -11,8 +11,8 @@ namespace Truco
 {
     class IlusionistaDaMesa : Jogador
     {
-        private List<Tuple<Jogador,Carta>> rodada1;
-        private List<Tuple<Jogador, Carta>> rodada2;
+        private List<Tuple<Jogador,ICartas>> rodada1;
+        private List<Tuple<Jogador, ICartas>> rodada2;
         private static int pontosRodada = 0;
         private static bool ganhaPrimeira = false;
         private static bool ganhaSegunda = false;
@@ -23,22 +23,22 @@ namespace Truco
         }
 
 
-        public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
+        public override ICartas Jogar(List<ICartas> ICartassRodada, ICartas manilha)
         {
             
-            Carta aux;
+            ICartas aux;
             if (_mao.Count == 3)
             {
                 //Magica(manilha);
                 ordenar(manilha);
             }
-            ganheiPrimeira(cartasRodada);
-            ganheiSegunda(cartasRodada);
+            ganheiPrimeira(ICartassRodada);
+            ganheiSegunda(ICartassRodada);
 
-            #region UltimaCarta
+            #region UltimaICartas
            if (_mao.Count() == 1)
             {
-                if (cartasRodada.Count > 2 && _mao[0].valor(manilha) > cartasRodada.Max(x => x.valor(manilha)))
+                if (ICartassRodada.Count > 2 && _mao[0].valor(manilha) > ICartassRodada.Max(x => x.valor(manilha)))
                 {
                     pedirTruco(this, trucar());
                     return jogaMenor();
@@ -46,7 +46,7 @@ namespace Truco
 
                 if (ganhaPrimeira)
                 {
-                    if (retornaMaiorCartaIlusionista(rodada1, manilha).valor(manilha) < retornaMaiorCartaAdversario(rodada2, manilha).valor(manilha))
+                    if (retornaMaiorICartasIlusionista(rodada1, manilha).valor(manilha) < retornaMaiorICartasAdversario(rodada2, manilha).valor(manilha))
                     {
                         pedirTruco(this, trucar());
                         return jogaMenor();
@@ -54,14 +54,14 @@ namespace Truco
                 }
                 else if (ganhaSegunda)
                 {
-                    if (retornaMaiorCartaIlusionista(rodada2, manilha).valor(manilha) < retornaMaiorCartaAdversario(rodada1, manilha).valor(manilha))
+                    if (retornaMaiorICartasIlusionista(rodada2, manilha).valor(manilha) < retornaMaiorICartasAdversario(rodada1, manilha).valor(manilha))
                     {
                         pedirTruco(this, trucar());
                         return jogaMenor();
                     }
                 }                
 
-                if (cartasRodada.Count > 3 && cartasRodada.Max(x => x.valor(manilha)) < 11)
+                if (ICartassRodada.Count > 3 && ICartassRodada.Max(x => x.valor(manilha)) < 11)
                 {
                     pedirTruco(this, trucar());
                     return jogaMenor();
@@ -70,7 +70,7 @@ namespace Truco
             #endregion
 
             #region PrimeiroAjogar
-            if (cartasRodada.LastOrDefault() == null)
+            if (ICartassRodada.LastOrDefault() == null)
             {
                 //Primeira Rodada
                 trucarNaPrimeira(manilha);
@@ -91,27 +91,27 @@ namespace Truco
             #endregion
 
             #region SegundoAjogar
-            if (cartasRodada.Count == 1)
+            if (ICartassRodada.Count == 1)
             {
                 //segundo da primeira rodada
                 trucarNaPrimeira(manilha);
                 if(_mao.Count == 3)
                 {
-                    if (cartasRodada[0].valor(manilha) == 14)
+                    if (ICartassRodada[0].valor(manilha) == 14)
                     {
                         pedirTruco(this, trucar());
                         return jogaMenor();
                     }
                 }                
 
-                if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) < 7)
+                if (ICartassRodada.Max(x => TrucoAuxiliar.gerarValorICartas(x, manilha)) < 7)
                 {
                     log.logar("Faz ai parceiro.", TipoLog.logJogador);
                     return jogaMenor();
                 }
                 for (int i = 0; i < _mao.Count; i++)
                 {
-                    if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) < TrucoAuxiliar.gerarValorCarta(_mao[i], manilha))
+                    if (ICartassRodada.Max(x => TrucoAuxiliar.gerarValorICartas(x, manilha)) < TrucoAuxiliar.gerarValorICartas(_mao[i], manilha))
                     {
                         aux = _mao[i];
                         _mao.RemoveAt(i);
@@ -122,19 +122,19 @@ namespace Truco
             #endregion
 
             #region TerceiroAjogar
-            if (cartasRodada.Count == 2)
+            if (ICartassRodada.Count == 2)
             {
                 trucarNaPrimeira(manilha);
 
-                if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) > TrucoAuxiliar.gerarValorCarta(_mao.Last(), manilha))
+                if (ICartassRodada.Max(x => TrucoAuxiliar.gerarValorICartas(x, manilha)) > TrucoAuxiliar.gerarValorICartas(_mao.Last(), manilha))
                 {
                     return jogaMenor();
                 }
                 aux = _mao[0];
-                //aux = (Carta)_mao.Where(x=>x.Valor==_mao.Max(y=>y.Valor)&&x.Valor<11);
+                //aux = (ICartas)_mao.Where(x=>x.Valor==_mao.Max(y=>y.Valor)&&x.Valor<11);
                 for (int i = 0; i < _mao.Count; i++)
                 {
-                    if (TrucoAuxiliar.gerarValorCarta(_mao[i], manilha) < 11)
+                    if (TrucoAuxiliar.gerarValorICartas(_mao[i], manilha) < 11)
                     {
                         aux = _mao[i];
                     }
@@ -149,7 +149,7 @@ namespace Truco
 
             for (int i = 0; i < _mao.Count; i++)
             {
-                if (cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)) < TrucoAuxiliar.gerarValorCarta(_mao[i], manilha) && TrucoAuxiliar.gerarValorCarta(cartasRodada[cartasRodada.Count - 2], manilha) != cartasRodada.Max(x => TrucoAuxiliar.gerarValorCarta(x, manilha)))
+                if (ICartassRodada.Max(x => TrucoAuxiliar.gerarValorICartas(x, manilha)) < TrucoAuxiliar.gerarValorICartas(_mao[i], manilha) && TrucoAuxiliar.gerarValorICartas(ICartassRodada[ICartassRodada.Count - 2], manilha) != ICartassRodada.Max(x => TrucoAuxiliar.gerarValorICartas(x, manilha)))
                 {
                     aux = _mao[i];
                     if (_mao.Last() != aux && _mao.Last().valor(manilha) >= 10)
@@ -173,10 +173,10 @@ namespace Truco
         /// <summary>
         /// made by Guilherme
         /// </summary>
-        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        public override void novaICartas(ICartas ICartas, Jogador jogador, ICartas manilha)
         {
             rod++;
-            Tuple<Jogador, Carta> t = new Tuple<Jogador, Carta>(jogador,carta);
+            Tuple<Jogador, ICartas> t = new Tuple<Jogador, ICartas>(jogador,ICartas);
             if (rod/4==1)
             {
                 rodada1.Add(t);
@@ -190,7 +190,7 @@ namespace Truco
             
         }
 
-        public override Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco valor, ICartas manilha)
         {
             if (trucante.IDEquipe == this.IDEquipe)
                 return Escolha.aceitar;
@@ -220,7 +220,7 @@ namespace Truco
                 if (ganhaSegunda && _mao.Where(x => x.valor(manilha) >= 10).Count() >= 1)
                     return aceitarComZap(manilha, valor);
             }
-            log.logar("MUITA CARTA NA MAO DE TONTO, É SÓ UM PONTO", TipoLog.logJogador);
+            log.logar("MUITA ICartas NA MAO DE TONTO, É SÓ UM PONTO", TipoLog.logJogador);
             return Escolha.correr;
         }
 
@@ -229,7 +229,7 @@ namespace Truco
             return (EnumTruco)pontosRodada;
         }
 
-        private void trucarNaPrimeira(Carta manilha)
+        private void trucarNaPrimeira(ICartas manilha)
         {
             if ( Equipe.BuscaID(this.IDEquipe).PontosEquipe>=12 || Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe>=12)
             {
@@ -246,33 +246,33 @@ namespace Truco
         public override void NovaMao()
         {
             base.NovaMao();
-            rodada1 = new List<Tuple<Jogador, Carta>>();
-            rodada2 = new List<Tuple<Jogador, Carta>>();
+            rodada1 = new List<Tuple<Jogador, ICartas>>();
+            rodada2 = new List<Tuple<Jogador, ICartas>>();
             ganhaPrimeira = false;
             ganhaSegunda = false;
             pontosRodada = 0;
             rod = 3;
         }
 
-        private void ganheiPrimeira(List<Carta> cartasRodada)
+        private void ganheiPrimeira(List<ICartas> ICartassRodada)
         {
-            if (_mao.Count==2 && (cartasRodada.Count == 0 || cartasRodada.Count == 2))
+            if (_mao.Count==2 && (ICartassRodada.Count == 0 || ICartassRodada.Count == 2))
             {
                 ganhaPrimeira = true;
             }
         }
 
-        private void ganheiSegunda(List<Carta> cartasRodada)
+        private void ganheiSegunda(List<ICartas> ICartassRodada)
         {
-            if (_mao.Count == 1 && (cartasRodada.Count == 0 || cartasRodada.Count == 2))
+            if (_mao.Count == 1 && (ICartassRodada.Count == 0 || ICartassRodada.Count == 2))
             {
                 ganhaSegunda = true;
             }
         }
 
-        private Carta jogaMenor()
+        private ICartas jogaMenor()
         {
-            Carta aux;
+            ICartas aux;
             aux = _mao[0];
             _mao.RemoveAt(0);
             return aux;
@@ -290,7 +290,7 @@ namespace Truco
             return Escolha.aumentar;
         }
 
-        private Escolha aceitarComZap(Carta manilha, EnumTruco valor)
+        private Escolha aceitarComZap(ICartas manilha, EnumTruco valor)
         {
             if (_mao.Last().valor(manilha) == 14)
             {
@@ -309,15 +309,15 @@ namespace Truco
             base.trucar(jogador, pedido);
         }
 
-        private Carta retornaMaiorCartaIlusionista(List<Tuple<Jogador, Carta>> rodada, Carta manilha)
+        private ICartas retornaMaiorICartasIlusionista(List<Tuple<Jogador, ICartas>> rodada, ICartas manilha)
         {
-            var cartasIlusionista = rodada.Where(x => x.Item1.IDEquipe == this.IDEquipe).ToList();
+            var ICartassIlusionista = rodada.Where(x => x.Item1.IDEquipe == this.IDEquipe).ToList();
             
-            Carta c = cartasIlusionista[0].Item2;
+            ICartas c = ICartassIlusionista[0].Item2;
 
-            foreach (var tupla in cartasIlusionista)
+            foreach (var tupla in ICartassIlusionista)
             {
-                if(TrucoAuxiliar.gerarValorCarta(tupla.Item2, manilha) > TrucoAuxiliar.gerarValorCarta(c, manilha))
+                if(TrucoAuxiliar.gerarValorICartas(tupla.Item2, manilha) > TrucoAuxiliar.gerarValorICartas(c, manilha))
                 {
                     c = tupla.Item2;
                 }
@@ -325,15 +325,15 @@ namespace Truco
             return c;
         }
 
-        private Carta retornaMaiorCartaAdversario(List<Tuple<Jogador, Carta>> rodada, Carta manilha)
+        private ICartas retornaMaiorICartasAdversario(List<Tuple<Jogador, ICartas>> rodada, ICartas manilha)
         {
-            var cartasAdversario = rodada.Where(x => x.Item1.IDEquipe == this.IDEquipe).ToList();
+            var ICartassAdversario = rodada.Where(x => x.Item1.IDEquipe == this.IDEquipe).ToList();
 
-            Carta c = cartasAdversario[0].Item2;
+            ICartas c = ICartassAdversario[0].Item2;
 
-            foreach (var tupla in cartasAdversario)
+            foreach (var tupla in ICartassAdversario)
             {
-                if (TrucoAuxiliar.gerarValorCarta(tupla.Item2, manilha) > TrucoAuxiliar.gerarValorCarta(c, manilha))
+                if (TrucoAuxiliar.gerarValorICartas(tupla.Item2, manilha) > TrucoAuxiliar.gerarValorICartas(c, manilha))
                 {
                     c = tupla.Item2;
                 }
@@ -360,13 +360,13 @@ namespace Truco
             }
         }
 
-        private void Magica(Carta manilha)
+        private void Magica(ICartas manilha)
         {
-            Carta C = new Carta(Naipes.paus,manilha.Valor+1);
+            ICartas C = new ICartas(Naipes.paus,manilha.Valor+1);
             _mao[0] = C;
-            C = new Carta(Naipes.copas, manilha.Valor + 1);
+            C = new ICartas(Naipes.copas, manilha.Valor + 1);
             _mao[1] = C;
-            C = new Carta(Naipes.espadas, manilha.Valor + 1);
+            C = new ICartas(Naipes.espadas, manilha.Valor + 1);
             _mao[2] = C;
         }
     }

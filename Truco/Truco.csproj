@@ -56,7 +56,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Rodada.cs" />
+    <Compile Include="Baralhos\BaralhoMalMal.cs" />
+    <Compile Include="Baralhos\BaralhoPoker.cs" />
+    <Compile Include="Baralhos\BaralhoTruco.cs" />
+    <Compile Include="CalculoCarta\CalculoCartasMalMal.cs" />
+    <Compile Include="CalculoCarta\CalculoCartasPife.cs" />
+    <Compile Include="CalculoCarta\CalculoCartasPoker.cs" />
+    <Compile Include="CalculoCarta\CalculoCartasTruco.cs" />
     <Compile Include="Enumeradores\EnumeradorEscolha.cs" />
     <Compile Include="Enumeradores\EnumeradorTruco.cs" />
     <Compile Include="Auxiliares\Log.cs" />
@@ -66,6 +72,7 @@
     <Compile Include="Enumeradores\EnumeradorNaipe.cs" />
     <Compile Include="Enumeradores\EnumTipoJogo.cs" />
     <Compile Include="Equipe.cs" />
+    <Compile Include="InfoJogo\InfoJogoTruco.cs" />
     <Compile Include="Interfaces\IBaralho.cs" />
     <Compile Include="Interfaces\ICalculoCartas.cs" />
     <Compile Include="Interfaces\ICartas.cs" />
@@ -75,18 +82,22 @@
     <Compile Include="Interfaces\IJogar.cs" />
     <Compile Include="Interfaces\ILog.cs" />
     <Compile Include="Interfaces\IRodada.cs" />
-    <Compile Include="Interfaces\ITipoJogo.cs" />
+    <Compile Include="Interfaces\IJogo.cs" />
     <Compile Include="Jogadores\IlusionistaDaMesa.cs" />
     <Compile Include="Jogadores\JogadorProfessor.cs" />
     <Compile Include="Jogadores\JurandirOJogador.cs" />
     <Compile Include="Jogadores\Juvenal.cs" />
+    <Compile Include="IRodada.cs" />
     <Compile Include="Jogadores\Jogador.cs" />
     <Compile Include="Jogadores\JogadorEquipeAlfa.cs" />
+    <Compile Include="Jogar\JogarBuraco.cs" />
+    <Compile Include="Jogar\JogarMalMal.cs" />
+    <Compile Include="Jogar\JogarPife.cs" />
+    <Compile Include="Jogar\JogarPoker.cs" />
+    <Compile Include="Jogar\JogarTruco.cs" />
     <Compile Include="Mesa.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RodadaMalmal.cs" />
-    <Compile Include="RodadaPoker.cs" />
     <Compile Include="RodadaTruco.cs" />
     <Compile Include="Testes\TesteGrupo3.cs" />
     <Compile Include="Testes\TesteAlffa.cs" />
@@ -94,6 +105,7 @@
     <Compile Include="Testes\TesteJurandir.cs" />
     <Compile Include="Auxiliares\TrucoAuxiliar.cs" />
     <Compile Include="Testes\TesteProfessor.cs" />
+    <Compile Include="Jogo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

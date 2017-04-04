@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Truco.Interfaces
 {
-    interface ICartas
+    public interface ICartas
     {
         Truco.Enumeradores.Naipes getNaipe();
-        ICalculoCartas getCalculo();
-        string getValor();
+        ICalculoCartas calculo { get; set; }
+        int getValor();
     }
 }

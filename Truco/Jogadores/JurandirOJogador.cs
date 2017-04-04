@@ -11,7 +11,7 @@ namespace CardGame
     class JurandirOJogador : Jogador
     {
 
-        private List<Carta> cartasUsadas = new List<Carta>();
+        private List<ICartas> ICartassUsadas = new List<ICartas>();
         private bool estaTrucado = false;
         private static bool ganhoPrimeira = false;
 
@@ -24,11 +24,11 @@ namespace CardGame
         public override void NovaMao()
         {
             base.NovaMao();
-            cartasUsadas = new List<Carta>();
+            ICartassUsadas = new List<ICartas>();
         }
 
 
-        public override Carta Jogar(List<Carta> cartasRodada, Carta manilha)
+        public override ICartas Jogar(List<ICartas> ICartassRodada, ICartas manilha)
         {
 
             // encontra maior da mesa
@@ -38,98 +38,98 @@ namespace CardGame
             }
 
             RegraTrucar(manilha);
-            Carta carta;
+            ICartas ICartas;
 
             switch (_mao.Count)
             {
 
                 #region case 3
                 case 3:
-                    //Carta maiorMesa = cartasRodada.LastOrDefault();
+                    //ICartas maiorMesa = ICartassRodada.LastOrDefault();
 
-                    if (cartasRodada.Count == 0)
+                    if (ICartassRodada.Count == 0)
                     {
-                        if (TrucoAuxiliar.gerarValorCarta(_mao[1], manilha) > 7)
+                        if (TrucoAuxiliar.gerarValorICartas(_mao[1], manilha) > 7)
                         {
-                            carta = _mao[1];
+                            ICartas = _mao[1];
                             _mao.RemoveAt(1);
-                            return carta;
+                            return ICartas;
                         }
                         else
                         {
-                            carta = _mao[0];
+                            ICartas = _mao[0];
                             _mao.RemoveAt(0);
-                            return carta;
+                            return ICartas;
                         }
 
                     }
 
-                    if (cartasRodada.Count == 1)
+                    if (ICartassRodada.Count == 1)
                     {
-                        if (TrucoAuxiliar.compara(_mao[1], cartasRodada[0], manilha) > 0)
+                        if (TrucoAuxiliar.compara(_mao[1], ICartassRodada[0], manilha) > 0)
                         {
-                            carta = _mao[1];
+                            ICartas = _mao[1];
                             _mao.RemoveAt(1);
-                            return carta;
+                            return ICartas;
                         }
                         else
                         {
-                            carta = _mao[0];
+                            ICartas = _mao[0];
                             _mao.RemoveAt(0);
-                            return carta;
+                            return ICartas;
                         }
                     }
 
-                    if (cartasRodada.Count == 2)
+                    if (ICartassRodada.Count == 2)
                     {
-                        if (TrucoAuxiliar.compara(cartasRodada[0], cartasRodada[1], manilha) > 0)
+                        if (TrucoAuxiliar.compara(ICartassRodada[0], ICartassRodada[1], manilha) > 0)
                         {
-                            carta = _mao[0];
+                            ICartas = _mao[0];
                             _mao.RemoveAt(0);
-                            return carta;
+                            return ICartas;
                         }
                         else
                         {
                             for (int i = 0; i < _mao.Count; i++)
                             {
-                                carta = _mao[i];
-                                if (TrucoAuxiliar.comparar(carta, cartasRodada[1], manilha) > 0)
+                                ICartas = _mao[i];
+                                if (TrucoAuxiliar.comparar(ICartas, ICartassRodada[1], manilha) > 0)
                                 {
                                     _mao.RemoveAt(i);
-                                    return carta;
+                                    return ICartas;
                                 }
                             }
-                            carta = _mao[0];
+                            ICartas = _mao[0];
                             _mao.RemoveAt(0);
-                            return carta;
+                            return ICartas;
 
                         }
                     }
 
-                    if (cartasRodada.Count == 3)
+                    if (ICartassRodada.Count == 3)
                     {
-                        if (TrucoAuxiliar.compara(cartasRodada[1], cartasRodada[0], manilha) > 0 && TrucoAuxiliar.compara(cartasRodada[1], cartasRodada[2], manilha) > 0)
+                        if (TrucoAuxiliar.compara(ICartassRodada[1], ICartassRodada[0], manilha) > 0 && TrucoAuxiliar.compara(ICartassRodada[1], ICartassRodada[2], manilha) > 0)
                         {
-                            carta = _mao[0];
+                            ICartas = _mao[0];
                             _mao.RemoveAt(0);
                             ganhoPrimeira = true;
-                            return carta;
+                            return ICartas;
                         }
                         else
                         {
                             for (int i = 0; i < _mao.Count; i++)
                             {
-                                carta = _mao[i];
-                                if (TrucoAuxiliar.comparar(carta, cartasRodada[0], manilha) > 0 && TrucoAuxiliar.comparar(carta, cartasRodada[2], manilha) > 0)
+                                ICartas = _mao[i];
+                                if (TrucoAuxiliar.comparar(ICartas, ICartassRodada[0], manilha) > 0 && TrucoAuxiliar.comparar(ICartas, ICartassRodada[2], manilha) > 0)
                                 {
                                     _mao.RemoveAt(i);
                                     ganhoPrimeira = true;
-                                    return carta;
+                                    return ICartas;
                                 }
                             }
-                            carta = _mao[0];
+                            ICartas = _mao[0];
                             _mao.RemoveAt(0);
-                            return carta;
+                            return ICartas;
                         }
 
 
@@ -144,54 +144,54 @@ namespace CardGame
                 case 2:
 
 
-                    //Carta maiorMesa = cartasRodada.LastOrDefault();
+                    //ICartas maiorMesa = ICartassRodada.LastOrDefault();
 
-                    if (cartasRodada.Count == 0)
+                    if (ICartassRodada.Count == 0)
                     {
                         ganhoPrimeira = true;
-                        carta = _mao[0];
+                        ICartas = _mao[0];
                         _mao.RemoveAt(0);
-                        return carta;
+                        return ICartas;
 
 
                     }
 
-                    if (cartasRodada.Count == 1)
+                    if (ICartassRodada.Count == 1)
                     {
 
-                        carta = _mao[0];
+                        ICartas = _mao[0];
                         _mao.RemoveAt(0);
-                        return carta;
+                        return ICartas;
                     }
-                    if (cartasRodada.Count == 2)
+                    if (ICartassRodada.Count == 2)
                     {
-                        carta = _mao[1];
+                        ICartas = _mao[1];
                         _mao.RemoveAt(1);
-                        return carta;
+                        return ICartas;
 
                     }
-                    if (cartasRodada.Count == 3)
+                    if (ICartassRodada.Count == 3)
                     {
-                        if (TrucoAuxiliar.compara(cartasRodada[1], cartasRodada[0], manilha) > 0 && TrucoAuxiliar.compara(cartasRodada[1], cartasRodada[2], manilha) > 0)
+                        if (TrucoAuxiliar.compara(ICartassRodada[1], ICartassRodada[0], manilha) > 0 && TrucoAuxiliar.compara(ICartassRodada[1], ICartassRodada[2], manilha) > 0)
                         {
-                            carta = _mao[0];
+                            ICartas = _mao[0];
                             _mao.RemoveAt(0);
-                            return carta;
+                            return ICartas;
                         }
                         else
                         {
                             for (int i = 0; i < _mao.Count; i++)
                             {
-                                carta = _mao[i];
-                                if (TrucoAuxiliar.comparar(carta, cartasRodada[0], manilha) > 0 && TrucoAuxiliar.comparar(carta, cartasRodada[2], manilha) > 0)
+                                ICartas = _mao[i];
+                                if (TrucoAuxiliar.comparar(ICartas, ICartassRodada[0], manilha) > 0 && TrucoAuxiliar.comparar(ICartas, ICartassRodada[2], manilha) > 0)
                                 {
                                     _mao.RemoveAt(i);
-                                    return carta;
+                                    return ICartas;
                                 }
                             }
-                            carta = _mao[0];
+                            ICartas = _mao[0];
                             _mao.RemoveAt(0);
-                            return carta;
+                            return ICartas;
                         }
 
 
@@ -203,19 +203,19 @@ namespace CardGame
 
                 #region case 1
                 case 1:
-                    carta = _mao[0];
+                    ICartas = _mao[0];
                     _mao.RemoveAt(0);
-                    return carta;
+                    return ICartas;
                 default: return null;
                     #endregion
 
             }
         }
 
-        public override void novaCarta(Carta carta, Jogador jogador, Carta manilha)
+        public override void novaICartas(ICartas ICartas, Jogador jogador, ICartas manilha)
         {
 
-            cartasUsadas.Add(carta);
+            ICartassUsadas.Add(ICartas);
             if (ganhoPrimeira 
                 && !estaTrucado
                 && Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12
@@ -224,7 +224,7 @@ namespace CardGame
                 if (jogador.IDEquipe != this.IDEquipe)
                 {
                     if ((_mao.Count < 3 && _mao.Count > 0) 
-                        && ((carta.valor(manilha) < _mao[0].valor(manilha)) || Equipe.BuscaID(this.IDEquipe).PontosEquipe < 6))
+                        && ((ICartas.valor(manilha) < _mao[0].valor(manilha)) || Equipe.BuscaID(this.IDEquipe).PontosEquipe < 6))
                     {
                         base.trucar(this, EnumTruco.truco);
                     }
@@ -232,7 +232,7 @@ namespace CardGame
             }
         }
 
-        public override Escolha trucado(Jogador trucante, EnumTruco valor, Carta manilha)
+        public override Escolha trucado(Jogador trucante, EnumTruco valor, ICartas manilha)
         {
             int ptsMinhaEqp = Equipe.BuscaID(this.IDEquipe).PontosEquipe;
             int ptsEqpAdv = Equipe.BuscaID(trucante.IDEquipe).PontosEquipe;
@@ -240,12 +240,12 @@ namespace CardGame
 
             if ((ptsEqpAdv > ptsMinhaEqp && ptsEqpAdv + valorJogoTruco(valor) < 15) && ptsMinhaEqp - ptsEqpAdv > valorJogoTruco(valor))
             {
-                if (cartasUsadas.Count < 4 && x > 0)
+                if (ICartassUsadas.Count < 4 && x > 0)
                 {
                     return Escolha.aceitar;
                 }
 
-                if (cartasUsadas.Count < 4 && _mao[0].valor(manilha) > 8)
+                if (ICartassUsadas.Count < 4 && _mao[0].valor(manilha) > 8)
                 {
                     return Escolha.aceitar;
                 }
@@ -255,12 +255,12 @@ namespace CardGame
                     return Escolha.aumentar;
                 }
 
-                if (ganhoPrimeira && (cartasUsadas.Count > 3 || cartasUsadas.Count < 8) && (_mao[0].valor(manilha) > 8 || _mao[1].valor(manilha) > 8))
+                if (ganhoPrimeira && (ICartassUsadas.Count > 3 || ICartassUsadas.Count < 8) && (_mao[0].valor(manilha) > 8 || _mao[1].valor(manilha) > 8))
                 {
                     return Escolha.aceitar;
                 }
 
-                if ((cartasUsadas.Count > 3 || cartasUsadas.Count < 8) && (_mao[0].valor(manilha) > 10))
+                if ((ICartassUsadas.Count > 3 || ICartassUsadas.Count < 8) && (_mao[0].valor(manilha) > 10))
                 {
                     return Escolha.aceitar;
                 }
@@ -290,7 +290,7 @@ namespace CardGame
             //        return Escolha.aceitar;
             //}
 
-            //if (_mao.Count == 0 && cartasUsadas.Last().valor(manilha) > 8)
+            //if (_mao.Count == 0 && ICartassUsadas.Last().valor(manilha) > 8)
             //    return Escolha.aceitar;
 
             //if (_mao.Count == 1 &&_mao[0].valor(manilha) <= 3)
@@ -311,7 +311,7 @@ namespace CardGame
             else return 0;
         }
 
-        private void RegraTrucar(Carta manilha)
+        private void RegraTrucar(ICartas manilha)
         {
             if (Equipe.BuscaID(this.IDEquipe).PontosEquipe < 12 && Equipe.BuscaID(this.IDEquipe).Adversario.PontosEquipe < 12)
             {
@@ -325,7 +325,7 @@ namespace CardGame
                     }
                     else if (_mao.Count == 2)
                     {
-                        if (cartasUsadas.Count == 4 || cartasUsadas.Count == 6)
+                        if (ICartassUsadas.Count == 4 || ICartassUsadas.Count == 6)
                         {
                             if (_mao[1].valor(manilha) > 8) base.trucar(this, EnumTruco.truco);
                         }
@@ -342,7 +342,7 @@ namespace CardGame
             }
         }
 
-        private int ManilhasNaMao(Carta manilha)
+        private int ManilhasNaMao(ICartas manilha)
         {
             int cont = 0;
             foreach (var x in _mao)

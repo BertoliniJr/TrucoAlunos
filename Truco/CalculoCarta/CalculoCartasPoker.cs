@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Truco.Interfaces
+namespace Truco.CalculoCarta
 {
-    public interface ILog
+    class CalculoCartasPoker
     {
-        void logar(string msg, Truco.Enumeradores.TipoLog tipolog);
     }
 }
