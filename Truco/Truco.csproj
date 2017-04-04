@@ -72,6 +72,7 @@
     <Compile Include="Enumeradores\EnumeradorNaipe.cs" />
     <Compile Include="Enumeradores\EnumTipoJogo.cs" />
     <Compile Include="Equipe.cs" />
+    <Compile Include="InfoJogo\InfoJogoTruco.cs" />
     <Compile Include="Interfaces\IBaralho.cs" />
     <Compile Include="Interfaces\ICalculoCartas.cs" />
     <Compile Include="Interfaces\ICartas.cs" />
@@ -89,7 +90,9 @@
     <Compile Include="IRodada.cs" />
     <Compile Include="Jogadores\Jogador.cs" />
     <Compile Include="Jogadores\JogadorEquipeAlfa.cs" />
+    <Compile Include="Jogar\JogarBuraco.cs" />
     <Compile Include="Jogar\JogarMalMal.cs" />
+    <Compile Include="Jogar\JogarPife.cs" />
     <Compile Include="Jogar\JogarPoker.cs" />
     <Compile Include="Jogar\JogarTruco.cs" />
     <Compile Include="Mesa.cs" />
