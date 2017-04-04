@@ -65,9 +65,9 @@ namespace Truco.Jogar
         public virtual void novaCarta(ICartas carta, IJogador jogador)
         {
             if (jogador.equipe.identificador != jogadorAtual.equipe.identificador
-                && ((ICartas)carta).valor(info.manilha) < 2
+                && ((ICartas)carta).getPeso() < 2
                 && maoJogador.Count > 0
-                && maoJogador.Max(a => a.valor(info.manilha)) > 10)
+                && maoJogador.Max(a => a.getPeso()) > 10)
                 truco(jogadorAtual, EnumTruco.truco);
         }
 
