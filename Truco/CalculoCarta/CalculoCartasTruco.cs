@@ -13,7 +13,7 @@ namespace Truco.CalculoCarta
         {
             int valorManilha = manilha.Valor == 13 ? 1 : manilha.Valor == 7 ? 10 : manilha.Valor + 1;
 
-            int pesoICartas = ICartas..Valor - 3;
+            int pesoICartas = ICartas.Valor - 3;
             if (pesoICartas < 1)
                 pesoICartas = pesoICartas + 13;
             if (pesoICartas > 4)

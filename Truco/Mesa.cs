@@ -4,14 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Truco.Auxiliares;
+using Truco.Interfaces;
+using Truco.Enumeradores;
 
 namespace CardGame
 {
-    class Mesa
+    class Mesa: IControler
     {
         private Baralho baralhoMesa;
         private Log log;
-        
+        private List<IJogador> gamers;
+
+        public List<Equipe> EquipeMesa
+        {
+            get { return equipeMesa; }
+            set { equipeMesa = value; }
+        }
 
         public Baralho BaralhoMesa
         {
@@ -28,21 +36,31 @@ namespace CardGame
         }
         private List<Equipe> equipeMesa;
 
-        public List<Equipe> EquipeMesa
-        {
-            get { return equipeMesa; }
-            set { equipeMesa = value; }
-        }
-
+      
         private Jogador[] posicoes;
         
-        public Mesa(List<Equipe> equipes, Log logar)
+        public Mesa(List<IJogador> jogadores, EnumTipoJogo tipoJogo)
         {
-            equipeMesa = equipes;
-            equipes[0].Adversario = equipes[1];
-            equipes[1].Adversario = equipes[0];
-            log = logar;
+            gamers = jogadores;
+            if(tipoJogo == EnumTipoJogo.truco || tipoJogo == EnumTipoJogo.buraco)
+            {
+                List<IJogador> EquipeUm = new List<IJogador>() { jogadores[0], jogadores[2]};
+                EquipeMesa.Add(new Equipe(EquipeUm));
+                List<IJogador> EquipeDois = new List<IJogador>() { jogadores[1], jogadores[3] };
+                EquipeMesa.Add(new Equipe(EquipeDois));
+            }
+
+            else 
+            { 
+                foreach(Jogador x in jogadores)
+                {
+                    List<Jogador> jogs = new List<Jogador>() { x };
+                    EquipeMesa.Add(new CardGame.Equipe(jogs));
+                }
+            }
+
         }
+
         private void preencheMesa()
         {
             posicoes = new Jogador[equipeMesa.Count * equipeMesa[0].JogadoresEquipe.Count];
@@ -61,7 +79,8 @@ namespace CardGame
             }
         }
 
-        public void Jogar()
+        //Métodos Interface
+        public void jogar()
         {
             foreach (var equipe in equipeMesa)
             {
@@ -130,5 +149,22 @@ namespace CardGame
             return jogadores;
         }
 
+       
+        public void setJogadores(List<IJogador> jogadores)
+        {
+            gamers = jogadores;  
+        }
+
+        public void setEquipe(List<Equipe> equipe)
+        {
+            equipeMesa = equipe;
+        }
+
+        public void redistribuirEquipes()
+        {
+            Random rdn = new Random();
+            EquipeMesa = new List<Equipe>();
+            rdn.Next(0, gamers.Count);  
+        }
     }
 }
