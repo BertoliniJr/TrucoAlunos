@@ -53,7 +53,6 @@ namespace Truco
 
             return _jogo;
         }
-
-
+        
     }
 }

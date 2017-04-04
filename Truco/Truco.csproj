@@ -68,6 +68,7 @@
     <Compile Include="Enumeradores\EnumeradorNaipe.cs" />
     <Compile Include="Enumeradores\EnumTipoJogo.cs" />
     <Compile Include="Equipe.cs" />
+    <Compile Include="InfoJogo\InfoJogoTruco.cs" />
     <Compile Include="Interfaces\IBaralho.cs" />
     <Compile Include="Interfaces\ICalculoCartas.cs" />
     <Compile Include="Interfaces\ICartas.cs" />
