@@ -45,11 +45,10 @@ namespace CardGame
 
         public IEquipe equipe { get; set; }
 
-        public Jogador(string n, Log logar)
+        public Jogador(string n)
         {
             _nome = n;
             _mao = new List<ICartas>();
-            log = logar;
         }
 
         //public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)

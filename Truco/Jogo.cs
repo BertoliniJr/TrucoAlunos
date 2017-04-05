@@ -28,7 +28,7 @@ namespace Truco
 
             set
             {
-                _infoJogo = value;
+                _tipoJogo = value;
             }
         }
 
