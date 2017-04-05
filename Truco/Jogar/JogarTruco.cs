@@ -30,7 +30,7 @@ namespace Truco.Jogar
             {
                 ordenar(maoJogador);
             }
-            Carta maiorMesa = info.cartasRodada.LastOrDefault();
+            ICartas maiorMesa = info.cartasRodada.LastOrDefault();
             for (int i = 0; i < info.cartasRodada.Count - 1; i++)
             {
                 if (TrucoAuxiliar.comparar(info.cartasRodada[i], maiorMesa, info.manilha) > 0)
@@ -71,7 +71,7 @@ namespace Truco.Jogar
                 truco(jogadorAtual, EnumTruco.truco);
         }
 
-        public virtual Escolha trucado(Jogador trucante, EnumTruco valor, ICartas manilha)
+        public virtual Escolha trucado(IJogador trucante, EnumTruco valor, ICartas manilha)
         {
             return Escolha.aceitar;
         }
