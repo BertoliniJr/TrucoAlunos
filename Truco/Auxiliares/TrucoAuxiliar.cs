@@ -33,7 +33,7 @@ namespace CardGame
             {
                 pesoICartas = 10;
 
-                switch (Carta.getNaipe())
+                switch (Carta.Naipe)
                 {
                     case Naipes.ouros:
                         pesoICartas = pesoICartas + 1;
