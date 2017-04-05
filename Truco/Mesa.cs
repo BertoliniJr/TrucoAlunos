@@ -137,7 +137,7 @@ namespace CardGame
             }
             else
             {
-                IRodada rodada = FabricaRodada.CriarRodada();
+                IRodada rodada = FabricaRodada.CriarRodada(equipeMesa);
                 while (rodada.fim() == false)
                 {
                     rodada.rodar();
