@@ -80,10 +80,10 @@ namespace CardGame
             
             Equipe.listaEquipes.Add(this);
 
-            //foreach (var jogador in jogadores)
-            //{
-            //    jogador.IDEquipe = listaEquipes.Count - 1;
-            //}
+            foreach (var jogador in jogadores)
+            {
+                jogador.equipe = this;
+            }
         }
 
         //public void GanharPontos(int p)

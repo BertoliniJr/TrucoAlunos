@@ -24,7 +24,7 @@ namespace Truco.Jogar
 
         public override ICartas jogar()
         {
-
+            info = Jogo.getJogo().infoJogo as InfoJogoTruco;
             // encontra maior da mesa
             if (maoJogador.Count == 3)
             {
