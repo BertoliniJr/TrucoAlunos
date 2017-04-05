@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Truco.Interfaces
 {
-    interface IRodada 
+    public interface IRodada 
     {
         void rodar();
         bool fim();

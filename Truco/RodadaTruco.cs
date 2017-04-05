@@ -34,7 +34,7 @@ namespace CardGame
             return NumCartas;
         }
 
-        public RodadaTruco(List<Equipe> equipes) :base()
+        public RodadaTruco(List<IEquipe> equipes) :base()
         {
 
             Jogo.getJogo().infoJogo = new InfoJogoTruco();
