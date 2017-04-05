@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Truco.Interfaces;
 using Truco.Enumeradores;
+using Truco;
 using CardGame;
 
 namespace Truco.Fábricas
@@ -13,8 +14,8 @@ namespace Truco.Fábricas
     {
         public static IRodada CriarRodada(List<IEquipe> Eqp)
         {
-            EnumTipoJogo jogo = (EnumTipoJogo)Jogo.getJogo().infoJogo;
-            switch (jogo)
+
+            switch (Jogo.getJogo().tipoJogo)
             {
                 case EnumTipoJogo.truco:
                     return new RodadaTruco(Eqp);

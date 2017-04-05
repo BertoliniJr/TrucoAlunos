@@ -87,12 +87,7 @@
     <Compile Include="Interfaces\ILog.cs" />
     <Compile Include="Interfaces\IRodada.cs" />
     <Compile Include="Interfaces\IJogo.cs" />
-    <Compile Include="Jogadores\IlusionistaDaMesa.cs" />
-    <Compile Include="Jogadores\JogadorProfessor.cs" />
-    <Compile Include="Jogadores\JurandirOJogador.cs" />
-    <Compile Include="Jogadores\Juvenal.cs" />
     <Compile Include="Jogadores\Jogador.cs" />
-    <Compile Include="Jogadores\JogadorEquipeAlfa.cs" />
     <Compile Include="Jogar\JogarAbstrato.cs" />
     <Compile Include="Jogar\JogarBuraco.cs" />
     <Compile Include="Jogar\JogarMalMal.cs" />
@@ -106,12 +101,7 @@
     <Compile Include="RodadaMalmal.cs" />
     <Compile Include="RodadaPoker.cs" />
     <Compile Include="RodadaTruco.cs" />
-    <Compile Include="Testes\TesteGrupo3.cs" />
-    <Compile Include="Testes\TesteAlffa.cs" />
-    <Compile Include="Testes\testeIlusionista.cs" />
-    <Compile Include="Testes\TesteJurandir.cs" />
     <Compile Include="Auxiliares\TrucoAuxiliar.cs" />
-    <Compile Include="Testes\TesteProfessor.cs" />
     <Compile Include="Jogo.cs" />
   </ItemGroup>
   <ItemGroup>

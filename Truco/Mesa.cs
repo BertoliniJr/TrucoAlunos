@@ -93,6 +93,7 @@ namespace CardGame
         public Mesa(List<IJogador> jogadores)
         {
             gamers = jogadores;
+            equipeMesa = new List<IEquipe>();
             redistribuirEquipes();
         }
 
@@ -186,7 +187,11 @@ namespace CardGame
             }
             else
             {
-                List<IJogador> aux = gamers;
+                List<IJogador> aux = new List<IJogador>();
+
+                foreach (IJogador jogadorAuxiliar in gamers)
+                    aux.Add(jogadorAuxiliar);
+
                 Random rdn = new Random();
                 int aleatorio;
 

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CardGame;
 using Truco.Auxiliares;
+using Truco.Interfaces;
+using Truco.Enumeradores;
 
 namespace Truco
 {
@@ -12,24 +14,18 @@ namespace Truco
     {
         static void Main(string[] args)
         {
-            /*  Jogador jogador1 = new Jogador("Jogador 1");
-              Jogador jogador2 = new IlusionistaDaMesa("Jogador 2");
-              Jogador jogador3 = new Jogador("Jogador 3");
-              Jogador jogador4 = new IlusionistaDaMesa("Jogador 4");
 
-              Equipe equipe1 = new Equipe(new List<Jogador>() { jogador1, jogador3 });
-              Equipe equipe2 = new Equipe(new List<Jogador>() { jogador2, jogador4 });
+            Jogo.getJogo().tipoJogo = EnumTipoJogo.truco;
+            List<IJogador> Jogadores = new List<IJogador>();
 
-              Mesa mesaDeTruco = new Mesa(new List<Equipe>() { equipe1, equipe2 });
-              mesaDeTruco.Jogar();
-              Console.ReadLine */
+            Jogadores.Add(new Jogador("Jog 1"));
+            Jogadores.Add(new Jogador("Jog 2"));
+            Jogadores.Add(new Jogador("Jog 3"));
+            Jogadores.Add(new Jogador("Jog 4"));
 
-            //TesteAlffa teste = new TesteAlffa();
-            //teste.BrigaIlusionista();
-            using (Log log = new Log())
-            {
-                Testes.TesteProfessor.testeProfessor(log);
-            }
+            Mesa nova = new Mesa(Jogadores);
+
+            nova.jogar();
         }
     }
 }
