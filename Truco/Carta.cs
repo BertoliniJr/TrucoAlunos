@@ -47,16 +47,12 @@ namespace CardGame
             }
         }
 
+        private ICalculoCartas _calculo;
         public ICalculoCartas calculo
         {
-            get
-            {
-                return calculo;
-            }
-
             set
             {
-                calculo = value;
+                _calculo = value;
             }
         }
 
@@ -81,12 +77,7 @@ namespace CardGame
 
         public int getPeso()
         {
-            return peso;
-        }
-
-        public void setPeso(ICartas carta)
-        {
-            this.peso = calculo.getPeso(carta);
+            return _calculo.getPeso(this);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Truco.Interfaces;
 using CardGame;
 using Truco.Enumeradores;
+using Truco.CalculoCarta;
 
 namespace Truco.Baralhos
 {
@@ -26,13 +27,13 @@ namespace Truco.Baralhos
                 if (i != 8 && i != 9 && i != 10)
                 {
                     ICartas c1 = new Carta(Naipes.copas, i);
-                    c1.setPeso(c1);
+                    c1.calculo = new CalculoCartasTruco();
                     ICartas c2 = new Carta(Naipes.espadas, i);
-                    c2.setPeso(c2);
+                    c2.calculo = new CalculoCartasTruco();
                     ICartas c3 = new Carta(Naipes.ouros, i);
-                    c3.setPeso(c3);
+                    c3.calculo = new CalculoCartasTruco();
                     ICartas c4 = new Carta(Naipes.paus, i);
-                    c4.setPeso(c4);
+                    c4.calculo = new CalculoCartasTruco();
 
                     baralho.Add(c1);
                     baralho.Add(c2);
