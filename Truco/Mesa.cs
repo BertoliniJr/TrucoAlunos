@@ -12,7 +12,6 @@ namespace CardGame
 {
     class Mesa : IControler
     {
-        private Log log;
         private List<IJogador> gamers;
         private List<IEquipe> equipeMesa;
 
@@ -92,6 +91,7 @@ namespace CardGame
         /// <param name="jogadores"></param>
         public Mesa(List<IJogador> jogadores)
         {
+            gamers = new List<IJogador>();
             gamers = jogadores;
             equipeMesa = new List<IEquipe>();
             redistribuirEquipes();
@@ -139,10 +139,14 @@ namespace CardGame
             else
             {
                 IRodada rodada = FabricaRodada.CriarRodada(equipeMesa);
+                int numRodadas = 0;
                 while (rodada.fim() == false)
                 {
+                    Log.getLog().logar($"{numRodadas}Rodada", TipoLog.logControle);
                     rodada.rodar();
+                    numRodadas++;
                 }
+                Log.getLog().logar($"O jogo terminou depois de {numRodadas}Rodada", TipoLog.logControle);
             }
 
         }
@@ -166,8 +170,13 @@ namespace CardGame
             EnumTipoJogo x = Jogo.getJogo().tipoJogo;
             if (x == EnumTipoJogo.truco || x == EnumTipoJogo.buraco)
             {
+                List<IJogador> aux = new List<IJogador>();
 
-                List<IJogador> aux = gamers;
+                foreach (IJogador  jog in gamers)
+                {
+                    aux.Add(jog);
+                }
+
                 Random rdn = new Random();
 
                 List<IJogador> Eqp1 = new List<IJogador>();
@@ -181,6 +190,7 @@ namespace CardGame
 
                 List<IJogador> Eqp2 = aux;
 
+                equipeMesa = new List<IEquipe>();
                 equipeMesa.Add(new Equipe(Eqp1));
                 equipeMesa.Add(new Equipe(Eqp2));
 

@@ -62,5 +62,7 @@ namespace Truco.Auxiliares
             caminho[TipoLog.logControle].WriteLine();
         }
 
+
+
     }
 }
