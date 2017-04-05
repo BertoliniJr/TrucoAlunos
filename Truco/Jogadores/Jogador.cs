@@ -49,6 +49,7 @@ namespace CardGame
         {
             _nome = n;
             _mao = new List<ICartas>();
+            verificaJogada();
         }
 
         //public virtual Carta Jogar(List<Carta> cartasRodada, Carta manilha)
@@ -129,31 +130,36 @@ namespace CardGame
         //    truco(jogador, pedido);
         //}
 
-        public ICartas jogar()
+        private void verificaJogada()
         {
             if (joga == null || Jogo.getJogo().tipoJogo != joga.jogo)
             {
                 switch (Jogo.getJogo().tipoJogo)
                 {
                     case EnumTipoJogo.truco:
-                        joga = new JogarTruco(this,_mao);
+                        joga = new JogarTruco(this, _mao);
                         break;
                     case EnumTipoJogo.poker:
-                        joga = new JogarPoker(this,_mao);
+                        joga = new JogarPoker(this, _mao);
                         break;
                     case EnumTipoJogo.malmal:
-                        joga = new JogarMalMal(this,_mao);
+                        joga = new JogarMalMal(this, _mao);
                         break;
                     case EnumTipoJogo.buraco:
-                        joga = new JogarBuraco(this,_mao);
+                        joga = new JogarBuraco(this, _mao);
                         break;
                     case EnumTipoJogo.pife:
-                        joga = new JogarPife(this,_mao);
+                        joga = new JogarPife(this, _mao);
                         break;
                     default:
                         break;
                 }
             }
+        }
+
+        public ICartas jogar()
+        {
+            verificaJogada();
             return joga.jogar();
         }
 

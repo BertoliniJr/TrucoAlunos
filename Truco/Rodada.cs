@@ -12,7 +12,7 @@ namespace Truco
         
         protected List<IEquipe> equipes;
 
-        public Rodada()
+        private Rodada()
         {
         }
 

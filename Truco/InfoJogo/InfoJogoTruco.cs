@@ -13,6 +13,12 @@ namespace Truco.InfoJogo
         private IJogador[] _jogadores;
         public List<ICartas> cartasRodada;
 
+        public InfoJogoTruco()
+        {
+            _jogadores = new IJogador[4];
+            cartasRodada = new List<ICartas>();
+        }
+
         public ICartas manilha
         {
             get
