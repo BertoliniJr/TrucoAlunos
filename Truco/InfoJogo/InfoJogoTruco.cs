@@ -11,6 +11,7 @@ namespace Truco.InfoJogo
     {
         private ICartas _manilha;
         private IJogador[] _jogadores;
+        public List<ICartas> cartasRodada;
 
         public ICartas manilha
         {

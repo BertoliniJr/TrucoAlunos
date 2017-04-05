@@ -9,6 +9,7 @@ using Truco.Auxiliares;
 using Truco.Enumeradores;
 using Truco.Interfaces;
 using Truco.Fábricas;
+using Truco.Jogar;
 
 namespace CardGame
 {
@@ -21,12 +22,12 @@ namespace CardGame
         Carta Manilha;
         private int pontos=1;
         private IJogador[] jogadores;
-        private int EquipeTrucante=-1;
-        private int correu=-1;
+        private String EquipeTrucante=null;
+        private String correu=null;
 
         private Log log;
 
-        List<ICartas> ListaCartas;
+        
 
         public int getNumCartas()
         {
@@ -44,17 +45,17 @@ namespace CardGame
 
         }
 
-        private bool validarTruco(Jogador jogador, EnumTruco pedido)
+        private bool validarTruco(IJogador jogador, EnumTruco pedido)
         {
             //Validando o truco
             if (jogadores.Where(x => x.equipe.pontos >= 12).Count() > 0)
             {
                 log.logar($"Jogador {jogador} trucou na mão de doze. Perdeu");
-                correu = jogador.IDEquipe;
+                correu = jogador.equipe.identificador;
                 return false;
             }
 
-            if (jogador.IDEquipe == EquipeTrucante)
+            if (jogador.equipe.identificador == EquipeTrucante)
             {
                 log.logar($"Jogador {jogador} trucou, mas equipe já está trucando");
                 return false;
@@ -74,7 +75,7 @@ namespace CardGame
             return true;
         }
 
-        protected virtual void OlharTruco(Jogador jogador, EnumTruco pedido)
+        protected virtual void OlharTruco(IJogador jogador, EnumTruco pedido)
         {
             if (!validarTruco(jogador, pedido))
             {
@@ -89,11 +90,11 @@ namespace CardGame
             {
                 case Escolha.correr:
                     log.logar($"Equipe {aceite.Item1.equipe.identificador} correu");
-                    correu = aceite.Item1.IDEquipe;
+                    correu = aceite.Item1.equipe.identificador;
                     break;
                 case Escolha.aceitar:
                     this.pontos = pedido.pontosTruco();
-                    EquipeTrucante = jogador.IDEquipe;
+                    EquipeTrucante = jogador.equipe.identificador;
                     log.logar($"{aceite.Item1} aceitou o truco");
                     break;
                 case Escolha.aumentar:
@@ -106,17 +107,17 @@ namespace CardGame
                         switch (aceite.Item2)
                         {
                             case Escolha.correr:
-                                correu = aceite.Item1.IDEquipe;
+                                correu = aceite.Item1.equipe.identificador;
                                 return;
                             case Escolha.aceitar:
                                 this.pontos = pedidoAtual.pontosTruco();
-                                EquipeTrucante = jogador.IDEquipe;
+                                EquipeTrucante = jogador.equipe.identificador;
                                 return;
                             case Escolha.aumentar:
                                 if (pedidoAtual == EnumTruco.jogo)
                                 {
                                     this.pontos = 15;
-                                    EquipeTrucante = aceite.Item1.IDEquipe;
+                                    EquipeTrucante = aceite.Item1.equipe.identificador;
                                     return;
                                 }
                                 break;
@@ -134,9 +135,9 @@ namespace CardGame
             foreach (var item in jogadores)
             {
                 if (item != jogador)
-                    aceite.Add(new Tuple<IJogador, Escolha>(item, (item.IJogar as Truco.Jogar.JogarTruco).trucado(jogador, pedido, Manilha)));
+                    aceite.Add(new Tuple<IJogador, Escolha>(item, (item.joga as Truco.Jogar.JogarTruco).trucado(jogador, pedido, Manilha)));
             }
-            var equip = aceite.Where(x => x.Item1.IDEquipe != jogador.IDEquipe).ToList();
+            var equip = aceite.Where(x => x.Item1.equipe.identificador != jogador.equipe.identificador).ToList();
             if (equip.Select(x => x.Item2).Contains(Escolha.aumentar))
                 return equip.Where(x => x.Item2 == Escolha.aumentar).First();
             else if (equip.Select(x => x.Item2).Contains(Escolha.aceitar))
@@ -169,13 +170,13 @@ namespace CardGame
 
 
             IJogador[] jogadoresParametro = circulaVetor((Jogo.getJogo().infoJogo as InfoJogoTruco).jogadores);
-
+            (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada = new List<ICartas>();
             // Inicialização dos sinais do truco
             jogadores = jogadoresParametro;
             this.ligaEventos();
             IBaralho baralho = FabricaBaralho.CriarBaralho();
             baralho.embaralhar();
-
+            
             foreach (var jogador in jogadores)
             {
                 jogador.novaMao();
@@ -205,7 +206,6 @@ namespace CardGame
             for (int i = 0; i < 3; i++)
             {
                 #region loop da rodada
-                ListaCartas = new List<ICartas>();
                 ICartas maior1 = null;
                 ICartas maior2 = null;
                 int imaior1 = 0;
@@ -214,28 +214,28 @@ namespace CardGame
                 for (int j = 0; j < 4; j++)
                 {
                     #region loop da mão
-                    ListaCartas.Add(jogadores[j].jogar());
-                    ICartas X = ListaCartas.Last();
+                    (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada.Add(jogadores[j].jogar());
+                    ICartas X = (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada.Last();
                     log.logar(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), X.getPeso());
                     novaCarta(X, jogadores[j]);
 
-                    if (jogadores[j].equipe == pontosMao.Keys.First() && (ListaCartas[j].getPeso() > maior1.getPeso()))
+                    if (jogadores[j].equipe == pontosMao.Keys.First() && ((Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j].getPeso() > maior1.getPeso()))
                     {
-                        maior1 = ListaCartas[j];
+                        maior1 = (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j];
                         imaior1 = j;
                         indempate = j;
                     }
-                    if (jogadores[j].equipe == pontosMao.Keys.Last() && (ListaCartas[j].getPeso() > maior1.getPeso()))
+                    if (jogadores[j].equipe == pontosMao.Keys.Last() && ((Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j].getPeso() > maior1.getPeso()))
                     {
-                        maior2 = ListaCartas[j];
+                        maior2 = (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j];
                         imaior2 = j;
                         indempate = j;
                     }
-                    if (correu > -1)
+                    if (correu != null)
                     {
-                        log.logar($"Equipe {Equipe.BuscaID(correu)} correu do truco.");
-                        Equipe vencedora = Equipe.BuscaID(jogadores.Where(x => x.IDEquipe != correu).First().IDEquipe);
-                        vencedora.GanharPontos(pontos);
+                        log.logar($"Equipe {correu} correu do truco.");
+                        IEquipe vencedora = jogadores.Where(x => x.equipe.identificador != correu).First().equipe;
+                        vencedora.pontos += pontos;
                         log.logar("A {0}, ganhou a rodada !", vencedora.ToString());
                         desligaEventos();
                         return;
@@ -299,15 +299,15 @@ namespace CardGame
                 #endregion
             }
 
-            if (correu == eqp2[0])
+            if (correu == pontosMao.Keys.Last().identificador )
             {
-                Equipe.BuscaID(eqp1[0]).GanharPontos(pontos);
-                log.logar("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp1[0]).ToString());
+                pontosMao.Keys.First().pontos += pontos ;
+                log.logar("A {0}, ganhou a rodada !", pontosMao.Keys.First().ToString());
             }
-            else if (correu == eqp1[0])
+            else if (correu == pontosMao.Keys.First().identificador)
             {
-                Equipe.BuscaID(eqp2[0]).GanharPontos(pontos);
-                log.logar("A {0}, ganhou a rodada !", Equipe.BuscaID(eqp2[0]).ToString());
+                pontosMao.Keys.Last().pontos += pontos;
+                log.logar("A {0}, ganhou a rodada !", pontosMao.Keys.Last().ToString());
             }
             else
             {
@@ -333,7 +333,7 @@ namespace CardGame
         {
             foreach (var jogador in jogadores)
             {
-                jogador.truco += this.OlharTruco;
+                (jogador.joga as JogarTruco).truco += this.OlharTruco;
             }
         }
 
@@ -341,7 +341,7 @@ namespace CardGame
         {
             foreach (var jogador in jogadores)
             {
-                jogador.truco -= this.OlharTruco;
+                (jogador.joga as JogarTruco).truco -= this.OlharTruco;
             }
         }
 
@@ -349,7 +349,7 @@ namespace CardGame
         {
             foreach (var jogador in jogadores)
             {
-                jogador.novaCarta(a, j);
+                (jogador.joga as JogarTruco).novaCarta(a, j);
             }
         }
 
