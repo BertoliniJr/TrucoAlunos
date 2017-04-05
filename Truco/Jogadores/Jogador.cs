@@ -132,28 +132,25 @@ namespace CardGame
 
         private void verificaJogada()
         {
-            if (joga == null || Jogo.getJogo().tipoJogo != joga.jogo)
+            switch (Jogo.getJogo().tipoJogo)
             {
-                switch (Jogo.getJogo().tipoJogo)
-                {
-                    case EnumTipoJogo.truco:
-                        joga = new JogarTruco(this, _mao);
-                        break;
-                    case EnumTipoJogo.poker:
-                        joga = new JogarPoker(this, _mao);
-                        break;
-                    case EnumTipoJogo.malmal:
-                        joga = new JogarMalMal(this, _mao);
-                        break;
-                    case EnumTipoJogo.buraco:
-                        joga = new JogarBuraco(this, _mao);
-                        break;
-                    case EnumTipoJogo.pife:
-                        joga = new JogarPife(this, _mao);
-                        break;
-                    default:
-                        break;
-                }
+                case EnumTipoJogo.truco:
+                    joga = new JogarTruco(this, _mao);
+                    break;
+                case EnumTipoJogo.poker:
+                    joga = new JogarPoker(this, _mao);
+                    break;
+                case EnumTipoJogo.malmal:
+                    joga = new JogarMalMal(this, _mao);
+                    break;
+                case EnumTipoJogo.buraco:
+                    joga = new JogarBuraco(this, _mao);
+                    break;
+                case EnumTipoJogo.pife:
+                    joga = new JogarPife(this, _mao);
+                    break;
+                default:
+                    break;
             }
         }
 

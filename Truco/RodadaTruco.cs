@@ -25,7 +25,7 @@ namespace CardGame
         private String EquipeTrucante=null;
         private String correu=null;
 
-        private Log log;
+        private ILog log;
 
         
 
@@ -43,6 +43,7 @@ namespace CardGame
             (Jogo.getJogo().infoJogo as InfoJogoTruco).jogadores[2] = equipes[0].jogadores[1];
             (Jogo.getJogo().infoJogo as InfoJogoTruco).jogadores[3] = equipes[1].jogadores[1];
 
+            log = Log.getLog();
         }
 
         private bool validarTruco(IJogador jogador, EnumTruco pedido)
@@ -165,10 +166,6 @@ namespace CardGame
 
         public override void rodar()
         {
-
-
-
-
             IJogador[] jogadoresParametro = circulaVetor((Jogo.getJogo().infoJogo as InfoJogoTruco).jogadores);
             (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada = new List<ICartas>();
             // Inicialização dos sinais do truco
@@ -185,6 +182,7 @@ namespace CardGame
                     jogador.receberCarta(baralho.pegarProxima());
                 }
             }
+            (Jogo.getJogo().infoJogo as InfoJogoTruco).manilha = baralho.pegarProxima();
 
             // variaveis de controle
             Dictionary<IEquipe, int> pontosMao = new Dictionary<IEquipe, int>();
@@ -219,13 +217,13 @@ namespace CardGame
                     log.logar(jogadores[j].nome + " jogou {0}, peso: {1}", X.ToString(), X.getPeso());
                     novaCarta(X, jogadores[j]);
 
-                    if (jogadores[j].equipe == pontosMao.Keys.First() && ((Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j].getPeso() > maior1.getPeso()))
+                    if (jogadores[j].equipe == pontosMao.Keys.First() && (maior1 == null || (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j].getPeso() > maior1.getPeso()))
                     {
                         maior1 = (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j];
                         imaior1 = j;
                         indempate = j;
                     }
-                    if (jogadores[j].equipe == pontosMao.Keys.Last() && ((Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j].getPeso() > maior1.getPeso()))
+                    if (jogadores[j].equipe == pontosMao.Keys.Last() && (maior2 == null || (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j].getPeso() > maior1.getPeso()))
                     {
                         maior2 = (Jogo.getJogo().infoJogo as InfoJogoTruco).cartasRodada[j];
                         imaior2 = j;

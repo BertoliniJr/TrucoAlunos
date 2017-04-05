@@ -9,5 +9,7 @@ namespace Truco.Interfaces
     public interface ILog
     {
         void logar(string msg, Truco.Enumeradores.TipoLog tipolog);
+        void logar(string msg, params object[] args);
+        void logar();
     }
 }
