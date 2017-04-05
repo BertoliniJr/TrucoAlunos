@@ -5,27 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Truco.Interfaces;
 using Truco.Enumeradores;
+using CardGame;
 
 namespace Truco.Fábricas
 {
     public static class FabricaRodada
     {
-        public static IRodada CriarRodada()
+        public static IRodada CriarRodada(List<IEquipe> Eqp)
         {
             EnumTipoJogo jogo = (EnumTipoJogo)Jogo.getJogo().infoJogo;
             switch (jogo)
             {
                 case EnumTipoJogo.truco:
-                    throw new NotImplementedException();
+                    return new RodadaTruco(Eqp);
                   
                 case EnumTipoJogo.poker:
-                    throw new NotImplementedException();
+                    return new RodadaPoker(Eqp);
+
                 case EnumTipoJogo.malmal:
-                    throw new NotImplementedException();
+                    return new RodadaMalmal(Eqp);
+
                 case EnumTipoJogo.buraco:
                     throw new NotImplementedException();
+
                 case EnumTipoJogo.pife:
                     throw new NotImplementedException();
+
                 default:
                     break;
             }
